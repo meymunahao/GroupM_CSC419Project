@@ -1,0 +1,74 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ChevronLeft } from "lucide-react";
+import logo from "../../assets/logo.svg"; 
+
+export default function ForgotPassword() {
+  const [email, setEmail] = useState<string>("");
+  const navigate = useNavigate();
+
+  const handleReset = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // TODO: handle password reset logic here
+    console.log("Reset password for:", email);
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col bg-[#161616] px-4 sm:px-6 lg:px-8">
+      
+      {/* Top Section: Back Arrow + Logo & Progress Indicator */}
+      <div className="flex flex-col items-center mt-6 sm:mt-10 relative">
+        {/* Back Arrow */}
+        <button
+          onClick={() => navigate(-1)}
+          className="absolute left-0 top-0 mt-2 sm:mt-2 p-2 text-white hover:text-orange-500"
+        >
+          <ChevronLeft size={24} />
+        </button>
+
+        {/* Logo and Text */}
+        <div className="flex items-center gap-3 mb-6">
+          <img src={logo} alt="gConnect Logo" className="w-12 h-12 sm:w-14 sm:h-14" />
+          <span className="text-3xl sm:text-4xl font-semibold tracking-wide text-white">gConnect</span>
+        </div>
+
+        {/* Progress Indicator */}
+        <div className="flex space-x-3">
+          <span className="w-10 h-1.5 rounded-full bg-orange-500"></span>
+          <span className="w-10 h-1.5 rounded-full bg-white"></span>
+          <span className="w-10 h-1.5 rounded-full bg-white"></span>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col justify-center items-center mt-8 sm:mt-12">
+        <div className="w-full max-w-md">
+          <h1 className="text-2xl sm:text-3xl font-semibold mb-8 text-center text-white">
+            Forgot your Password
+          </h1>
+
+          <form
+            onSubmit={handleReset}
+            className="flex flex-col space-y-5"
+          >
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
+              required
+            />
+
+            <button
+              type="submit"
+              className="w-full bg-orange-500 hover:bg-orange-600 transition py-3 rounded-lg font-medium text-white"
+            >
+              Reset Password
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
