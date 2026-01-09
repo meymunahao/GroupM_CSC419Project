@@ -7,44 +7,50 @@ export default function Signup() {
   const [method, setMethod] = useState("email");
 
   return (
-    <div className="min-h-screen bg-[#0f0f0f] text-white flex items-center justify-center px-6">
+    <div className="min-h-screen bg-[#0f0f0f] text-white flex items-center justify-center px-6 py-12">
       <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        
+
         {/* LEFT SECTION */}
-        <div className="space-y-4 max-w-md ml-6">
-  <div className="flex items-center gap-2 text-3xl font-semibold ml-8">
-  <img
-    src="/logo.svg"
-    alt="gConnect logo"
-    className="w-8 h-8 object-contain"
-  />
-  <span>gConnect</span>
-</div>
+        <div className="space-y-4 max-w-md md:ml-6 mx-auto md:mx-0 flex flex-col justify-center text-center md:text-left">
+          {/* Logo */}
+          <div className="flex items-center justify-center md:justify-start gap-2 text-3xl font-semibold mb-4">
+            <img
+              src="/logo.svg"
+              alt="gConnect logo"
+              className="w-8 h-8 object-contain"
+            />
+            <span>gConnect</span>
+          </div>
 
-  <h1 className="text-3xl font-bold leading-snug">
-    Where meaningful <br />
-    connections <br />
-    <span className="text-orange-500">bloom</span>
-  </h1>
+          {/* Headline */}
+          <h1 className="text-3xl md:text-4xl font-bold leading-snug">
+            Where meaningful <br />
+            connections <br />
+            <span className="text-orange-500">bloom</span>
+          </h1>
 
-  <p className="text-gray-400 text-sm max-w-xs">
-    Join a community built on warmth and understanding.
-    Start your journey to deeper connections today.
-  </p>
+          {/* Description */}
+          <p className="text-gray-400 text-sm max-w-xs mx-auto md:mx-0">
+            Join a community built on warmth and understanding.
+            Start your journey to deeper connections today.
+          </p>
 
-  <div className="rounded-xl overflow-hidden max-w-xs">
-    <img
-      src="/group.png"
-      alt="Community"
-      className="w-full h-44 object-cover"
-    />
-  </div>
-</div>
-
+          {/* Community Image */}
+          <div className="rounded-xl overflow-hidden max-w-xs mx-auto md:mx-0">
+            <img
+              src="/group.png"
+              alt="Community"
+              className="w-full h-44 md:h-52 object-cover"
+            />
+          </div>
+        </div>
 
         {/* RIGHT SECTION */}
-        <div className="bg-transparent w-full max-w-md mx-auto">
-          <h2 className="text-3xl font-bold mb-6 text-center">Create an account</h2>
+        <div className="bg-transparent w-full max-w-md mx-auto flex flex-col justify-center h-full">
+          {/* Create Account */}
+          <h2 className="text-3xl font-bold mb-6 text-center md:text-center">
+            Create an account
+          </h2>
 
           {/* Toggle */}
           <div className="flex bg-[#ffe8d6] rounded-xl p-1 mb-6">
@@ -93,20 +99,20 @@ export default function Signup() {
             </button>
           </div>
 
-          {/* Login Button */}
-          <Link to="/home">
-          <button className="w-full bg-orange-500 hover:bg-orange-600 transition text-white py-3 rounded-xl font-semibold mb-4">
-            Sign Up
-          </button>
-            </Link>
+          {/* Sign Up Button */}
+          <Link to="/post-signup">
+            <button className="w-full bg-orange-500 hover:bg-orange-600 transition text-white py-3 rounded-xl font-semibold mb-4">
+              Sign Up
+            </button>
+          </Link>
 
-          {/* Signup */}
-          <p className="text-center text-gray-400 mb-6">
+          {/* Login */}
+          <p className="text-center md:text-center text-gray-400 mb-6">
             Already have an account?{" "}
             <Link to="/">
-            <span className="text-white hover:underline cursor-pointer">
-              Log In
-            </span>
+              <span className="text-white hover:underline cursor-pointer">
+                Log In
+              </span>
             </Link>
           </p>
 
@@ -117,20 +123,17 @@ export default function Signup() {
             <span className="flex-1 h-px bg-gray-700" />
           </div>
 
-          {/* OAuth */}
+          {/* OAuth Buttons */}
           <button className="w-full bg-white text-black py-3 rounded-xl flex items-center justify-center gap-2 mb-3">
             <img src="/google.svg" alt="Google" className="w-5 h-5" />
             Sign Up with Google
           </button>
 
-          <button className="w-full bg-white text-black py-3 rounded-xl flex items-center justify-center gap-2">
-            <img src="/apple.svg" alt="Apple" className="w-5 h-5" />
-            Sign Up with Apple
-          </button>
-          <p className="text-center text-gray-500 text-xs mt-2">
+
+          <p className="text-center md:text-center text-gray-500 text-xs mt-2">
             By continuing, you agree to our <br />
             Terms of Service and Privacy Policy
-        </p>
+          </p>
         </div>
       </div>
     </div>
