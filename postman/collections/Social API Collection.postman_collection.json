@@ -1,0 +1,671 @@
+{
+  "info": {
+    "_postman_id": "a5336fa6-f3b5-4533-8efb-f04391109359",
+    "name": "Social API Collection",
+    "description": "## **Social API Collection - Summary**\n\n### **1\\. Collection Name and Description**\n\n- **Name:** Social API Collection\n    \n- **Description:** No collection-level description is currently defined\n    \n- **Schema:** Postman Collection v2.1.0\n    \n\n### **2\\. List of All Folders and Requests**\n\nThe collection contains **6 requests** at the root level (no folders):\n\n1. **Register User** (POST)\n    \n2. **Verify User Email** (POST)\n    \n3. **Login User** (POST)\n    \n4. **Reset Password** (POST) - Actually \"Forgot Password\"\n    \n5. **Verify Reset OTP** (POST)\n    \n6. **Verify Reset OTP Copy** (POST) - Actually \"Reset Password\"\n    \n\n### **3\\. Existing Descriptions or Documentation**\n\n**Currently, there are NO descriptions** for:\n\n- Collection level\n    \n- Individual requests\n    \n- Request parameters\n    \n\nEach request does have **saved response examples** showing successful responses (200 OK).\n\n### **4\\. Authentication Setup**\n\n- **Collection-level auth:** Not configured\n    \n- **Request-level auth:** Only \"Register User\" explicitly has `\"type\": \"noauth\"`\n    \n- **Token-based authentication:** The Login User response returns `accessToken` and `refreshToken` (JWT tokens), but these are not configured for use in subsequent requests\n    \n\n### **5\\. Base URL and Variables**\n\n**Base URL:** `http://localhost:5000`\n\n**No variables are currently defined** in the collection. All requests use hardcoded URLs:\n\n- Protocol: `http`\n    \n- Host: `localhost`\n    \n- Port: `5000`\n    \n- Base path: `/api/auth`\n    \n\n**Endpoints:**\n\n- `/api/auth/register` - Register new user\n    \n- `/api/auth/verify-email` - Verify email with OTP\n    \n- `/api/auth/login` - Login and receive tokens\n    \n- `/api/auth/forgot-password` - Request password reset OTP\n    \n- `/api/auth/verify-reset-otp` - Verify the reset OTP\n    \n- `/api/auth/reset-password` - Complete password reset\n    \n\n### **Additional Observations:**\n\n**Request Bodies (JSON):**\n\n- Register: `email`, `password`\n    \n- Verify Email: `email`, `otp`\n    \n- Login: `email`, `password`\n    \n- Forgot Password: `email`\n    \n- Verify Reset OTP: `email`, `otp`\n    \n- Reset Password: `email`, `newPassword`\n    \n\n**Response Examples:** All requests have saved examples showing successful 200 OK responses with appropriate messages.\n\nEndFragment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register User",
+      "id": "dc978de7-932b-4230-af0c-a6d793361080",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"falectrotech@gmail.com\",\r\n  \"password\": \"Password123!\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "9c5c9c4a-37c9-4161-8366-62123b5184cd",
+          "name": "Register User",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"falectrotech@gmail.com\",\r\n  \"password\": \"Password123!\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "44"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"2c-IPh+uDYLqgYoH5ABBLqLbT7ZFyY\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 09 Jan 2026 03:03:46 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Registered. OTP sent to email.\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Verify User Email",
+      "id": "b9601b18-c491-488e-ab15-3e52be20725f",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"babajidefaruq7@gmail.com\",\r\n  \"otp\": \"876878\"\r\n}\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/verify-email",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "verify-email"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "b8804abc-a4c1-47ed-b715-3b29f722189a",
+          "name": "New Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"babajidefaruq7@gmail.com\",\r\n  \"otp\": \"876878\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/verify-email",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "verify-email"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "28"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1c-HKxSht1z0bTpFJ6vRQGxW0fz9zo\""
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 08 Jan 2026 23:50:16 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Email verified\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Login User",
+      "id": "017c32e0-199c-44d8-bf4d-c3cce10b8958",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"babajidefaruq7@gmail.com\",\"password\":\"Password123!\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "cd98fa52-0c40-4348-b8de-88a228ad449d",
+          "name": "Login User",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"babajidefaruq7@gmail.com\",\"password\":\"Password123!\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "428"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1ac-u2QL/YhMC41F8LOIcXOvv9xBzpk\""
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 08 Jan 2026 23:57:38 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MzU1YWRlLTg5ZDMtNDkwOC1hYTUwLTUxNDBjMjAyZDdmNSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY3OTE2NjU3LCJleHAiOjE3Njc5MTc1NTd9.QvGvkjuvgQ2UXkaKzg8OgSOJPyH5yqh4YR9CskDw6wE\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MzU1YWRlLTg5ZDMtNDkwOC1hYTUwLTUxNDBjMjAyZDdmNSIsImlhdCI6MTc2NzkxNjY1NywiZXhwIjoxNzY4NTIxNDU3fQ.fAKk-n4KgEsJjS5TnfZceEgP-iJZrvcvwfsZnSbpJOk\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Reset Password",
+      "id": "804576e0-0b34-4a5f-9d72-141b355c9982",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"babajidefaruq7@gmail.com\"}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/forgot-password\n?babajidefaruq7@gmail.com",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "forgot-password\n"
+          ],
+          "query": [
+            {
+              "key": "babajidefaruq7@gmail.com",
+              "value": null
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "c5d9e8fd-cb6a-4ef5-a9f8-e76b79f2e32a",
+          "name": "New Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"babajidefaruq7@gmail.com\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/forgot-password",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "forgot-password"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "39"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"27-4JqvfSiP2187gaBDBSM4cq2f2cQ\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 09 Jan 2026 00:29:38 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"If email exists, OTP sent\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Verify Reset OTP",
+      "id": "030e9787-48b1-4d12-ae62-97c2391ab860",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"babajidefaruq7@gmail.com\",\"otp\":\"322818\"}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/verify-reset-otp",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "verify-reset-otp"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "79594cde-a615-4288-b99d-1da26f40ae82",
+          "name": "Verify Reset OTP",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\":\"babajidefaruq7@gmail.com\",\"otp\":\"322818\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/verify-reset-otp",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "verify-reset-otp"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "26"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"1a-Oc8gx27VjOcxi4Vzg/k97JRRHkQ\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 09 Jan 2026 00:38:29 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"OTP verified\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Verify Reset OTP Copy",
+      "id": "7ed0b044-01f5-4011-aaa1-ecec6742c26d",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"babajidefaruq7@gmail.com\",\r\n  \"newPassword\": \"NewSecurePassword123\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/reset-password\n",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "reset-password\n"
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "2f27bf26-8347-48d8-978d-5846da715724",
+          "name": "Verify Reset OTP Copy",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"babajidefaruq7@gmail.com\",\r\n  \"newPassword\": \"NewSecurePassword123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/reset-password",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "reset-password"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "Text",
+          "header": [
+            {
+              "key": "X-Powered-By",
+              "value": "Express"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "39"
+            },
+            {
+              "key": "ETag",
+              "value": "W/\"27-L4xvc+jp/avJkeCZKkXIaqi7KoM\""
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 09 Jan 2026 00:48:38 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=5"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"message\": \"Password reset successful\"\n}"
+        }
+      ]
+    }
+  ]
+}
