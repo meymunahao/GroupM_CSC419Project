@@ -12,6 +12,7 @@ import PostSignup from "./pages/auth/PostSignup";
 import ProfileLayout from "./layouts/ProfileLayout";
 import UserProfile from "./pages/user-profiles/Profile";
 
+
 export default function App() {
   return (
     <Routes>
@@ -23,6 +24,7 @@ export default function App() {
       <Route path="/change-password" element={<ChangePassword />} />
       <Route path="/profile-setup" element={<ProfileSetup />} />
       <Route path="/post-signup" element={<PostSignup />} />
+      
 
       {/* User Profiles */}
       <Route element={<ProfileLayout />}>
