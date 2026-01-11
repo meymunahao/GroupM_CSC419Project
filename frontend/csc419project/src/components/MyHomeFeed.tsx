@@ -60,7 +60,7 @@ export default function MyHomeFeed() {
               {/* Message Icon - THE LINK */}
               <Link
                 to="/post/1"
-                className="flex items-center gap-2 transition-all duration-200 hover:text-[#FF5C00] cursor-pointer group relative z-[60]"
+                className="flex items-center gap-2 transition-all duration-200 hover:text-[#FF5C00] cursor-pointer group relative z-60"
                 style={{ display: "flex", minWidth: "44px", minHeight: "44px" }} // Ensures a large enough hit area
               >
                 <MessageSquare
@@ -75,7 +75,7 @@ export default function MyHomeFeed() {
                 <Heart size={19} />
               </button>
             </div>
-            <div className="h-[1px] bg-white/5 w-full mt-8" />
+            <div className="h-px bg-white/5 w-full mt-8" />
           </div>
         </div>
       ))}

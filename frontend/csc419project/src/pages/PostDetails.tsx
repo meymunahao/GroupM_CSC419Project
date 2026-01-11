@@ -9,7 +9,7 @@ export default function PostDetails() {
         {/* Back Button - Forced to the top layer */}
         <Link
           to="/home"
-          className="relative z-[100] flex items-center gap-2 text-gray-400 hover:text-[#FF5C00] mb-6 transition-colors group cursor-pointer w-fit"
+          className="relative z-100 flex items-center gap-2 text-gray-400 hover:text-[#FF5C00] mb-6 transition-colors group cursor-pointer w-fit"
           style={{
             display: "flex",
             position: "relative",
@@ -52,11 +52,11 @@ export default function PostDetails() {
         {/* --- TASK 2 POLISHED: THREADED COMMENTS START --- */}
         <div className="mt-10 space-y-8 relative">
           {/* Vertical connection line */}
-          <div className="absolute left-4 top-0 bottom-0 w-[1px] bg-white/10 ml-[-1px]" />
+          <div className="absolute left-4 top-0 bottom-0 w-1px bg-white/10 -ml-px" />
 
           <div className="flex gap-4 relative z-10">
             {/* Avatar with your brand color */}
-            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#FF5C00] to-yellow-500 border-2 border-black shrink-0" />
+            <div className="w-9 h-9 rounded-full bg-linear-to-tr from-[#FF5C00] to-yellow-500 border-2 border-black shrink-0" />
 
             <div className="flex-1 bg-[#121212] p-4 rounded-2xl border border-white/5">
               <div className="flex justify-between items-center mb-1">
@@ -77,11 +77,11 @@ export default function PostDetails() {
         {/* ADD THE POLISHED CODE STARTING HERE */}
         <div className="mt-10 space-y-8 relative">
           {/* The Thread Line - This creates that vertical connection look */}
-          <div className="absolute left-4 top-0 bottom-0 w-[0.5px] bg-white/10 ml-[-1px]" />
+          <div className="absolute left-4 top-0 bottom-0 w-[0.5px] bg-white/10 -ml-px" />
 
           {/* Reply #1 */}
           <div className="flex gap-4 relative z-10">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#FF5C00] to-yellow-400 border-2 border-black shrink-0" />
+            <div className="w-9 h-9 rounded-full bg-linear-to-tr from-[#FF5C00] to-yellow-400 border-2 border-black shrink-0" />
             <div className="flex-1 bg-[#121212] p-4 rounded-2xl border border-white/5 shadow-xl">
               <div className="flex justify-between items-center mb-1">
                 <span className="font-bold text-sm text-white">
@@ -103,7 +103,7 @@ export default function PostDetails() {
         {/* Static Threaded Comments */}
         <div className="mt-10 space-y-8">
           <div className="flex gap-4">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-orange-500 to-amber-300" />
+            <div className="w-9 h-9 rounded-full bg-linear-to-tr from-orange-500 to-amber-300" />
             <div className="flex-1 bg-white/5 p-4 rounded-2xl border border-white/5">
               <span className="font-bold text-sm text-white">
                 Underrated genius

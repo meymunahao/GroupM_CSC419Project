@@ -7,7 +7,7 @@ interface MediaViewerProps {
 
 export default function MediaViewer({ imageUrl, onClose }: MediaViewerProps) {
   return (
-    <div className="fixed inset-0 z-[100] bg-black/95 flex flex-col">
+    <div className="fixed inset-0 z-100 bg-black/95 flex flex-col">
       {/* Top Bar */}
       <div className="flex justify-between items-center p-6 text-white">
         <button
