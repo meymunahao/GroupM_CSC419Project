@@ -13,6 +13,7 @@ import ProfileLayout from "./layouts/ProfileLayout";
 import UserProfile from "./pages/user-profiles/Profile";
 import PostDetails from "./pages/PostDetails";
 import FriendsPage from "./pages/FriendsPage";
+import CreatePost from "./pages/CreatePost";
 
 export default function App() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="/post/:id" element={<PostDetails />} />
         <Route path="/friends" element={<FriendsPage />} />
         <Route path="/search" element={<FriendsPage />} />
+        <Route path="/create" element={<CreatePost />} />
       </Route>
     </Routes>
   );
