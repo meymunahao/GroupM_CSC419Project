@@ -1,23 +1,28 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import SuccessAlert from "../../components/SuccessAlert";
+import ErrorAlert from "../../components/ErrorAlert";
 
 export default function Signup() {
   const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [method, setMethod] = useState<"email" | "phone">("email");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setError(null);
+    setSuccess(null);
 
     if (!email || !password) {
-      setError("Please fill in all fields");
+      setError("Please fill in all fields.");
       return;
     }
 
@@ -35,8 +40,13 @@ export default function Signup() {
         throw new Error(data.error || "Signup failed");
       }
 
-      // Navigate to verify-new-user with email
-      navigate("/verify-new-user", { state: { email } });
+      // Show success feedback
+      setSuccess("Account created successfully! Verify your email.");
+
+      // Navigate after success alert
+      setTimeout(() => {
+        navigate("/verify-new-user", { state: { email } });
+      }, 3000);
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
       else setError("An unexpected error occurred");
@@ -47,38 +57,38 @@ export default function Signup() {
 
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-white flex items-center justify-center px-6 py-12">
+      {/* Alerts */}
+      {error && <ErrorAlert message={error} />}
+      {success && <SuccessAlert message={success} />}
+
       <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
         {/* LEFT SECTION */}
         <div className="space-y-4 max-w-md md:ml-6 mx-auto md:mx-0 flex flex-col justify-center text-center md:text-left">
-          {/* Logo */}
           <div className="flex items-center justify-center md:justify-start gap-2 text-3xl font-semibold mb-4">
-            <img src="/logo.svg" alt="gConnect logo" className="w-8 h-8 object-contain" />
+            <img src="/logo.svg" alt="gConnect logo" className="w-8 h-8" />
             <span>gConnect</span>
           </div>
 
-          {/* Headline */}
           <h1 className="text-3xl md:text-4xl font-bold leading-snug">
             Where meaningful <br />
             connections <br />
             <span className="text-orange-500">bloom</span>
           </h1>
 
-          {/* Description */}
           <p className="text-gray-400 text-sm max-w-xs mx-auto md:mx-0">
             Join a community built on warmth and understanding.
             Start your journey to deeper connections today.
           </p>
 
-          {/* Community Image */}
           <div className="rounded-xl overflow-hidden max-w-xs mx-auto md:mx-0">
             <img src="/group.png" alt="Community" className="w-full h-44 md:h-52 object-cover" />
           </div>
         </div>
 
         {/* RIGHT SECTION */}
-        <div className="bg-transparent w-full max-w-md mx-auto flex flex-col justify-center h-full">
-          <h2 className="text-3xl font-bold mb-6 text-center md:text-center">
+        <div className="w-full max-w-md mx-auto flex flex-col justify-center">
+          <h2 className="text-3xl font-bold mb-6 text-center">
             Create an account
           </h2>
 
@@ -105,17 +115,14 @@ export default function Signup() {
           </div>
 
           <form onSubmit={handleSignup} className="flex flex-col space-y-4">
-            {/* Email / Phone Input */}
             <input
               type={method === "email" ? "email" : "tel"}
               placeholder={method === "email" ? "Email Address" : "Phone Number"}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full mb-4 px-4 py-3 rounded-xl bg-white text-black outline-none"
-              required
+              className="w-full px-4 py-3 rounded-xl bg-white text-black outline-none"
             />
 
-            {/* Password */}
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -123,7 +130,6 @@ export default function Signup() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl bg-white text-black outline-none pr-12"
-                required
               />
               <button
                 type="button"
@@ -134,8 +140,6 @@ export default function Signup() {
               </button>
             </div>
 
-            {error && <p className="text-red-500 text-sm">{error}</p>}
-
             <button
               type="submit"
               disabled={loading}
@@ -145,30 +149,11 @@ export default function Signup() {
             </button>
           </form>
 
-          {/* Login */}
-          <p className="text-center md:text-center text-gray-400 mb-6 mt-4">
+          <p className="text-center text-gray-400 mt-4">
             Already have an account?{" "}
-            <Link to="/">
-              <span className="text-white hover:underline cursor-pointer">Log In</span>
+            <Link to="/" className="text-white hover:underline">
+              Log In
             </Link>
-          </p>
-
-          {/* Divider */}
-          <div className="flex items-center gap-4 mb-6">
-            <span className="flex-1 h-px bg-gray-700" />
-            <span className="text-gray-500 text-sm">OR</span>
-            <span className="flex-1 h-px bg-gray-700" />
-          </div>
-
-          {/* OAuth */}
-          <button className="w-full bg-white text-black py-3 rounded-xl flex items-center justify-center gap-2 mb-3">
-            <img src="/google.svg" alt="Google" className="w-5 h-5" />
-            Sign Up with Google
-          </button>
-
-          <p className="text-center md:text-center text-gray-500 text-xs mt-2">
-            By continuing, you agree to our <br />
-            Terms of Service and Privacy Policy
           </p>
         </div>
       </div>

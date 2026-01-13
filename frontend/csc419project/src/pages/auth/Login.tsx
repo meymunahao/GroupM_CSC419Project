@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import ErrorAlert from "../../components/ErrorAlert";
 
 type AuthMethod = "email" | "phone";
 
@@ -158,7 +159,8 @@ export default function Login() {
           </p>
 
           {/* Error */}
-          {error && <p className="text-red-500 text-sm mb-3 text-center">{error}</p>}
+          {error && <ErrorAlert message={error} />}
+
 
           {/* Login Button */}
           <button

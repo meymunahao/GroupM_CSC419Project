@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import logo from "../../assets/logo.svg";
+import SuccessAlert from "../../components/SuccessAlert";
+import ErrorAlert from "../../components/ErrorAlert";
 
 interface ForgotPasswordResponse {
   message?: string;
@@ -11,23 +13,21 @@ interface ForgotPasswordResponse {
 export default function ForgotPassword() {
   const [email, setEmail] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
-  const [success, setSuccess] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
   const handleReset = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError("");
-    setSuccess("");
+    setError(null);
+    setSuccess(null);
     setLoading(true);
 
     try {
       const res = await fetch("http://localhost:5000/api/auth/forgot-password", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
 
@@ -37,18 +37,16 @@ export default function ForgotPassword() {
         throw new Error(data.error || "Failed to send reset email");
       }
 
+      // Show success alert
       setSuccess(data.message || "Password reset email sent!");
 
-      // Navigate to verify-email after a short delay
+      // Navigate to verify-email after short delay
       setTimeout(() => {
         navigate("/verify-email", { state: { email } });
-      }, 1000); // 1 second delay
+      }, 2000);
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("An unexpected error occurred");
-      }
+      if (err instanceof Error) setError(err.message);
+      else setError("An unexpected error occurred");
     } finally {
       setLoading(false);
     }
@@ -56,6 +54,10 @@ export default function ForgotPassword() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#161616] px-4 sm:px-6 lg:px-8">
+      {/* Alerts */}
+      {error && <ErrorAlert message={error} />}
+      {success && <SuccessAlert message={success} />}
+
       {/* Top Section: Back Arrow + Logo & Progress Indicator */}
       <div className="flex flex-col items-center mt-6 sm:mt-10 relative">
         {/* Back Arrow */}
@@ -76,9 +78,9 @@ export default function ForgotPassword() {
 
         {/* Progress Indicator */}
         <div className="flex space-x-3">
-          <span className="w-10 h-1.5 rounded-full bg-orange-500"></span>
-          <span className="w-10 h-1.5 rounded-full bg-white"></span>
-          <span className="w-10 h-1.5 rounded-full bg-white"></span>
+          <span className="w-10 h-1.5 rounded-full bg-orange-500" />
+          <span className="w-10 h-1.5 rounded-full bg-white" />
+          <span className="w-10 h-1.5 rounded-full bg-white" />
         </div>
       </div>
 
@@ -98,10 +100,6 @@ export default function ForgotPassword() {
               className="w-full px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white"
               required
             />
-
-            {/* Display error or success */}
-            {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-            {success && <p className="text-green-500 text-sm text-center">{success}</p>}
 
             <button
               type="submit"

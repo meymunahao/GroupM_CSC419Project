@@ -40,7 +40,6 @@ export default function App() {
         <Route path="/new-user" element={<NewUser />} />
 
         <Route path="/post/:id" element={<PostDetails />} />
-        <Route path="/friends" element={<FriendsPage />} />
         <Route path="/search" element={<FriendsPage />} />
         <Route path="/create" element={<CreatePost />} />
       </Route>

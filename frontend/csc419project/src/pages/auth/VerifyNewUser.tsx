@@ -8,25 +8,20 @@ interface LocationState {
   email?: string;
 }
 
-interface VerifyOtpResponse {
+interface VerifyEmailResponse {
   success?: boolean;
   message?: string;
   error?: string;
 }
 
-interface ForgotPasswordResponse {
-  message?: string;
-  error?: string;
-}
-
-export default function VerifyEmail() {
+export default function VerifyNewUser() {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as LocationState;
 
   const [email] = useState<string>(state?.email || "");
   const [code, setCode] = useState<string[]>(Array(6).fill(""));
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const [error, setError] = useState<string | null>(null);
@@ -42,7 +37,9 @@ export default function VerifyEmail() {
       const newCode = [...code];
       newCode[index] = value;
       setCode(newCode);
-      if (value && index < 5) inputRefs.current[index + 1]?.focus();
+      if (value && index < 5) {
+        inputRefs.current[index + 1]?.focus();
+      }
     }
   };
 
@@ -55,54 +52,34 @@ export default function VerifyEmail() {
   const handleVerify = async () => {
     setError(null);
     setSuccess(null);
-    const otp = code.join("");
 
+    const otp = code.join("");
     if (otp.length < 6) {
-      setError("Please enter the 6-digit code");
+      setError("Please enter the 6-digit verification code.");
       return;
     }
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/auth/verify-reset-otp", {
+      const res = await fetch("http://localhost:5000/api/auth/verify-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp }),
       });
 
-      const data: VerifyOtpResponse = await res.json();
+      const data: VerifyEmailResponse = await res.json();
 
-      if (!res.ok) throw new Error(data.error || "Verification failed");
+      if (!res.ok) {
+        throw new Error(data.error || "Verification failed");
+      }
 
-      // Success alert before navigating
-      setSuccess("Verification successful! Redirecting...");
-      setTimeout(() => navigate("/change-password", { state: { email } }), 3000);
-    } catch (err: unknown) {
-      if (err instanceof Error) setError(err.message);
-      else setError("An unexpected error occurred");
-    } finally {
-      setLoading(false);
-    }
-  };
+      // Show success alert
+      setSuccess("Email verified successfully!");
 
-  const handleResend = async () => {
-    if (!email) return;
-    setError(null);
-    setSuccess(null);
-    setLoading(true);
-
-    try {
-      const res = await fetch("http://localhost:5000/api/auth/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-
-      const data: ForgotPasswordResponse = await res.json();
-
-      if (!res.ok) throw new Error(data.error || "Failed to resend code");
-
-      setSuccess(data.message || "Verification code resent successfully!");
+      // Navigate after alert
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
       else setError("An unexpected error occurred");
@@ -127,18 +104,22 @@ export default function VerifyEmail() {
         </div>
 
         <div className="flex space-x-3">
-          <span className="w-10 h-1.5 rounded-full bg-white" />
-          <span className="w-10 h-1.5 rounded-full bg-orange-500" />
-          <span className="w-10 h-1.5 rounded-full bg-white" />
+          <span className="w-10 h-1.5 rounded-full bg-white"></span>
+          <span className="w-10 h-1.5 rounded-full bg-orange-500"></span>
+          <span className="w-10 h-1.5 rounded-full bg-white"></span>
         </div>
       </div>
 
       {/* Verification Text */}
       <div className="text-center mb-8 mt-32">
-        <h1 className="text-white text-2xl font-semibold mb-2">Verify your email</h1>
+        <h1 className="text-white text-2xl font-semibold mb-2">
+          Verify your email
+        </h1>
         <p className="text-gray-300">
           We’ve sent a verification code to{" "}
-          <span className="font-medium text-white">{email || "your email"}</span>
+          <span className="font-medium text-white">
+            {email || "your email"}
+          </span>
         </p>
       </div>
 
@@ -150,7 +131,9 @@ export default function VerifyEmail() {
             type="text"
             maxLength={1}
             value={code[idx]}
-            ref={(el) => (inputRefs.current[idx] = el)}
+            ref={(el) => {
+              inputRefs.current[idx] = el;
+            }}
             onChange={(e) => handleChange(e.target.value, idx)}
             onKeyDown={(e) => handleKeyDown(e, idx)}
             className="w-12 h-12 text-center text-lg font-semibold rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -162,18 +145,10 @@ export default function VerifyEmail() {
       <button
         onClick={handleVerify}
         disabled={loading}
-        className="w-full max-w-xs bg-orange-500 hover:bg-orange-600 transition-colors text-white py-3 rounded-xl font-semibold mb-4 disabled:opacity-50"
+        className="w-full max-w-xs bg-orange-500 hover:bg-orange-600 transition-colors text-white py-3 rounded-xl font-semibold disabled:opacity-50"
       >
         {loading ? "Processing..." : "Verify Account"}
       </button>
-
-      {/* Resend */}
-      <p className="text-gray-400">
-        Didn’t receive the code?{" "}
-        <span onClick={handleResend} className="text-orange-500 font-medium cursor-pointer">
-          Resend Code
-        </span>
-      </p>
     </div>
   );
 }
