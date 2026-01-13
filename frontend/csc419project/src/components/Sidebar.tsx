@@ -10,6 +10,7 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface NavItem {
   label: string;
@@ -36,7 +37,7 @@ export default function Sidebar({
 
   const navItems: NavItem[] = [
     { label: "Home", path: "/home", icon: Home },
-    { label: "Search", path: "/search", icon: Search },
+    { label: "Search", path: "/friends", icon: Search },
     {
       label: "Notification",
       icon: Bell,
@@ -155,9 +156,12 @@ export default function Sidebar({
               )
           )}
 
-          <button className="w-full bg-orange-500 hover:bg-orange-600 transition text-white font-semibold py-3 rounded-xl">
+          <Link
+            to="/create"
+            className="mt-6 w-full bg-[#FF5C00] text-white font-bold py-3 rounded-xl hover:bg-orange-600 transition-all text-center block shadow-lg shadow-orange-500/10"
+          >
             Create
-          </button>
+          </Link>
         </nav>
       </aside>
     </>
