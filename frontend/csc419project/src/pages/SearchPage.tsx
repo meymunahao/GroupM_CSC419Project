@@ -1,31 +1,74 @@
 import { Search } from "lucide-react";
+import { useState } from "react";
 
 export default function FriendsPage() {
-  return (
-    <main className="flex-1 py-6 px-8 overflow-y-auto">
-      {" "}
-      {/* Reduced py-10 to py-6 to move it up */}
-      <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-          <h1 className="text-2xl font-bold">Search</h1>
+  const categories = ["For You", "Trending", "News", "Sports", "Entertainment"];
+  const [query, setQuery] = useState("");
 
-          {/* Search Bar - Now aligned higher */}
-          <div className="relative w-full md:w-64">
-            <Search
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"
-              size={18}
-            />
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-full bg-[#121212] border border-white/5 rounded-xl py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-[#FF5C00]/50 transition-all text-white"
-            />
-          </div>
+  const searchFeed = [
+    { id: 1, img: "https://picsum.photos/400/400?random=1", span: "row-span-2" },
+    { id: 2, img: "https://picsum.photos/400/400?random=2", span: "" },
+    { id: 3, img: "https://picsum.photos/400/400?random=3", span: "" },
+    { id: 4, img: "https://picsum.photos/400/400?random=4", span: "" },
+    { id: 5, img: "https://picsum.photos/400/400?random=5", span: "row-span-2" },
+    { id: 6, img: "https://picsum.photos/400/400?random=6", span: "" },
+  ];
+
+  return (
+    /* FIX 1: Removed 'relative z-50' to stop it from overlapping navigation.
+       FIX 2: Added 'flex justify-center' to move content to the middle.
+    */
+    <main className="flex-1 bg-[#1A1A1A] py-8 px-4 overflow-y-auto flex justify-center scrollbar-hide">
+      
+      {/* FIX 3: Added 'w-full' and 'max-w-3xl' to keep the content centered 
+         and perfectly sized for a search feed.
+      */}
+      <div className="w-full max-w-3xl flex flex-col">
+        
+        {/* Centered Search Bar */}
+        <div className="relative w-full mb-8">
+          <Search
+            className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"
+            size={20}
+          />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search moments, people, or topics"
+            className="w-full bg-[#252525] border border-white/10 rounded-full py-4 pl-14 pr-6 text-white focus:outline-none focus:ring-2 focus:ring-[#FF5C00]/50 transition-all shadow-xl cursor-text"
+          />
         </div>
 
-        {/* Removed the Friends Grid and Follow tabs as requested */}
-        <div className="text-center py-20 text-gray-500 border border-dashed border-white/5 rounded-3xl">
-          <p>Search for users to see them here.</p>
+        {/* Categories - Centered using justify-center */}
+        <div className="flex gap-3 mb-10 overflow-x-auto w-full justify-center scrollbar-hide">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              className="px-5 py-2 rounded-full bg-[#252525] text-sm text-gray-400 hover:text-white border border-white/5 whitespace-nowrap transition-colors cursor-pointer"
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Instagram-style Discovery Grid */}
+        <div className="grid grid-cols-3 gap-3 w-full pb-20">
+          {searchFeed.map((item) => (
+            <div
+              key={item.id}
+              className={`relative group overflow-hidden rounded-xl bg-[#252525] ${item.span}`}
+            >
+              {/* Pulse Loader for "Final Polish" */}
+              <div className="absolute inset-0 bg-white/5 animate-pulse" />
+
+              <img
+                src={item.img}
+                className="w-full h-full object-cover aspect-square group-hover:scale-105 transition-transform duration-500 cursor-pointer opacity-90 group-hover:opacity-100 relative z-10"
+                alt="discover"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </main>
