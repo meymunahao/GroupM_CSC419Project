@@ -1,12 +1,10 @@
 import Sidebar from "../components/Sidebar"; 
 import { Outlet } from "react-router-dom";
 import NotificationSidebar from "../components/notifications/notificationSidebar";
-import MessagingPanel from "../components/messages/messagingPanel";
 import { useState } from "react";
 
 export default function ProfileLayout() {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-  const [isMessagingOpen, setIsMessagingOpen] = useState(false);
 
   return (
     // Remove 'overflow-hidden' and 'h-screen' from parent to allow mobile scroll
@@ -16,15 +14,10 @@ export default function ProfileLayout() {
       <div className="shrink-0 h-full z-20">
         <Sidebar
           isNotificationActive={isNotificationOpen}
-          isMessagingActive={isMessagingOpen}
           onNotificationClick={() => {
-            setIsMessagingOpen(false);
             setIsNotificationOpen((prev) => !prev);
           }}
-          onMessagingClick={() => {
-            setIsNotificationOpen(false);
-            setIsMessagingOpen((prev) => !prev);
-          }}
+         
         />
 
         <NotificationSidebar
@@ -32,10 +25,7 @@ export default function ProfileLayout() {
           onClose={() => setIsNotificationOpen(false)}
         />
 
-        <MessagingPanel
-          isOpen={isMessagingOpen}
-          onClose={() => setIsMessagingOpen(false)}
-        />
+        
       </div>
 
       {/* Main Scrollable Area */}
