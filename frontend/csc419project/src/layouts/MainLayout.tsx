@@ -29,10 +29,10 @@ const MainLayout: React.FC = () => {
         {/* DYNAMIC PANEL AREA: Stays at the very top */}
         {(isNotificationOpen) && (
           <div className={`
-            fixed lg:sticky top-0 h-screen z-40 bg-dark border-r border-gray-800
+            fixed top-0 h-screen z-50 bg-dark border-r border-gray-800
             w-[85vw] sm:w-80 
             transition-all duration-300 ease-in-out
-            left-20 xl:left-64 lg:static
+            left-20 xl:left-64 
           `}>
             {isNotificationOpen && (
               <NotificationSidebar
