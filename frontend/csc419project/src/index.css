@@ -1,16 +1,41 @@
 @import "tailwindcss";
 
 @theme {
-  /* This defines 'bg-primary', 'text-primary', 'border-primary' */
+  
   --color-primary: #FF6719;
 
-  /* This defines 'bg-dark', 'text-dark' (for your main background) */
+  
   --color-dark: #161718;
   
-  /* This defines 'bg-dark-light' (for cards/modals on top of the dark bg) */
+  
   --color-grey: #777777; 
 
   --color-white: #FFFFFF;
 
   --color-light-orange: #FFE8D7;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.5s ease-out forwards;
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .custom-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
