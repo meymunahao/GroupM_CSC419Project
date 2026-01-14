@@ -16,6 +16,9 @@ import VerifyNewUser from "./pages/auth/VerifyNewUser";
 import FriendsPage from "./pages/SearchPage";
 import CreatePost from "./pages/CreatePost";
 import MainLayout from "./layouts/MainLayout";
+import Comments from "./components/Feed/PostDetails"
+import CollectivesCard from "./pages/CollectviesCard";
+import CollectivesPage from "./pages/CollectivesPage";
 import Comments from "./components/Feed/PostDetails";
 import EventsPage from "./pages/EventsPage";
 import GeneralLayout from "./layouts/generalLayout";
@@ -60,6 +63,8 @@ export default function App() {
         <Route path="/search" element={<FriendsPage />} />
         <Route path="/create" element={<CreatePost />} />
         <Route path="/comments" element={<Comments />} />
+        <Route path="/collectives" element={<CollectivesCard />} />
+         <Route path="/collectives/underrated-genius" element={<CollectivesPage />} /> 
       </Route>
 
      
