@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Bell, Search, MoreVertical } from "lucide-react";
 import MessageBubble from "./messageBubble";
 import MessageInput from "./MessageInput";
@@ -20,7 +20,7 @@ type ChatWindowProps = {
   chatId: string | null;
 };
 
-
+// Mock data - replace with your actual data
 const mockChats: Chat[] = [
   { id: "1", name: "Jennifer Markus", avatar: "https://i.pravatar.cc/150?img=1" },
   { id: "2", name: "Iva Ryan", avatar: "https://i.pravatar.cc/150?img=5" },
@@ -36,52 +36,20 @@ const mockMessages: Record<string, Message[]> = {
     { id: "3", text: "So you are into fashion?", timestamp: "04:45 PM", isSent: false },
     { id: "4", text: "Yes, I am", timestamp: "04:45 PM", isSent: true },
   ],
-  "2": [
-    { id: "1", text: "Hey! How are you?", timestamp: "03:30 PM", isSent: false },
-    { id: "2", text: "I'm good, thanks! How about you?", timestamp: "03:31 PM", isSent: true },
-  ],
-  "3": [
-    { id: "1", text: "Did you see the game last night?", timestamp: "02:15 PM", isSent: false },
-    { id: "2", text: "Yes! It was amazing!", timestamp: "02:16 PM", isSent: true },
-  ],
-  "4": [
-    { id: "1", text: "Let's meet up this weekend", timestamp: "01:20 PM", isSent: false },
-    { id: "2", text: "Sounds great! Saturday works for me", timestamp: "01:22 PM", isSent: true },
-  ],
-  "5": [
-    { id: "1", text: "Thanks for your help earlier!", timestamp: "12:45 PM", isSent: false },
-    { id: "2", text: "No problem! Happy to help", timestamp: "12:46 PM", isSent: true },
-  ],
 };
 
 export default function ChatWindow({ chatId }: ChatWindowProps) {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(mockMessages[chatId || ""] || []);
   const selectedChat = mockChats.find((c) => c.id === chatId);
 
- 
-  useEffect(() => {
-    if (chatId) {
-      setMessages(mockMessages[chatId] || []);
-    }
-  }, [chatId]); // Re-run whenever chatId changes
-
   const handleSendMessage = (text: string) => {
-    if (!chatId) return;
-
     const newMessage: Message = {
       id: Date.now().toString(),
       text,
-      timestamp: new Date().toLocaleTimeString("en-US", { 
-        hour: "2-digit", 
-        minute: "2-digit" 
-      }),
+      timestamp: new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
       isSent: true,
     };
-
-    setMessages((prev) => [...prev, newMessage]);
-
-    // Later: Send to backend
-    // sendMessageToAPI(text, chatId);
+    setMessages([...messages, newMessage]);
   };
 
   if (!chatId) {
@@ -137,20 +105,14 @@ export default function ChatWindow({ chatId }: ChatWindowProps) {
         </div>
       </div>
 
-      
+      {/* Messages Area */}
       <div className="flex-1 overflow-y-auto px-6 py-4">
-        {messages.length > 0 ? (
-          messages.map((message) => (
-            <MessageBubble key={message.id} message={message} />
-          ))
-        ) : (
-          <div className="flex items-center justify-center h-full">
-            <p className="text-gray-500">No messages yet. Start the conversation!</p>
-          </div>
-        )}
+        {messages.map((message) => (
+          <MessageBubble key={message.id} message={message} />
+        ))}
       </div>
 
-      
+      {/* Message Input */}
       <MessageInput onSend={handleSendMessage} />
     </div>
   );

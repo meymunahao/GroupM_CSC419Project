@@ -19,21 +19,16 @@ interface NavItem {
   path?: string;
   icon: LucideIcon;
   isNotification?: boolean;
-  isMessaging?: boolean;
 }
 
 type SidebarProps = {
   isNotificationActive: boolean;
-  isMessagingActive: boolean;
   onNotificationClick: () => void;
-  onMessagingClick: () => void;
 };
 
 export default function Sidebar({
   isNotificationActive,
-  isMessagingActive,
   onNotificationClick,
-  onMessagingClick,
 }: SidebarProps) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -42,7 +37,7 @@ export default function Sidebar({
     { label: "Home", path: "/home", icon: Home },
     { label: "Search", path: "/search", icon: Search },
     { label: "Notification", icon: Bell, isNotification: true },
-    { label: "Chats", icon: MessageSquare, isMessaging: true },
+    { label: "Chats", path: "/chats", icon: MessageSquare },
     { label: "Collectives", path: "/collectives", icon: Users },
     { label: "Events", path: "/events", icon: Calendar },
     { label: "Profile", path: "/profile", icon: User },
@@ -97,7 +92,7 @@ export default function Sidebar({
           {/* NAVIGATION */}
           <nav className="flex flex-col space-y-3">
             {navItems.map(
-              ({ label, path, icon: Icon, isNotification, isMessaging }) =>
+              ({ label, path, icon: Icon, isNotification }) =>
                 isNotification ? (
                   <button
                     key={label}
@@ -115,24 +110,7 @@ export default function Sidebar({
                     <Icon size={24} />
                     <span className="text-sm tracking-wide">{label}</span>
                   </button>
-                ) : isMessaging ? (
-                  <button
-                    key={label}
-                    onClick={() => {
-                      setOpen(false);
-                      onMessagingClick();
-                    }}
-                    className={`flex items-center gap-4 p-3 rounded-xl transition w-full
-                    ${
-                      isMessagingActive
-                        ? "text-white bg-white/10"
-                        : "text-gray-400 hover:text-gray-200 hover:bg-white/5"
-                    }`}
-                  >
-                    <Icon size={24} />
-                    <span className="text-sm tracking-wide">{label}</span>
-                  </button>
-                ) : (
+                )  : (
                   <NavLink
                     key={label}
                     to={path!}

@@ -16,7 +16,10 @@ import VerifyNewUser from "./pages/auth/VerifyNewUser";
 import FriendsPage from "./pages/SearchPage";
 import CreatePost from "./pages/CreatePost";
 import MainLayout from "./layouts/MainLayout";
-import Comments from "./components/Feed/PostDetails"
+import Comments from "./components/Feed/PostDetails";
+import EventsPage from "./pages/EventsPage";
+import GeneralLayout from "./layouts/generalLayout";
+import MessageLayout from "./layouts/MessageLayout";
 
 export default function App() {
   return (
@@ -34,6 +37,13 @@ export default function App() {
       {/* User Profiles */}
       <Route element={<ProfileLayout />}>
         <Route path="/profile" element={<UserProfile />} />
+      </Route>
+
+       <Route path="/chats" element={<MessageLayout />} />
+
+
+      <Route element={<GeneralLayout />}>
+        <Route path="/events" element={<EventsPage />} />
       </Route>
 
       <Route element={<MainLayout />}>

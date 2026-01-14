@@ -3,11 +3,11 @@ import Sidebar from '../components/Sidebar';
 import Feed from '../pages/Home';
 import Collectives from '../components/Collectives';
 import NotificationSidebar from "../components/notifications/notificationSidebar";
-import MessagingPanel from "../components/messages/messagingPanel";
+
 
 const MainLayout: React.FC = () => {
   const [isNotificationOpen, setIsNotificationOpen] = useState<boolean>(false);
-  const [isMessagingOpen, setIsMessagingOpen] = useState<boolean>(false);
+  
 
   return (
     <div className="min-h-screen bg-dark">
@@ -17,20 +17,17 @@ const MainLayout: React.FC = () => {
         <div className="shrink-0 w-20 xl:w-64 sticky top-0 h-screen z-50 bg-dark">
           <Sidebar
             isNotificationActive={isNotificationOpen}
-            isMessagingActive={isMessagingOpen}
+            
             onNotificationClick={() => {
-              setIsMessagingOpen(false);
+              
               setIsNotificationOpen((prev) => !prev);
             }}
-            onMessagingClick={() => {
-              setIsNotificationOpen(false);
-              setIsMessagingOpen((prev) => !prev);
-            }}
+            
           />
         </div>
 
         {/* DYNAMIC PANEL AREA: Stays at the very top */}
-        {(isNotificationOpen || isMessagingOpen) && (
+        {(isNotificationOpen) && (
           <div className={`
             fixed lg:sticky top-0 h-screen z-40 bg-dark border-r border-gray-800
             w-[85vw] sm:w-80 
@@ -43,12 +40,7 @@ const MainLayout: React.FC = () => {
                 onClose={() => setIsNotificationOpen(false)}
               />
             )}
-            {isMessagingOpen && (
-              <MessagingPanel
-                isOpen={isMessagingOpen}
-                onClose={() => setIsMessagingOpen(false)}
-              />
-            )}
+            
           </div>
         )}
 
@@ -65,12 +57,12 @@ const MainLayout: React.FC = () => {
         </div>
 
         {/* MOBILE OVERLAY DIMMER */}
-        {(isNotificationOpen || isMessagingOpen) && (
+        {(isNotificationOpen ) && (
           <div 
             className="fixed inset-0 bg-black/50 z-30 lg:hidden" 
             onClick={() => {
               setIsNotificationOpen(false);
-              setIsMessagingOpen(false);
+              
             }}
           />
         )}
