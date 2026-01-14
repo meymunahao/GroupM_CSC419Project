@@ -1,4 +1,4 @@
-import CommentBox from "../components/CommentBox";
+import CommentBox from "../Feed/CommentBox";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 

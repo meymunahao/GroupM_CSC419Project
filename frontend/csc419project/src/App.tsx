@@ -12,9 +12,11 @@ import PostSignup from "./pages/auth/PostSignup";
 import ProfileLayout from "./layouts/ProfileLayout";
 import UserProfile from "./pages/user-profiles/Profile";
 import VerifyNewUser from "./pages/auth/VerifyNewUser";
-import PostDetails from "./pages/PostDetails";
-import FriendsPage from "./pages/FriendsPage";
+// import PostDetails from "./components/Feed/PostDetails";
+import FriendsPage from "./pages/SearchPage";
 import CreatePost from "./pages/CreatePost";
+import MainLayout from "./layouts/MainLayout";
+import Comments from "./components/Feed/PostDetails"
 
 export default function App() {
   return (
@@ -34,15 +36,19 @@ export default function App() {
         <Route path="/profile" element={<UserProfile />} />
       </Route>
 
-      {/* App */}
-      <Route element={<AppLayout />}>
+      <Route element={<MainLayout />}>
         <Route path="/home" element={<Home />} />
         <Route path="/new-user" element={<NewUser />} />
+      </Route>
 
-        <Route path="/post/:id" element={<PostDetails />} />
+      {/* App */}
+      <Route element={<AppLayout />}>
         <Route path="/search" element={<FriendsPage />} />
         <Route path="/create" element={<CreatePost />} />
+        <Route path="/comments" element={<Comments />} />
       </Route>
+
+      {/* <Route path="/home" element={<Home />} /> */}
     </Routes>
   );
 }
