@@ -18,7 +18,7 @@ export default function FriendsPage() {
     /* FIX 1: Removed 'relative z-50' to stop it from overlapping navigation.
        FIX 2: Added 'flex justify-center' to move content to the middle.
     */
-    <main className="flex-1 bg-[#1A1A1A] py-8 px-4 overflow-y-auto flex justify-center scrollbar-hide">
+    <main className="flex-1 bg-dark py-8 px-4 overflow-y-auto flex justify-center scrollbar-hide">
       
       {/* FIX 3: Added 'w-full' and 'max-w-3xl' to keep the content centered 
          and perfectly sized for a search feed.

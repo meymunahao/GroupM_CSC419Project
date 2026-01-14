@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { MessageCircle, Repeat, Triangle } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { MessageCircle, Repeat, Triangle, Settings } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 // --- MOCK DATA FOR FEED ---
 const POSTS = [
@@ -73,19 +73,42 @@ export default function UserProfile() {
           {/* Header Content Wrapper */}
           <div className="pt-20 md:pt-24 mb-6">
             {/* --- DESKTOP LAYOUT (Hidden on Mobile) --- */}
-            <div className="hidden md:flex flex-row justify-between items-center gap-4">
-              {/* Name & Handle */}
-              <div className="flex flex-col shrink-0">
-                <h1 className="text-3xl font-bold text-white leading-tight">
-                  Oluwalonimi
-                </h1>
-                <p className="text-gray-500 text-sm font-medium mt-1">
-                  @nimitimi
-                </p>
+            <div className="hidden md:flex flex-col gap-4">
+              <div className="flex flex-row justify-between items-start">
+                {/* Name & Handle */}
+                <div className="flex flex-col shrink-0">
+                  <h1 className="text-3xl font-bold text-white leading-tight">
+                    Oluwalonimi
+                  </h1>
+                  <p className="text-gray-500 text-sm font-medium mt-1">
+                    @nimitimi
+                  </p>
+                </div>
+
+                {/* Desktop Actions */}
+                <div className="flex items-center gap-3">
+                  <button 
+                    onClick={() => navigate("/settings")}
+                    className="p-2.5 rounded-xl border border-gray-800 text-gray-400 hover:text-white hover:bg-gray-800 transition-all cursor-pointer"
+                  >
+                    <Settings size={20} />
+                  </button>
+                  <button
+                    onClick={() => navigate("/create")}
+                    className="bg-[#FF5C00] text-white px-6 py-2.5 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/20"
+                  >
+                    New Post
+                  </button>
+                </div>
               </div>
 
-              {/* Stats */}
-              <div className="flex items-center gap-10">
+              {/* Bio */}
+              <p className="text-gray-300 text-sm max-w-xl leading-relaxed">
+                Frontend Developer & Designer. Building aesthetic web experiences with React and Tailwind CSS.
+              </p>
+
+              {/* Original Stats (Desktop) */}
+              <div className="flex items-center gap-10 mt-2">
                 <div className="flex items-center gap-1.5 cursor-pointer hover:text-white transition-colors group">
                   <span className="font-bold text-white text-xl">24</span>
                   <span className="text-gray-500 text-base group-hover:text-gray-300">
@@ -105,19 +128,10 @@ export default function UserProfile() {
                   </span>
                 </div>
               </div>
-
-              {/* Button */}
-              <button
-                onClick={() => navigate("/create")}
-                className="bg-[#FF5C00] text-white px-6 py-2 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/20"
-              >
-                New Post
-              </button>
             </div>
 
             {/* --- MOBILE LAYOUT (Hidden on Desktop) --- */}
             <div className="flex flex-col md:hidden gap-4">
-              {/* Row 1: Name and Small Button Side-by-Side */}
               <div className="flex justify-between items-start">
                 <div className="flex flex-col shrink-0">
                   <h1 className="text-2xl font-bold text-white leading-tight">
@@ -128,13 +142,24 @@ export default function UserProfile() {
                   </p>
                 </div>
 
-                {/* Smaller Button beside Name */}
-                <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-1.5 px-4 rounded-lg transition-colors text-xs shadow-lg shadow-orange-500/20 shrink-0 ml-4 mt-1">
-                  New Post
-                </button>
+                <div className="flex items-center gap-2">
+                  <Link to="/settings">
+                    <button className="p-2 rounded-lg border border-gray-800 text-gray-400">
+                      <Settings size={18} />
+                    </button>
+                  </Link>
+                  <button className="bg-orange-500 text-white font-bold py-1.5 px-4 rounded-lg text-xs shadow-lg">
+                    New Post
+                  </button>
+                </div>
               </div>
 
-              {/* Row 2: Stats below */}
+              {/* Bio (Mobile) */}
+              <p className="text-gray-300 text-sm leading-relaxed">
+                Frontend Developer & Designer. Building aesthetic web experiences with React and Tailwind CSS.
+              </p>
+
+              {/* Original Stats (Mobile) */}
               <div className="flex items-center gap-6">
                 <div className="flex items-center gap-1 cursor-pointer hover:text-white transition-colors group">
                   <span className="font-bold text-white text-lg">24</span>
@@ -187,7 +212,6 @@ export default function UserProfile() {
             key={post.id}
             className="py-6 border-b border-gray-800 flex gap-4"
           >
-            {/* Post Avatar */}
             <div className="shrink-0">
               <div className="w-10 h-10 rounded-full bg-gray-700 overflow-hidden">
                 <img
@@ -198,9 +222,7 @@ export default function UserProfile() {
               </div>
             </div>
 
-            {/* Post Content */}
             <div className="flex-1">
-              {/* Post Header */}
               <div className="flex items-baseline gap-2 mb-1">
                 <span className="font-bold text-sm text-gray-100">
                   {post.name}
@@ -210,12 +232,10 @@ export default function UserProfile() {
                 )}
               </div>
 
-              {/* Post Text */}
               <p className="text-gray-300 text-sm leading-relaxed mb-3">
                 {post.content}
               </p>
 
-              {/* Optional Post Image */}
               {post.hasImage && post.postImage && (
                 <div className="mb-4 rounded-xl overflow-hidden border border-gray-800 mt-3">
                   <img
@@ -226,22 +246,15 @@ export default function UserProfile() {
                 </div>
               )}
 
-              {/* Action Icons */}
               <div className="flex items-center gap-8 text-gray-500 mt-2">
-                <button className="hover:text-orange-500 transition-colors flex items-center gap-1 group">
+                <button className="hover:text-orange-500 transition-colors group">
                   <Repeat size={18} className="group-hover:stroke-orange-500" />
                 </button>
-                <button className="hover:text-orange-500 transition-colors flex items-center gap-1 group">
-                  <MessageCircle
-                    size={18}
-                    className="group-hover:stroke-orange-500"
-                  />
+                <button className="hover:text-orange-500 transition-colors group">
+                  <MessageCircle size={18} className="group-hover:stroke-orange-500" />
                 </button>
-                <button className="hover:text-orange-500 transition-colors flex items-center gap-1 group">
-                  <Triangle
-                    size={18}
-                    className="group-hover:stroke-orange-500 rotate-90"
-                  />
+                <button className="hover:text-orange-500 transition-colors group">
+                  <Triangle size={18} className="group-hover:stroke-orange-500 rotate-90" />
                 </button>
               </div>
             </div>

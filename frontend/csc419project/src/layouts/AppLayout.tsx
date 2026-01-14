@@ -31,7 +31,7 @@ export default function AppLayout() {
       {/* Main Content */}
       <main className="flex-1 flex justify-center overflow-y-auto scrollbar-hide px-6 pt-20 md:pt-10">
         {/* Centered Outlet; shift right on desktop only */}
-        <div className="w-full max-w-3xl relative md:left-24 left-0">
+        <div className="w-full max-w-3xl relative md:left-30 left-0">
           <Outlet />
         </div>
       </main>
