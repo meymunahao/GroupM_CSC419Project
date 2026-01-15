@@ -7,37 +7,458 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ==========================================
+// 1. USERS & AUTHENTICATION
+// ==========================================
+
 model User {
   id              String   @id @default(uuid())
   email           String   @unique
-  passwordHash    String
+  username        String?  @db.Text
+  passwordHash    String   @map("password_hash")
   role            Role     @default(USER)
-  isEmailVerified Boolean  @default(false)
-  isActive        Boolean  @default(true)
+  isEmailVerified Boolean  @default(false) @map("email_verified")
+  isActive        Boolean  @default(true) @map("is_active")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
   refreshTokens   RefreshToken[]
   otps            OTP[]
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  profile         Profile?
+  settings        UserSettings?
+  
+  sentFriendRequests     FriendRequest[] @relation("SentRequests")
+  receivedFriendRequests FriendRequest[] @relation("ReceivedRequests")
+  
+  friends         Friendship[]    @relation("UserFriends")
+  friendOf        Friendship[]    @relation("FriendUsers")
+  
+  followers       Follow[]        @relation("Followers")
+  following       Follow[]        @relation("Following")
+  
+  posts           Post[]
+  comments        Comment[]
+  reactions       Reaction[]
+  
+  createdGroups   Group[]         @relation("GroupCreator")
+  groupMemberships GroupMember[]
+  groupPosts      GroupPost[]
+  
+  createdEvents   Event[]         @relation("EventCreator")
+  eventRsvps      EventRsvp[]
+  tickets         Ticket[]
+  
+  messagesSent    Message[]
+  messageStatuses MessageStatus[]
+  conversations   ConversationMember[]
+  notifications   Notification[]
+  
+  reportsMade     Report[]        @relation("Reporter")
+  reportsReceived Report[]        @relation("ReportedUser")
+  suspensions     UserSuspension[]
+  activityLogs    ActivityLog[]
+  auditLogs       AuditLog[]
+
+  @@map("users")
 }
 
-model OTP {
+model Profile {
+  id            String     @id @default(uuid())
+  userId        String     @unique @map("user_id")
+  bio           String?
+  links         Json?
+  photoUrl      String?    @map("photo_url")
+  privacy       Privacy?   @default(PUBLIC)
+  
+  avatarUrl     String?    @map("avatar_url")
+  coverPhotoUrl String?    @map("cover_photo_url")
+  website       String?
+  location      String?
+  dateOfBirth   DateTime?  @map("date_of_birth")
+
+  createdAt     DateTime   @default(now()) @map("created_at")
+  updatedAt     DateTime   @updatedAt @map("updated_at")
+
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  interests     Interest[]
+
+  @@map("user_profiles")
+}
+
+model UserSettings {
+  id                      Int      @id @default(autoincrement())
+  userId                  String   @unique @map("user_id")
+  profileVisibility       String   @default("public") @map("profile_visibility")
+  messagePrivacy          String   @default("everyone") @map("message_privacy")
+  notificationPreferences Json?    @map("notification_preferences")
+  darkMode                Boolean  @default(false) @map("dark_mode")
+  createdAt               DateTime @default(now()) @map("created_at")
+  updatedAt               DateTime @updatedAt @map("updated_at")
+
+  user                    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_settings")
+}
+
+// ==========================================
+// 2. SOCIAL SYSTEM
+// ==========================================
+
+model Post {
+  id          Int         @id @default(autoincrement())
+  userId      String      @map("user_id")
+  content     String      @db.Text
+  visibility  String      @default("public")
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  media       PostMedia[]
+  comments    Comment[]
+  reactions   Reaction[]
+
+  @@map("posts")
+}
+
+model PostMedia {
+  id        Int      @id @default(autoincrement())
+  postId    Int      @map("post_id")
+  mediaType String?  @map("media_type")
+  mediaUrl  String   @db.Text @map("media_url")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@map("post_media")
+}
+
+model Comment {
+  id              Int       @id @default(autoincrement())
+  postId          Int       @map("post_id")
+  userId          String    @map("user_id")
+  parentCommentId Int?      @map("parent_comment_id")
+  content         String    @db.Text
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  post            Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parent          Comment?  @relation("CommentToComment", fields: [parentCommentId], references: [id])
+  replies         Comment[] @relation("CommentToComment")
+
+  @@map("comments")
+}
+
+model Reaction {
+  id           Int      @id @default(autoincrement())
+  userId       String   @map("user_id")
+  postId       Int      @map("post_id")
+  reactionType String?  @map("reaction_type")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId, reactionType])
+  @@map("reactions")
+}
+
+model Friendship {
   id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  friendId  String   @map("friend_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User @relation("UserFriends", fields: [userId], references: [id], onDelete: Cascade)
+  friend    User @relation("FriendUsers", fields: [friendId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, friendId])
+  @@map("friends")
+}
+
+model Follow {
+  id          String   @id @default(uuid())
+  followerId  String   @map("follower_id")
+  followingId String   @map("following_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  follower    User     @relation("Followers", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User     @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@map("followers")
+}
+
+model FriendRequest {
+  id          String              @id @default(uuid())
+  senderId    String              @map("sender_id")
+  receiverId  String              @map("receiver_id")
+  status      FriendRequestStatus @default(PENDING)
+  createdAt   DateTime            @default(now()) @map("created_at")
+
+  sender      User                @relation("SentRequests", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver    User                @relation("ReceivedRequests", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@unique([senderId, receiverId])
+  @@map("friend_requests")
+}
+
+// ==========================================
+// 3. GROUPS & EVENTS
+// ==========================================
+
+model Group {
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(100)
+  description String?       @db.Text
+  coverImage  String?       @map("cover_image")
+  creatorId   String        @map("creator_id")
+  isPrivate   Boolean       @default(false) @map("is_private")
+  createdAt   DateTime      @default(now()) @map("created_at")
+
+  creator     User          @relation("GroupCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+  members     GroupMember[]
+  posts       GroupPost[]
+
+  @@map("groups")
+}
+
+model GroupMember {
+  id        Int      @id @default(autoincrement())
+  groupId   Int      @map("group_id")
+  userId    String   @map("user_id")
+  role      String   @default("member")
+  status    String   @default("pending")
+  joinedAt  DateTime @default(now()) @map("joined_at")
+
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, userId])
+  @@map("group_members")
+}
+
+model GroupPost {
+  id        Int      @id @default(autoincrement())
+  groupId   Int      @map("group_id")
+  userId    String   @map("user_id")
+  content   String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("group_posts")
+}
+
+model Event {
+  id          Int         @id @default(autoincrement())
+  creatorId   String      @map("creator_id")
+  title       String      @db.VarChar(200)
+  description String?     @db.Text
+  location    String?
+  startTime   DateTime    @map("start_time")
+  endTime     DateTime    @map("end_time")
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  creator     User        @relation("EventCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+  rsvps       EventRsvp[]
+  tickets     Ticket[]
+
+  @@map("events")
+}
+
+model EventRsvp {
+  id        Int      @id @default(autoincrement())
+  eventId   Int      @map("event_id")
+  userId    String   @map("user_id")
+  status    String   @default("maybe")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId])
+  @@map("event_rsvps")
+}
+
+model Ticket {
+  id         Int      @id @default(autoincrement())
+  eventId    Int      @map("event_id")
+  userId     String   @map("user_id")
+  ticketCode String   @unique @db.VarChar(100) @map("ticket_code")
+  isUsed     Boolean  @default(false) @map("is_used")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  event      Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("tickets")
+}
+
+// ==========================================
+// 4. MESSAGING & NOTIFICATIONS
+// ==========================================
+
+model Conversation {
+  id        Int                  @id @default(autoincrement())
+  createdAt DateTime             @default(now()) @map("created_at")
+  members   ConversationMember[]
+  messages  Message[]
+
+  @@map("conversations")
+}
+
+model ConversationMember {
+  id             Int          @id @default(autoincrement())
+  conversationId Int          @map("conversation_id")
+  userId         String       @map("user_id")
+
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userId])
+  @@map("conversation_members")
+}
+
+model Message {
+  id             Int             @id @default(autoincrement())
+  conversationId Int             @map("conversation_id")
+  senderId       String          @map("sender_id")
+  content        String          @db.Text
+  messageType    String          @default("text") @map("message_type")
+  createdAt      DateTime        @default(now()) @map("created_at")
+
+  conversation   Conversation    @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender         User            @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  statuses       MessageStatus[]
+
+  @@map("messages")
+}
+
+model MessageStatus {
+  id        Int      @id @default(autoincrement())
+  messageId Int      @map("message_id")
+  userId    String   @map("user_id")
+  status    String   @default("sent")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([messageId, userId])
+  @@map("message_status")
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  userId    String           @map("user_id")
+  type      NotificationType
+  data      Json?
+  isRead    Boolean          @default(false) @map("is_read")
+  createdAt DateTime         @default(now()) @map("created_at")
+
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+// ==========================================
+// 5. MODERATION & LOGS
+// ==========================================
+
+model Report {
+  id                Int      @id @default(autoincrement())
+  reporterId        String   @map("reporter_id")
+  reportedUserId    String   @map("reported_user_id")
+  reportedContentId Int?     @map("reported_content_id")
+  contentType       String?  @map("content_type")
+  reason            String?  @db.Text
+  status            String   @default("pending")
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  reporter          User     @relation("Reporter", fields: [reporterId], references: [id], onDelete: Cascade)
+  reportedUser      User     @relation("ReportedUser", fields: [reportedUserId], references: [id], onDelete: Cascade)
+
+  @@map("reports")
+}
+
+model UserSuspension {
+  id        Int      @id @default(autoincrement())
+  userId    String   @map("user_id")
+  reason    String   @db.Text
+  startDate DateTime @map("start_date")
+  endDate   DateTime @map("end_date")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_suspensions")
+}
+
+model ActivityLog {
+  id         Int      @id @default(autoincrement())
+  userId     String   @map("user_id")
+  action     String   @db.VarChar(100)
+  targetType String?  @map("target_type")
+  targetId   Int?     @map("target_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("activity_logs")
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  userId    String?  @map("user_id")
+  action    String   @db.VarChar(100)
+  ipAddress String?  @map("ip_address")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("audit_logs")
+}
+
+// ==========================================
+// 6. UTILITIES
+// ==========================================
+
+model OTP {
+  id        String     @id @default(uuid())
   code      String
   purpose   OtpPurpose
-  expiresAt DateTime
-  used      Boolean  @default(false)
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime   @map("expires_at")
+  used      Boolean    @default(false)
+  userId    String     @map("user_id")
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("otps")
 }
 
 model RefreshToken {
   id        String   @id @default(uuid())
-  tokenHash String
-  expiresAt DateTime
+  tokenHash String   @map("token_hash")
+  expiresAt DateTime @map("expires_at")
   revoked   Boolean  @default(false)
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("refresh_tokens")
 }
+
+model Interest {
+  id        String   @id @default(uuid())
+  name      String
+  profileId String   @map("profile_id")
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@map("interests")
+}
+
+// ==========================================
+// ENUMS
+// ==========================================
 
 enum Role {
   USER
@@ -47,4 +468,21 @@ enum Role {
 enum OtpPurpose {
   EMAIL_VERIFY
   PASSWORD_RESET
+}
+
+enum Privacy {
+  PUBLIC
+  PRIVATE
+  FRIENDS_ONLY
+}
+
+enum FriendRequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum NotificationType {
+  FRIEND_REQUEST
+  FRIEND_ACCEPTED
 }

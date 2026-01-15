@@ -1,265 +1,134 @@
-import { useState } from "react";
-import { MessageCircle, Repeat, Triangle, Settings } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
-
-// --- MOCK DATA FOR FEED ---
-const POSTS = [
-  {
-    id: 1,
-    name: "The anarchist",
-    handle: "@anarchist",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    content:
-      "Just passed a storefront window full of cacti wearing a bunch of tiny santa hats. seasonal depression cured.",
-    time: "2h",
-    hasImage: false,
-  },
-  {
-    id: 2,
-    name: "Underrated genius",
-    handle: "@genius",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-    content:
-      "Just passed a storefront window full of cacti wearing a bunch of tiny santa hats. seasonal depression cured.",
-    time: "4h",
-    hasImage: false,
-  },
-  {
-    id: 3,
-    name: "The anarchist",
-    handle: "@anarchist",
-    subtext: "from music collective",
-    avatar: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    content:
-      "Just passed a storefront window full of cacti wearing a bunch of tiny santa hats. seasonal depression cured.",
-    time: "5h",
-    hasImage: true,
-    postImage: "https://picsum.photos/seed/picsum/600/400",
-  },
-];
+import { useState, useEffect } from "react";
+import { Settings } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const TABS = ["Posts", "Likes", "Community", "Bookmark"];
 
 export default function UserProfile() {
   const navigate = useNavigate();
+  const { userId } = useParams(); // Use for visiting others
   const [activeTab, setActiveTab] = useState("Posts");
+  const [profile, setProfile] = useState<any>(null);
+  const [counts, setCounts] = useState({ followers: 0, following: 0, friends: 0 });
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        // 1. Fetch Profile - Based on Screenshot (514).png
+        const profileUrl = userId ? `http://localhost:5000/api/profile/${userId}` : "http://localhost:5000/api/profile";
+        const res = await fetch(profileUrl, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const data = await res.json();
+        setProfile(data);
+        setIsOwner(!userId);
+
+        // 2. Fetch Counts - Based on Screenshot (525).png
+        const countRes = await fetch("http://localhost:5000/api/social/counts", {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        const countData = await countRes.json();
+        setCounts(countData);
+
+        // 3. Check Following Status if not owner - Based on Screenshot (523).jpg
+        if (userId) {
+          const followRes = await fetch(`http://localhost:5000/api/follow/following/${userId}`, {
+            headers: { "Authorization": `Bearer ${token}` }
+          });
+          const followData = await followRes.json();
+          setIsFollowing(!!followData.length);
+        }
+      } catch (err) {
+        console.error("Fetch profile failed", err);
+      }
+    };
+    fetchUserData();
+  }, [userId]);
+
+  const handleFollowAction = async () => {
+    const token = localStorage.getItem("token");
+    const method = isFollowing ? "DELETE" : "POST"; // Based on Screenshot (522).jpg & Screenshot (524).jpg
+    try {
+      const res = await fetch(`http://localhost:5000/api/follow/${userId}`, {
+        method,
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+      if (res.ok) setIsFollowing(!isFollowing);
+    } catch (err) {
+      console.error("Follow action failed", err);
+    }
+  };
+
+  if (!profile) return <div className="p-10 text-white">Loading profile...</div>;
 
   return (
-    <div className="w-full">
-      {/* Profile Header Section */}
+    <div className="w-full bg-[#121212] min-h-screen text-white">
       <div className="w-full relative mb-4">
-        {/* Banner Image */}
-        <div className="h-48 md:h-60 w-full bg-gray-800 rounded-lg overflow-hidden relative">
-          <img
-            src="https://picsum.photos/1200/400"
-            alt="Profile Banner"
-            className="w-full h-full object-cover"
-          />
+        <div className="h-48 md:h-60 w-full bg-gray-800 relative">
+          <img src="https://picsum.photos/1200/400" className="w-full h-full object-cover" alt="Banner" />
         </div>
 
-        {/* Profile Info Container */}
         <div className="px-4 relative">
-          {/* Avatar - Overlapping Banner */}
           <div className="absolute -top-16 left-6">
-            <div className="w-32 h-32 md:w-36 md:h-36 rounded-full border-[6px] border-[#121212] overflow-hidden bg-gray-700">
-              <img
-                src="https://i.pravatar.cc/300"
-                alt="Profile"
-                className="w-full h-full object-cover"
-              />
+            <div className="w-32 h-32 rounded-full border-[6px] border-[#121212] overflow-hidden bg-gray-700">
+              <img src={profile.photoUrl || "https://i.pravatar.cc/300"} className="w-full h-full object-cover" alt="Avatar" />
             </div>
           </div>
 
-          {/* Header Content Wrapper */}
           <div className="pt-20 md:pt-24 mb-6">
-            {/* --- DESKTOP LAYOUT (Hidden on Mobile) --- */}
-            <div className="hidden md:flex flex-col gap-4">
-              <div className="flex flex-row justify-between items-start">
-                {/* Name & Handle */}
-                <div className="flex flex-col shrink-0">
-                  <h1 className="text-3xl font-bold text-white leading-tight">
-                    Oluwalonimi
-                  </h1>
-                  <p className="text-gray-500 text-sm font-medium mt-1">
-                    @nimitimi
-                  </p>
-                </div>
-
-                {/* Desktop Actions */}
-                <div className="flex items-center gap-3">
-                  <button 
-                    onClick={() => navigate("/settings")}
-                    className="p-2.5 rounded-xl border border-gray-800 text-gray-400 hover:text-white hover:bg-gray-800 transition-all cursor-pointer"
-                  >
-                    <Settings size={20} />
-                  </button>
-                  <button
-                    onClick={() => navigate("/create")}
-                    className="bg-[#FF5C00] text-white px-6 py-2.5 rounded-xl font-bold hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/20"
-                  >
-                    New Post
-                  </button>
-                </div>
-              </div>
-
-              {/* Bio */}
-              <p className="text-gray-300 text-sm max-w-xl leading-relaxed">
-                Frontend Developer & Designer. Building aesthetic web experiences with React and Tailwind CSS.
-              </p>
-
-              {/* Original Stats (Desktop) */}
-              <div className="flex items-center gap-10 mt-2">
-                <div className="flex items-center gap-1.5 cursor-pointer hover:text-white transition-colors group">
-                  <span className="font-bold text-white text-xl">24</span>
-                  <span className="text-gray-500 text-base group-hover:text-gray-300">
-                    Following
-                  </span>
-                </div>
-                <div className="flex items-center gap-1.5 cursor-pointer hover:text-white transition-colors group">
-                  <span className="font-bold text-white text-xl">12</span>
-                  <span className="text-gray-500 text-base group-hover:text-gray-300">
-                    Followers
-                  </span>
-                </div>
-                <div className="flex items-center gap-1.5 cursor-pointer hover:text-white transition-colors group">
-                  <span className="font-bold text-white text-xl">48</span>
-                  <span className="text-gray-500 text-base group-hover:text-gray-300">
-                    Friends
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* --- MOBILE LAYOUT (Hidden on Desktop) --- */}
-            <div className="flex flex-col md:hidden gap-4">
+            <div className="flex flex-col gap-4">
               <div className="flex justify-between items-start">
-                <div className="flex flex-col shrink-0">
-                  <h1 className="text-2xl font-bold text-white leading-tight">
-                    Oluwalonimi
-                  </h1>
-                  <p className="text-gray-500 text-sm font-medium mt-0.5">
-                    @nimitimi
-                  </p>
+                <div>
+                  <h1 className="text-3xl font-bold">{profile.fullName || "User"}</h1>
+                  <p className="text-gray-500">@{profile.userId?.slice(0, 8)}</p>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <Link to="/settings">
-                    <button className="p-2 rounded-lg border border-gray-800 text-gray-400">
-                      <Settings size={18} />
+                <div className="flex items-center gap-3">
+                  {isOwner ? (
+                    <>
+                      <button onClick={() => navigate("/settings")} className="p-2.5 border border-gray-800 rounded-xl">
+                        <Settings size={20} />
+                      </button>
+                      <button onClick={() => navigate("/create")} className="bg-orange-500 px-6 py-2.5 rounded-xl font-bold">
+                        New Post
+                      </button>
+                    </>
+                  ) : (
+                    <button 
+                      onClick={handleFollowAction}
+                      className={`${isFollowing ? 'bg-gray-800' : 'bg-orange-500'} px-8 py-2.5 rounded-xl font-bold`}
+                    >
+                      {isFollowing ? "Following" : "Follow"}
                     </button>
-                  </Link>
-                  <button className="bg-orange-500 text-white font-bold py-1.5 px-4 rounded-lg text-xs shadow-lg">
-                    New Post
-                  </button>
+                  )}
                 </div>
               </div>
 
-              {/* Bio (Mobile) */}
-              <p className="text-gray-300 text-sm leading-relaxed">
-                Frontend Developer & Designer. Building aesthetic web experiences with React and Tailwind CSS.
-              </p>
+              <p className="text-gray-300 text-sm max-w-xl">{profile.bio || "No bio yet."}</p>
 
-              {/* Original Stats (Mobile) */}
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-1 cursor-pointer hover:text-white transition-colors group">
-                  <span className="font-bold text-white text-lg">24</span>
-                  <span className="text-gray-500 text-sm group-hover:text-gray-300">
-                    Following
-                  </span>
-                </div>
-                <div className="flex items-center gap-1 cursor-pointer hover:text-white transition-colors group">
-                  <span className="font-bold text-white text-lg">12</span>
-                  <span className="text-gray-500 text-sm group-hover:text-gray-300">
-                    Followers
-                  </span>
-                </div>
-                <div className="flex items-center gap-1 cursor-pointer hover:text-white transition-colors group">
-                  <span className="font-bold text-white text-lg">48</span>
-                  <span className="text-gray-500 text-sm group-hover:text-gray-300">
-                    Friends
-                  </span>
-                </div>
+              <div className="flex items-center gap-10 mt-2">
+                <div className="flex gap-1.5"><span className="font-bold">{counts.following}</span><span className="text-gray-500">Following</span></div>
+                <div className="flex gap-1.5"><span className="font-bold">{counts.followers}</span><span className="text-gray-500">Followers</span></div>
+                <div className="flex gap-1.5"><span className="font-bold">{counts.friends}</span><span className="text-gray-500">Friends</span></div>
               </div>
             </div>
           </div>
 
-          {/* Tabs */}
-          <div className="flex items-center gap-2 border-b border-gray-800 pb-4 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-2 border-b border-gray-800 pb-4 overflow-x-auto">
             {TABS.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`
-                  px-6 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap
-                  ${
-                    activeTab === tab
-                      ? "bg-[#1f1f1f] text-white"
-                      : "text-gray-500 hover:text-gray-300 hover:bg-[#1f1f1f]/50"
-                  }
-                `}
+                className={`px-6 py-2 rounded-lg text-sm transition-all ${activeTab === tab ? "bg-[#1f1f1f]" : "text-gray-500"}`}
               >
                 {tab}
               </button>
             ))}
           </div>
         </div>
-      </div>
-
-      {/* Feed Section */}
-      <div className="px-2 md:px-4">
-        {POSTS.map((post) => (
-          <div
-            key={post.id}
-            className="py-6 border-b border-gray-800 flex gap-4"
-          >
-            <div className="shrink-0">
-              <div className="w-10 h-10 rounded-full bg-gray-700 overflow-hidden">
-                <img
-                  src={post.avatar}
-                  alt={post.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-
-            <div className="flex-1">
-              <div className="flex items-baseline gap-2 mb-1">
-                <span className="font-bold text-sm text-gray-100">
-                  {post.name}
-                </span>
-                {post.subtext && (
-                  <span className="text-gray-500 text-xs">{post.subtext}</span>
-                )}
-              </div>
-
-              <p className="text-gray-300 text-sm leading-relaxed mb-3">
-                {post.content}
-              </p>
-
-              {post.hasImage && post.postImage && (
-                <div className="mb-4 rounded-xl overflow-hidden border border-gray-800 mt-3">
-                  <img
-                    src={post.postImage}
-                    alt="Post content"
-                    className="w-full h-auto object-cover max-h-96"
-                  />
-                </div>
-              )}
-
-              <div className="flex items-center gap-8 text-gray-500 mt-2">
-                <button className="hover:text-orange-500 transition-colors group">
-                  <Repeat size={18} className="group-hover:stroke-orange-500" />
-                </button>
-                <button className="hover:text-orange-500 transition-colors group">
-                  <MessageCircle size={18} className="group-hover:stroke-orange-500" />
-                </button>
-                <button className="hover:text-orange-500 transition-colors group">
-                  <Triangle size={18} className="group-hover:stroke-orange-500 rotate-90" />
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   );

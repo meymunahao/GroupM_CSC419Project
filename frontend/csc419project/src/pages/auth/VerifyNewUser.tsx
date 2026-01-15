@@ -78,7 +78,7 @@ export default function VerifyNewUser() {
 
       // Navigate after alert
       setTimeout(() => {
-        navigate("/");
+        navigate("/post-signup");
       }, 3000);
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
