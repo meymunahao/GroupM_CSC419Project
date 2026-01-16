@@ -62,7 +62,7 @@ export default function App() {
       <Route path="/new-user" element={<NewUser />} />
         <Route path="/search" element={<FriendsPage />} />
         <Route path="/create" element={<CreatePost />} />
-        <Route path="/comments" element={<Comments />} />
+        <Route path="/posts/:postId" element={<Comments />} />
         <Route path="/collectives" element={<CollectivesCard />} />
          <Route path="/collectives/underrated-genius" element={<CollectivesPage />} /> 
       </Route>

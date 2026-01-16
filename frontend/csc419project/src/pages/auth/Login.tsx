@@ -99,7 +99,6 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-white flex items-center justify-center px-6 py-12">
       <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-
         {/* LEFT SECTION */}
         <div className="space-y-4 max-w-md md:ml-6 mx-auto md:mx-0 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start gap-2 text-3xl font-semibold mb-4">

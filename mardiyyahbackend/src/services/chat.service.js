@@ -2,18 +2,29 @@ import db from "../config/db.js";
 
 export const fetchConversations = async (userId) => {
   const { rows } = await db.query(
-    `SELECT c.id, MAX(m.created_at) as last_message_time
-     FROM conversations c
-     JOIN conversation_members cm ON cm.conversation_id = c.id
-     LEFT JOIN messages m ON m.conversation_id = c.id
-     WHERE cm.user_id = $1
-     GROUP BY c.id
-     ORDER BY last_message_time DESC`,
+    `
+    SELECT 
+      c.id,
+      u.email AS other_user_email,
+      MAX(m.created_at) AS last_message_time
+    FROM conversations c
+    JOIN conversation_members cm_self
+      ON cm_self.conversation_id = c.id
+    JOIN conversation_members cm_other
+      ON cm_other.conversation_id = c.id
+     AND cm_other.user_id <> cm_self.user_id
+    JOIN users u
+      ON u.id = cm_other.user_id
+    LEFT JOIN messages m
+      ON m.conversation_id = c.id
+    WHERE cm_self.user_id = $1
+    GROUP BY c.id, u.email
+    ORDER BY last_message_time DESC NULLS LAST
+    `,
     [userId]
   );
   return rows;
 };
-
 export const fetchMessages = async (conversationId) => {
   const { rows } = await db.query(
     `SELECT * FROM messages

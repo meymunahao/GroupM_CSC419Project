@@ -1,32 +1,43 @@
 import * as chatService from "../services/chat.service.js";
 
-
+// GET /api/chats
 export const getConversations = async (req, res) => {
-  // TEMP mock user
-  const userId = 1;
+  try {
+    const userId = req.user.id; // from authRequired
 
-  const data = await chatService.fetchConversations(userId);
-  res.json(data);
+    const data = await chatService.fetchConversations(userId);
+    res.json(data);
+  } catch (err) {
+    console.error("Error in getConversations:", err);
+    res.status(500).json({ error: err.message });
+  }
 };
 
+// GET /api/chats/:conversationId/messages
 export const getMessages = async (req, res) => {
-  const data = await chatService.fetchMessages(
-    req.params.conversationId
-  );
-  res.json(data);
+  try {
+    const data = await chatService.fetchMessages(req.params.conversationId);
+    res.json(data);
+  } catch (err) {
+    console.error("Error in getMessages:", err);
+    res.status(500).json({ error: err.message });
+  }
 };
 
+// GET /api/chats/search?q=...
 export const searchChats = async (req, res) => {
-  // TEMP mock user
-  const userId = 1;
+  try {
+    const userId = req.user.id; // from authRequired
 
-  const data = await chatService.searchMessages(
-    userId,
-    req.query.q
-  );
-  res.json(data);
+    const data = await chatService.searchMessages(userId, req.query.q);
+    res.json(data);
+  } catch (err) {
+    console.error("Error in searchChats:", err);
+    res.status(500).json({ error: err.message });
+  }
 };
 
+// POST /api/chats/:conversationId/messages
 export const sendMessage = async (req, res) => {
   try {
     const { conversationId, content } = req.body;
@@ -35,8 +46,7 @@ export const sendMessage = async (req, res) => {
       return res.status(400).json({ error: "Missing fields" });
     }
 
-    // TEMP: hard-coded user until auth is wired
-    const senderId = 1; // later: use req.user.id
+    const senderId = req.user.id; // comes from JWT via authRequired
 
     const saved = await chatService.createMessage(
       conversationId,

@@ -24,13 +24,45 @@ export const approveMember = async (req, res) => {
   res.json({ message: "Member approved" });
 };
 
+// NEW: list all groups
+export const getAllGroups = async (req, res) => {
+  const groups = await groupService.getAllGroups();
+  res.json(groups);
+};
+
 export const getGroup = async (req, res) => {
-  const group = await groupService.getGroup(req.params.id);
+  const groupRow = await groupService.getGroup(req.params.id);
+  if (!groupRow) {
+    return res.status(404).json({ message: "Group not found" });
+  }
+
+  const group = {
+    id: groupRow.id,
+    name: groupRow.name,
+    handle: groupRow.handle,                 // or slug / something similar
+    creator_name: groupRow.creator_name ?? "Unknown",
+    created_at: groupRow.created_at,
+    description: groupRow.description,
+    avatar_url: groupRow.avatar_url ?? "/statue.png",
+    banner_url: groupRow.banner_url ?? "/head.png",
+  };
+
   res.json(group);
 };
 
+
 export const getGroupPosts = async (req, res) => {
-  const posts = await groupService.getGroupPosts(req.params.id);
+  const rows = await groupService.getGroupPosts(req.params.id);
+
+  const posts = rows.map((row) => ({
+    id: row.id,
+    author_name: row.author_name ?? row.username,   // fallback
+    author_handle: row.author_handle ?? `@${row.username}`,
+    content: row.content,
+    avatar_url: row.avatar_url ?? "/nimi.png",
+    media_url: row.media_url ?? null,
+  }));
+
   res.json(posts);
 };
 

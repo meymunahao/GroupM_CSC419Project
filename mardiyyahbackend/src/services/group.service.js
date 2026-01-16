@@ -13,7 +13,6 @@ export const createGroup = async (userId, data) => {
     [name, description, userId, is_private]
   );
 
-  // creator becomes admin
   await db.query(
     `
     INSERT INTO group_members (group_id, user_id, role, status)
@@ -23,6 +22,18 @@ export const createGroup = async (userId, data) => {
   );
 
   return group.rows[0];
+};
+
+/* NEW: GET ALL GROUPS */
+export const getAllGroups = async () => {
+  const result = await db.query(
+    `
+    SELECT *
+    FROM groups
+    ORDER BY created_at DESC
+    `
+  );
+  return result.rows;
 };
 
 /* JOIN GROUP */
@@ -90,10 +101,18 @@ export const getGroup = async (groupId) => {
 };
 
 /* GROUP POSTS */
+/* GROUP POSTS (service) */
 export const getGroupPosts = async (groupId) => {
   const result = await db.query(
     `
-    SELECT gp.*, u.username
+    SELECT 
+      gp.id,
+      gp.content,
+      gp.created_at,
+      u.username AS author_handle,
+      u.full_name AS author_name,         -- or whatever field you have
+      u.avatar_url,
+      gp.media_url
     FROM group_posts gp
     JOIN users u ON u.id = gp.user_id
     WHERE gp.group_id = $1
@@ -101,7 +120,6 @@ export const getGroupPosts = async (groupId) => {
     `,
     [groupId]
   );
-
   return result.rows;
 };
 
@@ -143,4 +161,3 @@ export const searchGroups = async (query) => {
 
   return result.rows;
 };
- 

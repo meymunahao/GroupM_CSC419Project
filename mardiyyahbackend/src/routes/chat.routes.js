@@ -1,23 +1,20 @@
+// src/routes/chat.routes.js
 import express from "express";
 import {
   getConversations,
   getMessages,
   searchChats,
   sendMessage,
-  createConversation
 } from "../controllers/chat.controller.js";
-
-
-
-
+import { createConversation } from "../controllers/conversation.controller.js";
+import { authRequired } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-router.get("/conversations",getConversations);
-router.get("/messages/:conversationId",getMessages);
-router.get("/search",searchChats);
+router.get("/", authRequired, getConversations);
+router.get("/:conversationId/messages", authRequired, getMessages);
+router.get("/search", authRequired, searchChats);
+router.post("/:conversationId/messages", authRequired, sendMessage);
+router.post("/", authRequired, createConversation);
 
-
-router.post("/send", sendMessage);
-router.post("/conversations", createConversation);
 export default router;

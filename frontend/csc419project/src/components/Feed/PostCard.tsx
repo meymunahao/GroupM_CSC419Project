@@ -1,4 +1,5 @@
 // src/components/Feed/PostCard.tsx
+import { useNavigate } from "react-router-dom";
 import PostActions from "./PostActions";
 
 interface Post {
@@ -9,7 +10,17 @@ interface Post {
   image?: string;
 }
 
-export default function PostCard({ post }: { post: Post }) {
+interface PostCardProps {
+  post: Post;
+}
+
+export default function PostCard({ post }: PostCardProps) {
+  const navigate = useNavigate();
+
+  const handleReply = () => {
+    navigate(`/posts/${post.id}`);
+  };
+
   return (
     <div className="group relative z-10">
       <div className="flex gap-4 mb-3">
@@ -37,9 +48,8 @@ export default function PostCard({ post }: { post: Post }) {
           </div>
         )}
 
-        {/* Actions - relative z-20 ensures this stays on top */}
         <div className="relative z-20">
-          <PostActions />
+          <PostActions onReply={handleReply} />
         </div>
 
         <div className="h-px bg-white/5 w-full mt-8" />

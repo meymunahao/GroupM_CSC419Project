@@ -1,36 +1,118 @@
+import { useEffect, useState } from "react";
 import { Repeat2, MessageSquare, Heart } from "lucide-react";
-import { Link } from "react-router-dom"; // Replace useNavigate with Link
+import { Link, useParams } from "react-router-dom";
+
+const GROUP_API_BASE = "http://localhost:5001";
+
+type Group = {
+  id: number;
+  name: string;
+  handle: string;
+  creator_name: string;
+  created_at: string;
+  description: string;
+  avatar_url: string;
+  banner_url: string;
+};
+
+type GroupPost = {
+  id: number;
+  author_name: string;
+  author_handle: string;
+  content: string;
+  avatar_url: string;
+  media_url?: string | null;
+};
 
 export default function CollectivesPage() {
+  // optional: if you route like /collectives/:groupId
+  const { groupId } = useParams<{ groupId: string }>();
+
+  const [group, setGroup] = useState<Group | null>(null);
+  const [posts, setPosts] = useState<GroupPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchGroupAndPosts() {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const id = groupId || "1"; // default to group 1 if no param yet
+
+        const [groupRes, postsRes] = await Promise.all([
+          fetch(`${GROUP_API_BASE}/api/groups/${id}`),
+          fetch(`${GROUP_API_BASE}/api/groups/${id}/posts`),
+        ]);
+
+        if (!groupRes.ok) {
+          throw new Error(`Failed to load group: ${groupRes.status}`);
+        }
+        if (!postsRes.ok) {
+          throw new Error(`Failed to load group posts: ${postsRes.status}`);
+        }
+
+        const groupData = await groupRes.json();
+        const postsData = await postsRes.json();
+
+        setGroup(groupData);
+        setPosts(postsData);
+      } catch (err: any) {
+        console.error("Error loading collective", err);
+        setError(err.message ?? "Failed to load collective");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchGroupAndPosts();
+  }, [groupId]);
+
+  if (loading) {
+    return (
+      <div className="w-full min-h-screen bg-[#161718] text-white flex items-center justify-center">
+        <p className="text-gray-400">Loading collective...</p>
+      </div>
+    );
+  }
+
+  if (error || !group) {
+    return (
+      <div className="w-full min-h-screen bg-[#161718] text-white flex items-center justify-center">
+        <p className="text-red-400 text-sm">{error || "Collective not found"}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full min-h-screen bg-[#161718] text-white overflow-x-hidden">
-      {/* 1. Responsive Banner: Height scales down on mobile */}
+      {/* 1. Responsive Banner */}
       <div className="w-full h-40 md:h-52 bg-zinc-800">
         <img
-          src="/head.png"
+          src={group.banner_url || "/head.png"}
           className="w-full h-full object-cover opacity-80"
           alt="Group Banner"
         />
       </div>
 
-      {/* 2. Main Content Lane: Flexible width */}
+      {/* 2. Main Content Lane */}
       <div className="w-full max-w-2xl mx-auto px-4 sm:px-6">
         {/* Profile Header */}
         <div className="relative -mt-10 md:-mt-12 flex flex-col items-start">
           <img
-            src="/statue.png"
+            src={group.avatar_url || "/statue.png"}
             className="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-[#161718] object-cover shadow-xl"
             alt="Collective Profile"
           />
 
-          {/* Header Row: Stack on mobile, side-by-side on tablet+ */}
+          {/* Header Row */}
           <div className="w-full flex flex-col md:flex-row justify-between items-start mt-4 gap-4">
             <div className="w-full md:w-auto">
               <h1 className="text-lg md:text-xl font-bold tracking-tight">
-                Underrated genius
+                {group.name}
               </h1>
-              <p className="text-gray-500 text-sm">@nimitimi</p>
+              <p className="text-gray-500 text-sm">@{group.handle}</p>
 
               <Link
                 to="/create"
@@ -40,21 +122,20 @@ export default function CollectivesPage() {
               </Link>
             </div>
 
-            {/* Meta Info: Hidden or shrunk on small mobile, aligned right on desktop */}
+            {/* Meta Info */}
             <div className="md:text-right max-w-full md:max-w-[220px]">
               <p className="text-[10px] text-gray-500 uppercase tracking-widest font-medium">
-                Created by anarchist on 12/21/2202
+                Created by {group.creator_name} on{" "}
+                {new Date(group.created_at).toLocaleDateString()}
               </p>
               <p className="text-[11px] text-gray-400 mt-2 leading-relaxed">
-                Taste, storytelling, aesthetics, and creative authenticity are
-                everywhere right now. Designers are loading much of this work in
-                startups.
+                {group.description}
               </p>
             </div>
           </div>
         </div>
 
-        {/* 3. Navigation Tabs: Scrollable horizontally on small screens */}
+        {/* Tabs */}
         <div className="flex gap-4 md:gap-8 border-b border-white/5 mt-10 mb-8 text-xs font-medium text-gray-500 overflow-x-auto whitespace-nowrap scrollbar-hide">
           <button className="pb-4 text-white border-b-2 border-[#FF6719] px-2 bg-white/5 rounded-t-md">
             Posts
@@ -68,29 +149,24 @@ export default function CollectivesPage() {
           </button>
         </div>
 
-        {/* 4. Feed */}
+        {/* Feed */}
         <div className="space-y-8 md:space-y-10">
-          <PostItem
-            name="The anarchist"
-            handle="@anarchist"
-            content="Just passed a storefront window full of cacti wearing a bunch of tiny santa hats. seasonal depression cured."
-            avatar="/nimi.png"
-          />
-          {/* ... Other posts ... */}
-          <PostItem
-            name="The anarchist"
-            handle="from music collective"
-            content="Just passed a storefront window full of cacti wearing a bunch of tiny santa hats."
-            avatar="/brow.png"
-            postImage="/Lookup.png"
-          />
+          {posts.map((post) => (
+            <PostItem
+              key={post.id}
+              name={post.author_name}
+              handle={post.author_handle}
+              content={post.content}
+              avatar={post.avatar_url || "/nimi.png"}
+              postImage={post.media_url || undefined}
+            />
+          ))}
         </div>
       </div>
     </div>
   );
 }
 
-// Responsive Post Item Component
 function PostItem({
   name,
   handle,

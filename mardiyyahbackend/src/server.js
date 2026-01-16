@@ -1,6 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+
+
 import http from "http";
 import { Server } from "socket.io";
 import app from "./app.js";
@@ -9,7 +11,7 @@ import db from "./config/db.js";
 import { initChatSocket } from "./socket/chat.socket.js";
 import { initNotificationSocket } from "./socket/notification.socket.js";
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // Create HTTP server
 const server = http.createServer(app);

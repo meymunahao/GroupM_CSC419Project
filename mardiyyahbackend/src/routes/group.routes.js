@@ -8,19 +8,22 @@ import {
   getGroupPosts,
   createGroupPost,
   searchGroups,
-  approveMember
+  approveMember,
+  getAllGroups,          // ⬅ add this
 } from "../controllers/group.controller.js";
 
 const router = express.Router();
 
-router.post("/",createGroup);
-router.post("/:id/join",joinGroup);
-router.post("/:id/leave",leaveGroup);
-router.post("/:id/approve/:userId",approveMember);
+router.post("/", createGroup);
+router.get("/", getAllGroups);        // ⬅ add this line
 
-router.get("/search",searchGroups);
+router.post("/:id/join", joinGroup);
+router.post("/:id/leave", leaveGroup);
+router.post("/:id/approve/:userId", approveMember);
+
+router.get("/search", searchGroups);
 router.get("/:id", getGroup);
-router.get("/:id/posts",getGroupPosts);
-router.post("/:id/posts",createGroupPost);
+router.get("/:id/posts", getGroupPosts);
+router.post("/:id/posts", createGroupPost);
 
 export default router;

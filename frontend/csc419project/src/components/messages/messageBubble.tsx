@@ -10,22 +10,16 @@ type MessageBubbleProps = {
 };
 
 export default function MessageBubble({ message }: MessageBubbleProps) {
+  const base = "max-w-xs rounded-2xl px-3 py-2 text-sm mb-2";
+  const sent = "ml-auto bg-orange-500 text-white";
+  const received = "mr-auto bg-white/10 text-gray-100";
+
   return (
-    <div className={`flex ${message.isSent ? "justify-end" : "justify-start"} mb-4`}>
-      <div className={`max-w-[70%] ${message.isSent ? "order-2" : "order-1"}`}>
-        <div
-          className={`px-4 py-2.5 rounded-2xl ${
-            message.isSent
-              ? "bg-gray-700 text-white rounded-br-sm"
-              : "bg-white text-gray-900 rounded-bl-sm"
-          }`}
-        >
-          <p className="text-sm">{message.text}</p>
-        </div>
-        <span className={`text-xs text-gray-500 mt-1 block ${message.isSent ? "text-right" : "text-left"}`}>
-          {message.timestamp}
-        </span>
-      </div>
+    <div className={`${base} ${message.isSent ? sent : received}`}>
+      <p>{message.text}</p>
+      <span className="block mt-1 text-[10px] text-gray-400 text-right">
+        {message.timestamp}
+      </span>
     </div>
   );
 }

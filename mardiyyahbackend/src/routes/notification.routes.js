@@ -1,5 +1,6 @@
+// routes/notification.routes.ts
 import express from "express";
-import auth from "../middlewares/auth.middleware.js";
+import { authRequired } from "../middlewares/auth.middleware.js";
 import {
   getUserNotifications,
   markNotificationRead,
@@ -8,8 +9,8 @@ import {
 
 const router = express.Router();
 
-router.get("/", auth, getUserNotifications);
-router.put("/:id/read", auth, markNotificationRead);
-router.put("/read-all", auth, markAllRead);
+router.get("/", authRequired, getUserNotifications);
+router.put("/:id/read", authRequired, markNotificationRead);
+router.put("/read-all", authRequired, markAllRead);
 
 export default router;

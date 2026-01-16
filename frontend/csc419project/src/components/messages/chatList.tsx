@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, Plus, ChevronDown } from "lucide-react";
+import ChatItem from "./ChatItem";
+import { getAuthHeader } from "../../utils/auth";
 
 interface Chat {
   id: string;
@@ -12,58 +14,89 @@ interface Chat {
 }
 
 type ChatListProps = {
-  onSelectChat: (chatId: string) => void;
+  onSelectChat: (chatId: string | null) => void;
   selectedChatId: string | null;
+  reloadKey?: number; // used to trigger refetch when chats change
 };
 
-// Mock data - replace with your actual data
-const mockChats: Chat[] = [
-  {
-    id: "1",
-    name: "Jennifer Markus",
-    avatar: "https://i.pravatar.cc/150?img=1",
-    lastMessage: "Hello! I really liked your recent post",
-    timestamp: "Today | 09:30 PM",
-    unread: 4,
-    online: true,
-  },
-  {
-    id: "2",
-    name: "Iva Ryan",
-    avatar: "https://i.pravatar.cc/150?img=5",
-    lastMessage: "Hello! I really liked your recent post",
-    timestamp: "Today | 09:30 PM",
-    unread: 0,
-    online: true,
-  },
-  {
-    id: "3",
-    name: "Jerry Helfer",
-    avatar: "https://i.pravatar.cc/150?img=12",
-    lastMessage: "Hello! I really liked your recent post",
-    timestamp: "Today | 09:30 PM",
-    unread: 0,
-  },
-  {
-    id: "4",
-    name: "David Elson",
-    avatar: "https://i.pravatar.cc/150?img=8",
-    lastMessage: "Hello! I really liked your recent post",
-    timestamp: "Today | 09:30 PM",
-    unread: 0,
-  },
-  {
-    id: "5",
-    name: "Mary Freund",
-    avatar: "https://i.pravatar.cc/150?img=9",
-    lastMessage: "Hello! I really liked your recent post",
-    timestamp: "Today | 09:30 PM",
-    unread: 0,
-  },
-];
+const API_BASE_URL = "http://localhost:5001";
 
-export default function ChatList({ onSelectChat, selectedChatId }: ChatListProps) {
+export default function ChatList({
+  onSelectChat,
+  selectedChatId,
+  reloadKey = 0,
+}: ChatListProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [chats, setChats] = useState<Chat[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  // Load chats from backend
+  useEffect(() => {
+    const fetchChats = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/chats`, {
+          headers: {
+            "Content-Type": "application/json",
+            ...getAuthHeader(),
+          },
+        });
+
+        if (!res.ok) {
+          console.error("Failed to load chats");
+          setLoading(false);
+          return;
+        }
+
+        const data = await res.json();
+
+        // Map backend shape -> Chat interface; adjust field names to match your API
+        const mapped: Chat[] = data.map((c: any) => ({
+          id: String(c.id),
+          name:
+            c.other_user_email ??
+            c.otherUserEmail ??
+            c.otherUserName ??
+            "Unknown",
+          avatar: c.avatar ?? "https://i.pravatar.cc/150?img=1",
+          lastMessage: c.lastMessage ?? c.last_message_text ?? "",
+          timestamp:
+            c.lastMessageAt || c.last_message_at || c.last_message_time
+              ? new Date(
+                  c.lastMessageAt ??
+                    c.last_message_at ??
+                    c.last_message_time
+                ).toLocaleString("en-US", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  month: "short",
+                  day: "2-digit",
+                })
+              : "",
+          unread: c.unreadCount ?? c.unread_count ?? 0,
+          online: c.online ?? c.is_online ?? false,
+        }));
+
+        setChats(mapped);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchChats();
+  }, [reloadKey]);
+
+  // Filter chats by search query
+  const filteredChats = chats.filter((chat) => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase();
+    return (
+      chat.name.toLowerCase().includes(q) ||
+      chat.lastMessage.toLowerCase().includes(q)
+    );
+  });
 
   return (
     <div className="w-full md:w-[400px] h-full bg-[#1a1a1a] border-r border-white/10 flex flex-col">
@@ -87,7 +120,14 @@ export default function ChatList({ onSelectChat, selectedChatId }: ChatListProps
             All Messages
             <ChevronDown className="w-4 h-4" />
           </button>
-          <button className="bg-orange-500 hover:bg-orange-600 p-2 rounded-lg transition">
+          <button
+            className="bg-orange-500 hover:bg-orange-600 p-2 rounded-lg transition"
+            type="button"
+            onClick={() => {
+              console.log("ORANGE PLUS CLICKED");
+              onSelectChat(null); // show empty ChatWindow state
+            }}
+          >
             <Plus className="w-5 h-5 text-white" />
           </button>
         </div>
@@ -95,48 +135,23 @@ export default function ChatList({ onSelectChat, selectedChatId }: ChatListProps
 
       {/* Chat List */}
       <div className="flex-1 overflow-y-auto">
-        {mockChats.map((chat) => (
-          <div
-            key={chat.id}
-            onClick={() => onSelectChat(chat.id)}
-            className={`p-4 border-b border-white/5 cursor-pointer transition hover:bg-white/5 ${
-              selectedChatId === chat.id ? "bg-white/10" : ""
-            }`}
-          >
-            <div className="flex gap-3">
-              {/* Avatar with online indicator */}
-              <div className="relative">
-                <img
-                  src={chat.avatar}
-                  alt={chat.name}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
-                {chat.online && (
-                  <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-[#1a1a1a]" />
-                )}
-                {chat.unread > 0 && (
-                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center">
-                    <span className="text-xs text-white font-semibold">{chat.unread}</span>
-                  </div>
-                )}
-              </div>
+        {loading && (
+          <div className="p-4 text-sm text-gray-400">Loading chats...</div>
+        )}
 
-              {/* Chat Info */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center justify-between mb-1">
-                  <h3 className="text-white font-medium truncate">{chat.name}</h3>
-                </div>
-                <p className="text-sm text-gray-400 truncate">{chat.lastMessage}</p>
-                <div className="flex items-center gap-1 mt-1">
-                  <svg className="w-3 h-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span className="text-xs text-gray-500">{chat.timestamp}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+        {!loading && filteredChats.length === 0 && (
+          <div className="p-4 text-sm text-gray-400">No chats found.</div>
+        )}
+
+        {!loading &&
+          filteredChats.map((chat) => (
+            <ChatItem
+              key={chat.id}
+              chat={chat}
+              isSelected={selectedChatId === chat.id}
+              onClick={() => onSelectChat(chat.id)}
+            />
+          ))}
       </div>
     </div>
   );
