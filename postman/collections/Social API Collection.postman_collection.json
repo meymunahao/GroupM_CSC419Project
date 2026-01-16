@@ -7,47 +7,15 @@
   },
   "item": [
     {
-      "name": "Register User",
-      "id": "dc978de7-932b-4230-af0c-a6d793361080",
-      "request": {
-        "auth": {
-          "type": "noauth"
-        },
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"email\": \"falectrotech@gmail.com\",\r\n  \"password\": \"Password123!\"\r\n}\r\n",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:5000/api/auth/register",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "5000",
-          "path": [
-            "api",
-            "auth",
-            "register"
-          ]
-        }
-      },
-      "response": [
+      "name": "Authenticatication",
+      "item": [
         {
-          "id": "9c5c9c4a-37c9-4161-8366-62123b5184cd",
           "name": "Register User",
-          "originalRequest": {
+          "id": "dc978de7-932b-4230-af0c-a6d793361080",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
             "method": "POST",
             "header": [
               {
@@ -78,82 +46,162 @@
               ]
             }
           },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": "Text",
-          "header": [
+          "response": [
             {
-              "key": "X-Powered-By",
-              "value": "Express"
+              "id": "9c5c9c4a-37c9-4161-8366-62123b5184cd",
+              "name": "Register User",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"falectrotech@gmail.com\",\r\n  \"password\": \"Password123!\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/auth/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "44"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2c-IPh+uDYLqgYoH5ABBLqLbT7ZFyY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 09 Jan 2026 03:03:46 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Registered. OTP sent to email.\"\n}"
             },
             {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json; charset=utf-8"
-            },
-            {
-              "key": "Content-Length",
-              "value": "44"
-            },
-            {
-              "key": "ETag",
-              "value": "W/\"2c-IPh+uDYLqgYoH5ABBLqLbT7ZFyY\""
-            },
-            {
-              "key": "Date",
-              "value": "Fri, 09 Jan 2026 03:03:46 GMT"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=5"
+              "id": "21a44cc4-c260-4bca-8be4-4a11a1e53d81",
+              "name": "Register User",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"apampamardiyyah@gmail.com\",\r\n  \"password\": \"Password123!\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/auth/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "44"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2c-IPh+uDYLqgYoH5ABBLqLbT7ZFyY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 15 Jan 2026 18:33:55 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-01-15T18:34:01.542Z",
+              "body": "{\n    \"message\": \"Registered. OTP sent to email.\"\n}"
             }
-          ],
-          "cookie": [],
-          "body": "{\n    \"message\": \"Registered. OTP sent to email.\"\n}"
-        }
-      ]
-    },
-    {
-      "name": "Verify User Email",
-      "id": "b9601b18-c491-488e-ab15-3e52be20725f",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"email\": \"babajidefaruq7@gmail.com\",\r\n  \"otp\": \"876878\"\r\n}\r\n\r\n",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:5000/api/auth/verify-email",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "5000",
-          "path": [
-            "api",
-            "auth",
-            "verify-email"
           ]
-        }
-      },
-      "response": [
+        },
         {
-          "id": "b8804abc-a4c1-47ed-b715-3b29f722189a",
-          "name": "New Request",
-          "originalRequest": {
+          "name": "Verify User Email",
+          "id": "b9601b18-c491-488e-ab15-3e52be20725f",
+          "request": {
             "method": "POST",
             "header": [],
             "body": {
@@ -179,87 +227,152 @@
               ]
             }
           },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": "Text",
-          "header": [
+          "response": [
             {
-              "key": "X-Powered-By",
-              "value": "Express"
+              "id": "b8804abc-a4c1-47ed-b715-3b29f722189a",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"babajidefaruq7@gmail.com\",\r\n  \"otp\": \"876878\"\r\n}\r\n\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/auth/verify-email",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "auth",
+                    "verify-email"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "28"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1c-HKxSht1z0bTpFJ6vRQGxW0fz9zo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 08 Jan 2026 23:50:16 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Email verified\"\n}"
             },
             {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json; charset=utf-8"
-            },
-            {
-              "key": "Content-Length",
-              "value": "28"
-            },
-            {
-              "key": "ETag",
-              "value": "W/\"1c-HKxSht1z0bTpFJ6vRQGxW0fz9zo\""
-            },
-            {
-              "key": "Date",
-              "value": "Thu, 08 Jan 2026 23:50:16 GMT"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=5"
+              "id": "e4058cd2-25e5-4436-9787-1ad369f52cd6",
+              "name": "Verify User Email",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"somtochukwu.onodingene@pau.edu.ng\",\r\n  \"otp\": \"184977\"\r\n}\r\n\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/auth/verify-email",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "auth",
+                    "verify-email"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "28"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1c-HKxSht1z0bTpFJ6vRQGxW0fz9zo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 15 Jan 2026 12:15:12 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-01-15T12:15:17.899Z",
+              "body": "{\n    \"message\": \"Email verified\"\n}"
             }
-          ],
-          "cookie": [],
-          "body": "{\n    \"message\": \"Email verified\"\n}"
-        }
-      ]
-    },
-    {
-      "name": "Login User",
-      "id": "017c32e0-199c-44d8-bf4d-c3cce10b8958",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\"email\":\"babajidefaruq7@gmail.com\",\"password\":\"Password123!\"}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:5000/api/auth/login",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "5000",
-          "path": [
-            "api",
-            "auth",
-            "login"
           ]
-        }
-      },
-      "response": [
+        },
         {
-          "id": "cd98fa52-0c40-4348-b8de-88a228ad449d",
           "name": "Login User",
-          "originalRequest": {
+          "id": "017c32e0-199c-44d8-bf4d-c3cce10b8958",
+          "request": {
             "method": "POST",
             "header": [
               {
@@ -290,107 +403,248 @@
               ]
             }
           },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": "Text",
-          "header": [
+          "response": [
             {
-              "key": "X-Powered-By",
-              "value": "Express"
+              "id": "cd98fa52-0c40-4348-b8de-88a228ad449d",
+              "name": "Login User",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"email\":\"babajidefaruq7@gmail.com\",\"password\":\"Password123!\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/auth/login",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "428"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1ac-u2QL/YhMC41F8LOIcXOvv9xBzpk\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 08 Jan 2026 23:57:38 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MzU1YWRlLTg5ZDMtNDkwOC1hYTUwLTUxNDBjMjAyZDdmNSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY3OTE2NjU3LCJleHAiOjE3Njc5MTc1NTd9.QvGvkjuvgQ2UXkaKzg8OgSOJPyH5yqh4YR9CskDw6wE\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MzU1YWRlLTg5ZDMtNDkwOC1hYTUwLTUxNDBjMjAyZDdmNSIsImlhdCI6MTc2NzkxNjY1NywiZXhwIjoxNzY4NTIxNDU3fQ.fAKk-n4KgEsJjS5TnfZceEgP-iJZrvcvwfsZnSbpJOk\"\n}"
             },
             {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
+              "id": "10b84d2a-4c9b-4991-821f-a4f770eaad13",
+              "name": "Login User",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"babajidefaruq8@gmail.com\",\r\n  \"password\": \"qwerty123@\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/auth/login",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "428"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1ac-h3Zz/s8OUYLgsb3OOeCOde9FmVg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 16:31:14 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhNTk4MzBlLTcxZWQtNDNiZi05NGU4LTBmZDdiZTY1ZWI3OSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY4NDA4MjczLCJleHAiOjE3Njg0MDkxNzN9.cCK4e6pyzB-fxld1nFVvf2LSOVJYdW2nSvbYS2ehDnI\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhNTk4MzBlLTcxZWQtNDNiZi05NGU4LTBmZDdiZTY1ZWI3OSIsImlhdCI6MTc2ODQwODI3MywiZXhwIjoxNzY5MDEzMDczfQ.PEJ_QrLn6m-nn-olbgqflkBOxE9zcbpDAXCjEPJg1PY\"\n}"
             },
             {
-              "key": "Content-Type",
-              "value": "application/json; charset=utf-8"
-            },
-            {
-              "key": "Content-Length",
-              "value": "428"
-            },
-            {
-              "key": "ETag",
-              "value": "W/\"1ac-u2QL/YhMC41F8LOIcXOvv9xBzpk\""
-            },
-            {
-              "key": "Date",
-              "value": "Thu, 08 Jan 2026 23:57:38 GMT"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=5"
-            }
-          ],
-          "cookie": [],
-          "body": "{\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MzU1YWRlLTg5ZDMtNDkwOC1hYTUwLTUxNDBjMjAyZDdmNSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY3OTE2NjU3LCJleHAiOjE3Njc5MTc1NTd9.QvGvkjuvgQ2UXkaKzg8OgSOJPyH5yqh4YR9CskDw6wE\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI1MzU1YWRlLTg5ZDMtNDkwOC1hYTUwLTUxNDBjMjAyZDdmNSIsImlhdCI6MTc2NzkxNjY1NywiZXhwIjoxNzY4NTIxNDU3fQ.fAKk-n4KgEsJjS5TnfZceEgP-iJZrvcvwfsZnSbpJOk\"\n}"
-        }
-      ]
-    },
-    {
-      "name": "Reset Password",
-      "id": "804576e0-0b34-4a5f-9d72-141b355c9982",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\"email\":\"babajidefaruq7@gmail.com\"}"
-        },
-        "url": {
-          "raw": "http://localhost:5000/api/auth/forgot-password\n?babajidefaruq7@gmail.com",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "5000",
-          "path": [
-            "api",
-            "auth",
-            "forgot-password\n"
-          ],
-          "query": [
-            {
-              "key": "babajidefaruq7@gmail.com",
-              "value": null
+              "id": "84e6cca9-6e80-4f64-aee7-c9e8ff2a2ae8",
+              "name": "Login User",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"kimberlyesekody@gmail.com\",\r\n  \"password\": \"password\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/auth/login",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "428"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1ac-9cJRWNg1CjLmG3CgrPHCiB9M1z8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 16:40:06 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEzMjZhOThhLWZiMGEtNDlmOC1iZGNkLTEwYWMwNzIyZDllOCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY4NDA4ODA0LCJleHAiOjE3Njg0MDk3MDR9.UKvOJl3dxJzU5Xah5rD0ank1cnfrmYOub1G4CND5vjU\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEzMjZhOThhLWZiMGEtNDlmOC1iZGNkLTEwYWMwNzIyZDllOCIsImlhdCI6MTc2ODQwODgwNCwiZXhwIjoxNzY5MDEzNjA0fQ.m-kiHBOk1UIrof5qDFVzUyhTcVhmp90QyCO689_pnjM\"\n}"
             }
           ]
-        }
-      },
-      "response": [
+        },
         {
-          "id": "c5d9e8fd-cb6a-4ef5-a9f8-e76b79f2e32a",
-          "name": "New Request",
-          "originalRequest": {
+          "name": "Reset Password",
+          "id": "804576e0-0b34-4a5f-9d72-141b355c9982",
+          "request": {
             "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
+                "value": "application/json"
               }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"email\": \"babajidefaruq7@gmail.com\"\r\n}\r\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
+              "raw": "{\"email\":\"babajidefaruq7@gmail.com\"}"
             },
             "url": {
-              "raw": "http://localhost:5000/api/auth/forgot-password",
+              "raw": "http://localhost:5000/api/auth/forgot-password\n?babajidefaruq7@gmail.com=",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -399,91 +653,98 @@
               "path": [
                 "api",
                 "auth",
-                "forgot-password"
+                "forgot-password\n"
+              ],
+              "query": [
+                {
+                  "key": "babajidefaruq7@gmail.com",
+                  "value": ""
+                }
               ]
             }
           },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": "Text",
-          "header": [
+          "response": [
             {
-              "key": "X-Powered-By",
-              "value": "Express"
-            },
-            {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json; charset=utf-8"
-            },
-            {
-              "key": "Content-Length",
-              "value": "39"
-            },
-            {
-              "key": "ETag",
-              "value": "W/\"27-4JqvfSiP2187gaBDBSM4cq2f2cQ\""
-            },
-            {
-              "key": "Date",
-              "value": "Fri, 09 Jan 2026 00:29:38 GMT"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=5"
+              "id": "c5d9e8fd-cb6a-4ef5-a9f8-e76b79f2e32a",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"babajidefaruq7@gmail.com\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/auth/forgot-password",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "auth",
+                    "forgot-password"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "39"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"27-4JqvfSiP2187gaBDBSM4cq2f2cQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 09 Jan 2026 00:29:38 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"If email exists, OTP sent\"\n}"
             }
-          ],
-          "cookie": [],
-          "body": "{\n    \"message\": \"If email exists, OTP sent\"\n}"
-        }
-      ]
-    },
-    {
-      "name": "Verify Reset OTP",
-      "id": "030e9787-48b1-4d12-ae62-97c2391ab860",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\"email\":\"babajidefaruq7@gmail.com\",\"otp\":\"322818\"}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:5000/api/auth/verify-reset-otp",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "5000",
-          "path": [
-            "api",
-            "auth",
-            "verify-reset-otp"
           ]
-        }
-      },
-      "response": [
+        },
         {
-          "id": "79594cde-a615-4288-b99d-1da26f40ae82",
           "name": "Verify Reset OTP",
-          "originalRequest": {
+          "id": "030e9787-48b1-4d12-ae62-97c2391ab860",
+          "request": {
             "method": "POST",
             "header": [
               {
@@ -514,87 +775,87 @@
               ]
             }
           },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": "Text",
-          "header": [
+          "response": [
             {
-              "key": "X-Powered-By",
-              "value": "Express"
-            },
-            {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json; charset=utf-8"
-            },
-            {
-              "key": "Content-Length",
-              "value": "26"
-            },
-            {
-              "key": "ETag",
-              "value": "W/\"1a-Oc8gx27VjOcxi4Vzg/k97JRRHkQ\""
-            },
-            {
-              "key": "Date",
-              "value": "Fri, 09 Jan 2026 00:38:29 GMT"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=5"
+              "id": "79594cde-a615-4288-b99d-1da26f40ae82",
+              "name": "Verify Reset OTP",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"email\":\"babajidefaruq7@gmail.com\",\"otp\":\"322818\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/auth/verify-reset-otp",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "auth",
+                    "verify-reset-otp"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "26"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1a-Oc8gx27VjOcxi4Vzg/k97JRRHkQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 09 Jan 2026 00:38:29 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"OTP verified\"\n}"
             }
-          ],
-          "cookie": [],
-          "body": "{\n    \"message\": \"OTP verified\"\n}"
-        }
-      ]
-    },
-    {
-      "name": "Verify Reset OTP Copy",
-      "id": "7ed0b044-01f5-4011-aaa1-ecec6742c26d",
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"email\": \"babajidefaruq7@gmail.com\",\r\n  \"newPassword\": \"NewSecurePassword123\"\r\n}\r\n",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:5000/api/auth/reset-password\n",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "5000",
-          "path": [
-            "api",
-            "auth",
-            "reset-password\n"
           ]
-        }
-      },
-      "response": [
+        },
         {
-          "id": "2f27bf26-8347-48d8-978d-5846da715724",
-          "name": "Verify Reset OTP Copy",
-          "originalRequest": {
+          "name": "Change password",
+          "id": "7ed0b044-01f5-4011-aaa1-ecec6742c26d",
+          "request": {
             "method": "POST",
             "header": [
               {
@@ -604,7 +865,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"email\": \"babajidefaruq7@gmail.com\",\r\n  \"newPassword\": \"NewSecurePassword123\"\r\n}",
+              "raw": "{\r\n  \"email\": \"babajidefaruq7@gmail.com\",\r\n  \"newPassword\": \"NewSecurePassword123\"\r\n}\r\n",
               "options": {
                 "raw": {
                   "language": "json"
@@ -612,7 +873,7 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/api/auth/reset-password",
+              "raw": "http://localhost:5000/api/auth/reset-password\n",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -621,51 +882,2121 @@
               "path": [
                 "api",
                 "auth",
-                "reset-password"
+                "reset-password\n"
               ]
             }
           },
-          "status": "OK",
-          "code": 200,
-          "_postman_previewlanguage": "Text",
-          "header": [
+          "response": [
             {
-              "key": "X-Powered-By",
-              "value": "Express"
-            },
-            {
-              "key": "Access-Control-Allow-Origin",
-              "value": "*"
-            },
-            {
-              "key": "Content-Type",
-              "value": "application/json; charset=utf-8"
-            },
-            {
-              "key": "Content-Length",
-              "value": "39"
-            },
-            {
-              "key": "ETag",
-              "value": "W/\"27-L4xvc+jp/avJkeCZKkXIaqi7KoM\""
-            },
-            {
-              "key": "Date",
-              "value": "Fri, 09 Jan 2026 00:48:38 GMT"
-            },
-            {
-              "key": "Connection",
-              "value": "keep-alive"
-            },
-            {
-              "key": "Keep-Alive",
-              "value": "timeout=5"
+              "id": "2f27bf26-8347-48d8-978d-5846da715724",
+              "name": "Change Password",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"babajidefaruq7@gmail.com\",\r\n  \"newPassword\": \"NewSecurePassword123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/auth/reset-password",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "auth",
+                    "reset-password"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "39"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"27-L4xvc+jp/avJkeCZKkXIaqi7KoM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 09 Jan 2026 00:48:38 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Password reset successful\"\n}"
             }
-          ],
-          "cookie": [],
-          "body": "{\n    \"message\": \"Password reset successful\"\n}"
+          ]
         }
-      ]
+      ],
+      "id": "b3cb6d1c-1f73-4d51-a4af-664ef3b178f2"
+    },
+    {
+      "name": "Users Profile",
+      "item": [
+        {
+          "name": "Create User Profile",
+          "id": "5eb1cc2c-966f-4592-ac85-c7a7cefd32f5",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"bio\": \"I love coding\",\r\n  \"links\": [\"https://twitter.com/faruq\"],\r\n  \"privacy\": \"PUBLIC\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/profile",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "profile"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "029729c1-573b-4b58-a722-4f1296f5e295",
+              "name": "Create User Profile",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"Kim Kardasian\",\r\n  \"bio\": \"Backend developer\",\r\n  \"privacy\": \"PUBLIC\",\r\n  \"links\": {\r\n    \"github\": \"https://github.com/kim\"\r\n  }\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/profile",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "profile"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "276"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"114-lf7uf6BMoTuqekkw5XLbue6DooI\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 21:47:24 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": \"1c6b6da4-6c80-49d0-a86d-a88c18afa0c9\",\n    \"userId\": \"a326a98a-fb0a-49f8-bdcd-10ac0722d9e8\",\n    \"bio\": \"Backend developer\",\n    \"links\": {\n        \"github\": \"https://github.com/kim\"\n    },\n    \"photoUrl\": null,\n    \"privacy\": \"PUBLIC\",\n    \"createdAt\": \"2026-01-14T21:47:22.897Z\",\n    \"updatedAt\": \"2026-01-14T21:47:22.897Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Users Profile",
+          "id": "8ec4d190-2e67-48d7-b5ed-fc4c970ae59e",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhNTk4MzBlLTcxZWQtNDNiZi05NGU4LTBmZDdiZTY1ZWI3OSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY4NDAxMzMyLCJleHAiOjE3Njg0MDIyMzJ9.Q1vPwGtdnKCeLtYOYJWaWWocmOQDn8p9i9_K6LjkBuE",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/profile",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "profile"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c16a05ec-26c1-4936-a004-2201ee0796dc",
+              "name": "Example",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": null
+            },
+            {
+              "id": "d3fa7aa1-70eb-449b-8e26-0ecdfe335372",
+              "name": "Get Users Profile",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5000/api/profile",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "profile"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "808"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"328-gejEQsD74gDDbgBtgzkgy0cua0g\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 15 Jan 2026 12:24:31 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-01-15T12:24:50.612Z",
+              "body": "{\n    \"id\": \"b8293f29-5e9f-4f58-bc36-4237e1dce58d\",\n    \"userId\": \"f83cbca5-e19c-48bb-8073-6c7c1bde55fb\",\n    \"bio\": \"Backend developer\",\n    \"links\": {\n        \"github\": \"https://github.com/somto\"\n    },\n    \"photoUrl\": null,\n    \"privacy\": \"PUBLIC\",\n    \"avatarUrl\": null,\n    \"coverPhotoUrl\": null,\n    \"website\": null,\n    \"location\": null,\n    \"dateOfBirth\": null,\n    \"createdAt\": \"2026-01-15T12:18:18.332Z\",\n    \"updatedAt\": \"2026-01-15T12:18:18.332Z\",\n    \"interests\": [\n        {\n            \"id\": \"50f6f691-5395-4062-acb2-11239457d60f\",\n            \"name\": \"Coding\",\n            \"profileId\": \"b8293f29-5e9f-4f58-bc36-4237e1dce58d\"\n        },\n        {\n            \"id\": \"2a770571-e7c6-4637-b339-9b60f7380be0\",\n            \"name\": \"Music\",\n            \"profileId\": \"b8293f29-5e9f-4f58-bc36-4237e1dce58d\"\n        },\n        {\n            \"id\": \"4bafbee5-29c5-4a69-a0cd-ed7b8d27a9d0\",\n            \"name\": \"Reading\",\n            \"profileId\": \"b8293f29-5e9f-4f58-bc36-4237e1dce58d\"\n        }\n    ],\n    \"user\": {\n        \"username\": \"Somtochukwu Onodingene\",\n        \"email\": \"somtochukwu.onodingene@pau.edu.ng\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Add User Interest",
+          "id": "ea688bcb-415a-479b-8416-dc6ecf5fd478",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM4MTA2ZWRlLTAxNzgtNGU3Yy04MTI4LTczMDlhMzE5OWIzYiIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY4NTYyMzgxLCJleHAiOjE3Njg1NjMyODF9.bxolwgk8fB7QGq7dvo4Oo_2ovZMhvL5dLW4Ucb91O9g",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"interests\": [\"Coding\", \"Music\", \"Reading\"]\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/profile/interests",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "profile",
+                "interests"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ea2a2524-9a9c-4e0e-aba5-82144609b5d5",
+              "name": "Add User Interest",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"interests\": [\"Coding\", \"Music\", \"Reading\"]\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/profile/interests",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "profile",
+                    "interests"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "42"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2a-lsPFsLqG0hsVxk2VpROctaLdaVU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 21:49:40 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Interests saved successfully\"\n}"
+            },
+            {
+              "id": "6d3f324c-209a-4eb5-aacb-ae727c06bfb9",
+              "name": "Add User Interest",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"interests\": [\"Coding\", \"Music\", \"Reading\"]\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/profile/interests",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "profile",
+                    "interests"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "42"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2a-lsPFsLqG0hsVxk2VpROctaLdaVU\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 16 Jan 2026 11:21:32 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-01-16T11:21:38.299Z",
+              "body": "{\n    \"message\": \"Interests saved successfully\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Upload Photo",
+          "id": "80425a3b-0717-461b-be69-4114aaacd430",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhNTk4MzBlLTcxZWQtNDNiZi05NGU4LTBmZDdiZTY1ZWI3OSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY4NDAyMjk1LCJleHAiOjE3Njg0MDMxOTV9.CzVz2aLxSVpJT8bbsaWcR3rGNX2KHirzr94u_15_N58",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "",
+                  "type": "file",
+                  "src": [
+                    "/C:/Users/faruq/Pictures/psg.png"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/profile/photo",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "profile",
+                "photo"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "045f44fc-056f-4715-822f-6fe3e9af0945",
+              "name": "Upload Photo",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "photo",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/faruq/Pictures/psg.png"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/profile/photo",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "profile",
+                    "photo"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "110"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"6e-DKY37awUqVTOgduounvFwcnXsrM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 23:28:34 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"photoUrl\": \"https://res.cloudinary.com/dkjeobqqm/image/upload/v1768433314/profiles/vmnhcz1zwnesjweqd5mx.png\"\n}"
+            },
+            {
+              "id": "f5000745-52a5-45bd-bf87-a123a37e02fd",
+              "name": "Upload Photo",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "photo",
+                      "type": "file",
+                      "src": [
+                        "/C:/Users/faruq/Downloads/coincircuithq_logo.jpg"
+                      ]
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/profile/photo",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "profile",
+                    "photo"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "110"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"6e-cY2qBb+XrZ55rL4UJ4KvR0Fl7mw\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 16 Jan 2026 11:23:29 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-01-16T11:23:38.083Z",
+              "body": "{\n    \"photoUrl\": \"https://res.cloudinary.com/dkjeobqqm/image/upload/v1768562610/profiles/p28k9xhhrob9grvcu5ez.jpg\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Privacy",
+          "id": "c6153138-0ed0-4bb1-ab02-293302c7940e",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY4M2NiY2E1LWUxOWMtNDhiYi04MDczLTZjN2MxYmRlNTVmYiIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY4NDg2MTAxLCJleHAiOjE3Njg0ODcwMDF9.WIHQ2Ay7KR1WC8shAAK1TYrQhJsQjSbxoANWSz2o05c",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"privacy\": \"PRIVATE\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/profile/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "profile",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "90e89ee9-73a5-483c-bf0e-e99943aadef7",
+              "name": "Update Privacy",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"privacy\": \"PRIVATE\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/profile/",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "profile",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "367"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"16f-fLTvLgNT1wtx5lXOw2CuIUwxthI\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Thu, 15 Jan 2026 14:08:41 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-01-15T14:08:50.747Z",
+              "body": "{\n    \"id\": \"b8293f29-5e9f-4f58-bc36-4237e1dce58d\",\n    \"userId\": \"f83cbca5-e19c-48bb-8073-6c7c1bde55fb\",\n    \"bio\": \"Backend developer\",\n    \"links\": {\n        \"github\": \"https://github.com/somto\"\n    },\n    \"photoUrl\": null,\n    \"privacy\": \"PRIVATE\",\n    \"avatarUrl\": null,\n    \"coverPhotoUrl\": null,\n    \"website\": null,\n    \"location\": null,\n    \"dateOfBirth\": null,\n    \"createdAt\": \"2026-01-15T12:18:18.332Z\",\n    \"updatedAt\": \"2026-01-15T14:08:39.261Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Users Profile",
+          "id": "3aeae23c-5ea0-4453-bf5f-23b5870da1ee",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/profile/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "profile",
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4d932d65-9fe3-4ab4-90d6-64549d4f545e",
+              "name": "Update Users Profile",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\": \"Tosin Olutishe\",\r\n    \"bio\": \"I hate Advancement project and will like to graduate\",\r\n    \"links\": { \"github\": \"https://github.com/tosin\" },\r\n    \"privacy\": \"PRIVATE\"\r\n  }",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/profile/",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "profile",
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "495"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1ef-/wpPCgT4AxLCI5aD77pEnI6sDg0\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 16 Jan 2026 12:32:33 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-01-16T12:32:38.398Z",
+              "body": "{\n    \"id\": \"9e5809a0-fb77-4914-9a20-52ee4be351be\",\n    \"userId\": \"4b1ffa0f-a306-4081-871a-71033fc4e9df\",\n    \"bio\": \"I hate Advancement project and will like to graduate\",\n    \"links\": {\n        \"github\": \"https://github.com/tosin\"\n    },\n    \"photoUrl\": \"https://res.cloudinary.com/dkjeobqqm/image/upload/v1768566470/profiles/ej0i4j4znifyqjrsdpko.jpg\",\n    \"privacy\": \"PRIVATE\",\n    \"avatarUrl\": null,\n    \"coverPhotoUrl\": null,\n    \"website\": null,\n    \"location\": null,\n    \"dateOfBirth\": null,\n    \"createdAt\": \"2026-01-16T12:12:33.223Z\",\n    \"updatedAt\": \"2026-01-16T12:32:31.355Z\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Image",
+          "id": "7823a6fa-b381-45fa-abcf-561d31196397",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/profile/photo",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "profile",
+                "photo"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "08545e01-15c8-4fd9-80fb-55f52e625b7c"
+    },
+    {
+      "name": "Follow & Friend System",
+      "item": [
+        {
+          "name": "Send Friend Request",
+          "id": "ead2f69e-17c5-40c9-b7e5-b06db633f734",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImRhNTk4MzBlLTcxZWQtNDNiZi05NGU4LTBmZDdiZTY1ZWI3OSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY4NDE4ODA0LCJleHAiOjE3Njg0MTk3MDR9.8iccPD6LNVK2zJy2vWILehfiqSYyEY2ADtZxHf-U3W4",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/friends/request/a326a98a-fb0a-49f8-bdcd-10ac0722d9e8",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "friends",
+                "request",
+                "a326a98a-fb0a-49f8-bdcd-10ac0722d9e8"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7a79fa79-8932-46de-b2b1-c61706cea6de",
+              "name": "Send Friend Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5000/api/friends/request/b5355ade-89d3-4908-aa50-5140c202d7f5",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "friends",
+                    "request",
+                    "b5355ade-89d3-4908-aa50-5140c202d7f5"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "36"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"24-+7BhY0/8x6PUAPbn0C/5SGTPHsQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 16:18:41 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Request already exists\"\n}"
+            },
+            {
+              "id": "74925caf-6e50-4330-a92d-4670bc6953f1",
+              "name": "Send Friend Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5000/api/friends/request/a326a98a-fb0a-49f8-bdcd-10ac0722d9e8",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "friends",
+                    "request",
+                    "a326a98a-fb0a-49f8-bdcd-10ac0722d9e8"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "33"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"21-3HHTUx2I2Zj3Wp2lwuscdFmmdFs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 16:28:17 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Friend request sent\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Friends Notification",
+          "id": "bdaa1740-564a-4209-87bf-128790ba8659",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEzMjZhOThhLWZiMGEtNDlmOC1iZGNkLTEwYWMwNzIyZDllOCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY4NDE4OTk4LCJleHAiOjE3Njg0MTk4OTh9.CiubXtWX8Huo6vvE9suxTyw1apxNPS8sVgOXgsw82Ws",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/friends/requests/incoming",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "friends",
+                "requests",
+                "incoming"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "91cecdfc-4392-47f6-8ebb-f2453dbecc2e",
+              "name": "Friends Notification",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5000/api/friends/requests/incoming",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "friends",
+                    "requests",
+                    "incoming"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "297"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"129-KsVW0jhoCORdRVelOnVhoiVAhuQ\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 19:32:50 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": \"134e1eef-e3dd-44cf-89c5-4d79dcdd55ba\",\n        \"senderId\": \"da59830e-71ed-43bf-94e8-0fd7be65eb79\",\n        \"receiverId\": \"a326a98a-fb0a-49f8-bdcd-10ac0722d9e8\",\n        \"status\": \"PENDING\",\n        \"createdAt\": \"2026-01-14T16:28:15.561Z\",\n        \"sender\": {\n            \"id\": \"da59830e-71ed-43bf-94e8-0fd7be65eb79\",\n            \"email\": \"babajidefaruq8@gmail.com\"\n        }\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Accept Friends Notification",
+          "id": "2759a48a-b4ca-48ec-a8fd-8d39e77436ee",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/friends/accept/:requestId",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "friends",
+                "accept",
+                ":requestId"
+              ],
+              "variable": [
+                {
+                  "key": "requestId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5b4dba69-f9c2-48a3-b34f-a6a086737c74",
+              "name": "Accept Friends Notification",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/api/friends/request/accept/134e1eef-e3dd-44cf-89c5-4d79dcdd55ba",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "friends",
+                    "request",
+                    "accept",
+                    "134e1eef-e3dd-44cf-89c5-4d79dcdd55ba"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "37"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"25-lrq9N2fi8ofhFLRt49IONoFQGwc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 19:40:55 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Friend request accepted\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Friends List",
+          "id": "541d90a1-9ad2-4dba-a418-666b2def22f3",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/friends",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "friends"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b7b32189-229b-43fb-8869-626d388b1b35",
+              "name": "Get Friends List",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5000/api/friends",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "friends"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "26"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1a-pljHtlo127JYJR4E/RYOPb6ucbw\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 15:45:03 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Unauthorized\"\n}"
+            },
+            {
+              "id": "7ce9cd66-09ba-4cbb-a366-300e82c98d1f",
+              "name": "Get Friends List",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5000/api/friends",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "friends"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "274"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"112-j7YnncjrrswPF9Jnh65p7e0j7lY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 19:51:55 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": \"4a1d3a11-050b-4bb2-9f61-0c31546e321e\",\n        \"userId\": \"a326a98a-fb0a-49f8-bdcd-10ac0722d9e8\",\n        \"friendId\": \"da59830e-71ed-43bf-94e8-0fd7be65eb79\",\n        \"createdAt\": \"2026-01-14T19:40:51.306Z\",\n        \"friend\": {\n            \"id\": \"da59830e-71ed-43bf-94e8-0fd7be65eb79\",\n            \"email\": \"babajidefaruq8@gmail.com\"\n        }\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "To Follow a user",
+          "id": "fcbf1ddb-c243-4aa1-bdee-08f68e9d2ccd",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEzMjZhOThhLWZiMGEtNDlmOC1iZGNkLTEwYWMwNzIyZDllOCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY4NDIxMjg1LCJleHAiOjE3Njg0MjIxODV9.u06Kmokjoibqv6l0x_2fyrVAoG3q49B9DTL4X_bB5mM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/follow/:USER_B_ID",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "follow",
+                ":USER_B_ID"
+              ],
+              "variable": [
+                {
+                  "key": "USER_B_ID",
+                  "value": "a326a98a-fb0a-49f8-bdcd-10ac0722d9e8"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bb7f463c-4442-4f92-8193-e56bfa6461e2",
+              "name": "To Followa user",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5000/api/follow/:USER_B_ID",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "follow",
+                    ":USER_B_ID"
+                  ],
+                  "variable": [
+                    {
+                      "key": "USER_B_ID",
+                      "value": "a326a98a-fb0a-49f8-bdcd-10ac0722d9e8"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "27"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1b-VNIIGUHJiktcSxRuB6Ikc2MYX3U\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 20:13:40 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"User followed\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Check following list",
+          "id": "0c9c0317-3c4b-4634-ac44-3084831fdcf3",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEzMjZhOThhLWZiMGEtNDlmOC1iZGNkLTEwYWMwNzIyZDllOCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY4NDIxMjg1LCJleHAiOjE3Njg0MjIxODV9.u06Kmokjoibqv6l0x_2fyrVAoG3q49B9DTL4X_bB5mM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/follow/following/:USER_A_ID",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "follow",
+                "following",
+                ":USER_A_ID"
+              ],
+              "variable": [
+                {
+                  "key": "USER_A_ID",
+                  "value": "a326a98a-fb0a-49f8-bdcd-10ac0722d9e8"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "74ec1349-d791-4ebd-ae75-93f42733232d",
+              "name": "Check following list",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5000/api/follow/following/:USER_A_ID",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "follow",
+                    "following",
+                    ":USER_A_ID"
+                  ],
+                  "variable": [
+                    {
+                      "key": "USER_A_ID",
+                      "value": "a326a98a-fb0a-49f8-bdcd-10ac0722d9e8"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "285"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"11d-wea0GaPhLXgmWXjMucPwgL3Pt2s\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 20:15:56 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": \"2345a5a5-3918-4bd0-aa01-da4b34a62a09\",\n        \"followerId\": \"a326a98a-fb0a-49f8-bdcd-10ac0722d9e8\",\n        \"followingId\": \"a326a98a-fb0a-49f8-bdcd-10ac0722d9e8\",\n        \"createdAt\": \"2026-01-14T20:13:38.206Z\",\n        \"following\": {\n            \"id\": \"a326a98a-fb0a-49f8-bdcd-10ac0722d9e8\",\n            \"email\": \"kimberlyesekody@gmail.com\"\n        }\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Unfollow a user",
+          "id": "b1dcb932-6d26-4768-b992-be4ba8432641",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImEzMjZhOThhLWZiMGEtNDlmOC1iZGNkLTEwYWMwNzIyZDllOCIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY4NDIxMjg1LCJleHAiOjE3Njg0MjIxODV9.u06Kmokjoibqv6l0x_2fyrVAoG3q49B9DTL4X_bB5mM",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/follow/:USER_B_ID",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "follow",
+                ":USER_B_ID"
+              ],
+              "variable": [
+                {
+                  "key": "USER_B_ID",
+                  "value": "a326a98a-fb0a-49f8-bdcd-10ac0722d9e8"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1a30fb6e-0def-49c9-92e5-4f905506163f",
+              "name": "Unfollow a user",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5000/api/follow/:USER_B_ID",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "follow",
+                    ":USER_B_ID"
+                  ],
+                  "variable": [
+                    {
+                      "key": "USER_B_ID",
+                      "value": "a326a98a-fb0a-49f8-bdcd-10ac0722d9e8"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "29"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1d-jYmBgMc5L8SWEztBT2Mu84383mM\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 20:17:22 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"User unfollowed\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Social Counts",
+          "id": "98c0f908-d26a-46dc-8fde-4e4bfc7d26c6",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRiMWZmYTBmLWEzMDYtNDA4MS04NzFhLTcxMDMzZmM0ZTlkZiIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY4NTY2MDIxLCJleHAiOjE3Njg1NjY5MjF9.X5k0rGatprZsJGtk_3LERut5tYdI3-yhDQsVTcMb4Cg",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/social/counts",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "social",
+                "counts"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9f3e677e-973e-46fb-8b8f-ff214c500507",
+              "name": "Social Counts",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5000/api/social/counts",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "social",
+                    "counts"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "26"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1a-pljHtlo127JYJR4E/RYOPb6ucbw\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 20:54:14 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Unauthorized\"\n}"
+            },
+            {
+              "id": "ec178bee-0c30-4167-8013-efa00088c1d0",
+              "name": "Social Counts",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5000/api/social/counts",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "social",
+                    "counts"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "103"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"67-IqctuaD/xRcFSSHhdJl4v9K2Ql8\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 20:57:01 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"friendsCount\": 1,\n    \"followersCount\": 0,\n    \"followingCount\": 0,\n    \"pendingRequestsCount\": 0,\n    \"sentRequestsCount\": 2\n}"
+            }
+          ]
+        },
+        {
+          "name": "Mutual Friend",
+          "id": "671985bb-cb61-4aad-b043-c148b3ce1811",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": [
+            {
+              "id": "06b4abd5-bf7d-4882-83b8-9fadd59a1041",
+              "name": "Mutual Friend",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5000/api/social/friends/mutual/{otherUserId}/count",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "social",
+                    "friends",
+                    "mutual",
+                    "{otherUserId}",
+                    "count"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "24"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"18-LpmblDVHlph1ZjncjuwA0Qzobok\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 14 Jan 2026 21:02:31 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"mutualFriendsCount\": 0\n}"
+            }
+          ]
+        },
+        {
+          "name": "Search Logic",
+          "id": "e5a71e16-03fd-4260-b514-bd635c585e57",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": [
+            {
+              "id": "979aacc3-5720-4d30-8535-ff462765069d",
+              "name": "Search Logic",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5000/api/profile/search?q=Faru&page=1&limit=3",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "profile",
+                    "search"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "Faru"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "3"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1020"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"3fc-tkM3Jntsd+RikHvsua9tx7nks84\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 16 Jan 2026 13:38:47 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-01-16T13:38:50.166Z",
+              "body": "{\n    \"results\": [\n        {\n            \"id\": \"38106ede-0178-4e7c-8128-7309a3199b3b\",\n            \"email\": \"babajidefaruq7@gmail.com\",\n            \"username\": \"Faruq\",\n            \"passwordHash\": \"$2b$10$WQ3JxE/Oq3Gy3BPQV1LF2OHDi..xT3BDeQIRJ5pVwatDOGRbgiEDC\",\n            \"role\": \"USER\",\n            \"isEmailVerified\": true,\n            \"isActive\": true,\n            \"createdAt\": \"2026-01-16T11:12:15.910Z\",\n            \"updatedAt\": \"2026-01-16T11:19:58.051Z\",\n            \"profile\": {\n                \"photoUrl\": \"https://res.cloudinary.com/dkjeobqqm/image/upload/v1768565261/profiles/r32dlrokurhfc8qt4wzq.jpg\",\n                \"bio\": \"Backend developer and I love food\"\n            }\n        },\n        {\n            \"id\": \"4b1ffa0f-a306-4081-871a-71033fc4e9df\",\n            \"email\": \"babajidefaruq8@gmail.com\",\n            \"username\": \"Faruq Olami\",\n            \"passwordHash\": \"$2b$10$72Sq/ufWTgbfvcfQ1OUiwufwL7KANyjX2zBJEbXB6d5OSy2rWXagK\",\n            \"role\": \"USER\",\n            \"isEmailVerified\": true,\n            \"isActive\": true,\n            \"createdAt\": \"2026-01-16T11:53:45.600Z\",\n            \"updatedAt\": \"2026-01-16T12:35:05.385Z\",\n            \"profile\": {\n                \"photoUrl\": \"https://res.cloudinary.com/dkjeobqqm/image/upload/v1768566470/profiles/ej0i4j4znifyqjrsdpko.jpg\",\n                \"bio\": \"I hate Advancement project and will like to graduate in peace\"\n            }\n        }\n    ],\n    \"page\": 1,\n    \"limit\": 3,\n    \"total\": 2\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Search User Profile",
+          "id": "abd67945-283c-49de-85c3-e4d89c1d855f",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": [
+            {
+              "id": "db32120e-6772-4cc1-8197-81b05ad9af22",
+              "name": "New Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:5000/api/profile/38106ede-0178-4e7c-8128-7309a3199b3b",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "api",
+                    "profile",
+                    "38106ede-0178-4e7c-8128-7309a3199b3b"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1056"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"420-RaOGlHUJT5KFH+rLyvlz16v0vFg\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 16 Jan 2026 13:39:57 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "responseTime": "2026-01-16T13:40:06.948Z",
+              "body": "{\n    \"id\": \"59edea42-0137-45d8-aa55-1b376253f259\",\n    \"userId\": \"38106ede-0178-4e7c-8128-7309a3199b3b\",\n    \"bio\": \"Backend developer and I love food\",\n    \"links\": {\n        \"github\": \"https://github.com/kim\"\n    },\n    \"photoUrl\": \"https://res.cloudinary.com/dkjeobqqm/image/upload/v1768565261/profiles/r32dlrokurhfc8qt4wzq.jpg\",\n    \"privacy\": \"PUBLIC\",\n    \"avatarUrl\": null,\n    \"coverPhotoUrl\": null,\n    \"website\": null,\n    \"location\": null,\n    \"dateOfBirth\": null,\n    \"createdAt\": \"2026-01-16T11:19:58.640Z\",\n    \"updatedAt\": \"2026-01-16T12:07:43.113Z\",\n    \"interests\": [\n        {\n            \"id\": \"5b19abc3-ba2f-48e5-98a9-274d1c6fb052\",\n            \"name\": \"Coding\",\n            \"profileId\": \"59edea42-0137-45d8-aa55-1b376253f259\"\n        },\n        {\n            \"id\": \"5c530934-b9e1-49f4-bbdc-ee8a0b1bf1ad\",\n            \"name\": \"Music\",\n            \"profileId\": \"59edea42-0137-45d8-aa55-1b376253f259\"\n        },\n        {\n            \"id\": \"c851a89e-87b7-4385-a8aa-8055a3cf46ac\",\n            \"name\": \"Reading\",\n            \"profileId\": \"59edea42-0137-45d8-aa55-1b376253f259\"\n        }\n    ],\n    \"user\": {\n        \"id\": \"38106ede-0178-4e7c-8128-7309a3199b3b\",\n        \"username\": \"Faruq\",\n        \"email\": \"babajidefaruq7@gmail.com\",\n        \"isEmailVerified\": true,\n        \"createdAt\": \"2026-01-16T11:12:15.910Z\",\n        \"_count\": {\n            \"followers\": 0,\n            \"following\": 0,\n            \"friends\": 0,\n            \"posts\": 0\n        }\n    }\n}"
+            }
+          ]
+        }
+      ],
+      "id": "4139ff38-58ba-44dc-bc4b-55a320a5de7e"
+    }
+  ],
+  "variable": [
+    {
+      "id": "70cb9304-a66c-4917-abd8-e5b66e5c0a34",
+      "key": "Token",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "id": "714a0fc7-926f-409c-b0a7-a41baf0dddea",
+      "key": "Token",
+      "value": "",
+      "type": "default"
     }
   ]
 }

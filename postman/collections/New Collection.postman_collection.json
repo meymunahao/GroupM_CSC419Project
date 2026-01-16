@@ -4,5 +4,47 @@
     "name": "New Collection",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
-  "item": []
+  "item": [
+    {
+      "name": "Add User Interest",
+      "id": "d3b4cf3d-18e4-4228-985a-e9d5ea82130a",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY4M2NiY2E1LWUxOWMtNDhiYi04MDczLTZjN2MxYmRlNTVmYiIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzY4NDc5Mzc4LCJleHAiOjE3Njg0ODAyNzh9.2MbhdRZUf4ggM0uI-6axp7pLpZ2U5KsvKG6Wu89zehI",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"interests\": [\"Coding\", \"Music\", \"Reading\"]\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/profile/interests",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "profile",
+            "interests"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
 }
