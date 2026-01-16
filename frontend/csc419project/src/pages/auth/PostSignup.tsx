@@ -14,6 +14,7 @@ export default function InterestSelection() {
   const navigate = useNavigate();
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const toggleTopic = (id: string) => {
     setSelectedTopics((prev) =>
@@ -25,12 +26,20 @@ export default function InterestSelection() {
     if (selectedTopics.length < 3) return;
     
     setLoading(true);
+    setError(null);
+
     const token = localStorage.getItem("token");
+    if (!token) {
+      setError("Session expired. Please log in again.");
+      navigate("/login");
+      return;
+    }
+
     const interestLabels = selectedTopics.map(id => TOPICS.find(t => t.id === id)?.label);
 
     try {
       const res = await fetch("http://localhost:5000/api/profile/interests", {
-        method: "POST", // Based on Screenshot (515).png
+        method: "POST", 
         headers: { 
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}` 
@@ -38,9 +47,15 @@ export default function InterestSelection() {
         body: JSON.stringify({ interests: interestLabels }),
       });
 
-      if (res.ok) navigate("/profile-setup");
+      if (res.ok) {
+        navigate("/home");
+      } else {
+        const data = await res.json();
+        setError(data.message || `Error: ${res.status} - Could not save interests`);
+      }
     } catch (err) {
       console.error("Failed to save interests", err);
+      setError("Network error. Please check your connection.");
     } finally {
       setLoading(false);
     }
@@ -67,6 +82,7 @@ export default function InterestSelection() {
             <div className="text-center">
               <h1 className="text-2xl md:text-3xl font-bold mb-1">What do you love?</h1>
               <p className="text-gray-400 text-xs md:text-sm">Pick at least 3 topics to help us personalise your feed.</p>
+              {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
             </div>
           </div>
 

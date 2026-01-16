@@ -7,11 +7,7 @@ type AuthMethod = "email" | "phone";
 
 interface LoginResponse {
   token?: string;
-  user?: {
-    id: string;
-    email?: string;
-    phone?: string;
-  };
+  accessToken?: string; // Some backends use this name
   message?: string;
 }
 
@@ -33,6 +29,7 @@ export default function Login() {
     setLoading(true);
 
     try {
+      // 1. ATTEMPT LOGIN
       const res = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: {
@@ -46,16 +43,48 @@ export default function Login() {
       });
 
       const data: LoginResponse = await res.json();
+      console.log("Login Status:", res.status);
+      console.log("Login Response Data:", data);
 
       if (!res.ok) {
-        throw new Error(data.message || "Login failed");
+        // This catches the 401 Unauthorized error
+        throw new Error(data.message || `Login failed: ${res.statusText}`);
       }
 
-      if (data.token) {
-        localStorage.setItem("token", data.token);
+      // 2. EXTRACT AND SAVE TOKEN
+      const token = data.token || data.accessToken;
+      if (!token) {
+        throw new Error("No token received. Check backend response structure.");
+      }
+      localStorage.setItem("token", token);
+
+      // 3. CHECK PROFILE STATUS
+      // We only reach here if login was successful (200 OK)
+      try {
+        const profileRes = await fetch("http://localhost:5000/api/profile", {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (profileRes.status === 404) {
+          // User exists but profile doesn't - go to post-signup
+          navigate("/profile-setup");
+        } else if (profileRes.ok) {
+          // Profile exists - go to home
+          navigate("/home");
+        } else {
+          // If there's a different error (e.g. 500), default to home or show error
+          console.error("Profile check failed with status:", profileRes.status);
+          navigate("/home"); 
+        }
+      } catch (profileErr) {
+        console.error("Error fetching profile:", profileErr);
+        navigate("/home"); // Fallback to home if profile check fails technically
       }
 
-      navigate("/home");
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message);
@@ -99,7 +128,7 @@ export default function Login() {
         <div className="w-full max-w-md mx-auto flex flex-col justify-center h-full">
           <h2 className="text-3xl font-bold mb-6 text-center">Welcome back</h2>
 
-          {/* Toggle */}
+          {/* Toggle Email/Phone */}
           <div className="flex bg-[#ffe8d6] rounded-xl p-1 mb-6">
             {(["email", "phone"] as AuthMethod[]).map((m) => (
               <button
@@ -114,7 +143,7 @@ export default function Login() {
             ))}
           </div>
 
-          {/* Email / Phone */}
+          {/* Input Fields */}
           {method === "email" ? (
             <input
               type="email"
@@ -133,7 +162,7 @@ export default function Login() {
             />
           )}
 
-          {/* Password */}
+          {/* Password Field */}
           <div className="relative mb-2">
             <input
               type={showPassword ? "text" : "password"}
@@ -151,24 +180,22 @@ export default function Login() {
             </button>
           </div>
 
-          {/* Forgot Password */}
           <p className="text-right text-gray-400 text-sm mb-3">
-            <Link to="/forgot-password" className="hover:underline">
+            <Link to="/forgot-password" university-link className="hover:underline">
               Forgot Password?
             </Link>
           </p>
 
-          {/* Error */}
+          {/* Error Message Display */}
           {error && <ErrorAlert message={error} />}
 
-
-          {/* Login Button */}
+          {/* Action Button */}
           <button
             onClick={handleLogin}
             disabled={loading}
             className="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-semibold mb-4 disabled:opacity-50"
           >
-            {loading ? "Logging in..." : "Log In"}
+            {loading ? "Authenticating..." : "Log In"}
           </button>
 
           <p className="text-center text-gray-400 mb-6">

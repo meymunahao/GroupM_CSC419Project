@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { Settings } from "lucide-react";
+import { Settings, Github, Plus } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const TABS = ["Posts", "Likes", "Community", "Bookmark"];
 
 export default function UserProfile() {
   const navigate = useNavigate();
-  const { userId } = useParams(); // Use for visiting others
+  const { userId } = useParams(); 
   const [activeTab, setActiveTab] = useState("Posts");
   const [profile, setProfile] = useState<any>(null);
   const [counts, setCounts] = useState({ followers: 0, following: 0, friends: 0 });
@@ -17,7 +17,7 @@ export default function UserProfile() {
     const fetchUserData = async () => {
       const token = localStorage.getItem("token");
       try {
-        // 1. Fetch Profile - Based on Screenshot (514).png
+        // 1. Fetch Profile 
         const profileUrl = userId ? `http://localhost:5000/api/profile/${userId}` : "http://localhost:5000/api/profile";
         const res = await fetch(profileUrl, {
           headers: { "Authorization": `Bearer ${token}` }
@@ -26,14 +26,18 @@ export default function UserProfile() {
         setProfile(data);
         setIsOwner(!userId);
 
-        // 2. Fetch Counts - Based on Screenshot (525).png
+        // 2. Fetch Social Counts
         const countRes = await fetch("http://localhost:5000/api/social/counts", {
           headers: { "Authorization": `Bearer ${token}` }
         });
         const countData = await countRes.json();
-        setCounts(countData);
+        setCounts({
+          followers: countData.followers || 0,
+          following: countData.following || 0,
+          friends: countData.friends || 0
+        });
 
-        // 3. Check Following Status if not owner - Based on Screenshot (523).jpg
+        // 3. Follow logic if visiting another user
         if (userId) {
           const followRes = await fetch(`http://localhost:5000/api/follow/following/${userId}`, {
             headers: { "Authorization": `Bearer ${token}` }
@@ -50,7 +54,7 @@ export default function UserProfile() {
 
   const handleFollowAction = async () => {
     const token = localStorage.getItem("token");
-    const method = isFollowing ? "DELETE" : "POST"; // Based on Screenshot (522).jpg & Screenshot (524).jpg
+    const method = isFollowing ? "DELETE" : "POST";
     try {
       const res = await fetch(`http://localhost:5000/api/follow/${userId}`, {
         method,
@@ -67,14 +71,20 @@ export default function UserProfile() {
   return (
     <div className="w-full bg-[#121212] min-h-screen text-white">
       <div className="w-full relative mb-4">
+        {/* Banner */}
         <div className="h-48 md:h-60 w-full bg-gray-800 relative">
-          <img src="https://picsum.photos/1200/400" className="w-full h-full object-cover" alt="Banner" />
+          <img src="https://picsum.photos/1200/400" className="w-full h-full object-cover opacity-50" alt="Banner" />
         </div>
 
         <div className="px-4 relative">
+          {/* Avatar - pulling from profile.photoUrl */}
           <div className="absolute -top-16 left-6">
             <div className="w-32 h-32 rounded-full border-[6px] border-[#121212] overflow-hidden bg-gray-700">
-              <img src={profile.photoUrl || "https://i.pravatar.cc/300"} className="w-full h-full object-cover" alt="Avatar" />
+              <img 
+                src={profile.photoUrl || "https://i.pravatar.cc/300"} 
+                className="w-full h-full object-cover" 
+                alt="Avatar" 
+              />
             </div>
           </div>
 
@@ -82,18 +92,37 @@ export default function UserProfile() {
             <div className="flex flex-col gap-4">
               <div className="flex justify-between items-start">
                 <div>
-                  <h1 className="text-3xl font-bold">{profile.fullName || "User"}</h1>
-                  <p className="text-gray-500">@{profile.userId?.slice(0, 8)}</p>
+                  {/* Corrected: Accessing username from the nested user object */}
+                  <h1 className="text-3xl font-bold">
+                    {profile.user?.username || "User"}
+                  </h1>
+                  
+                  {/* GitHub link replacing the old username handle */}
+                  {profile.links?.github ? (
+                    <a 
+                      href={profile.links.github} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-orange-500 flex items-center gap-1.5 text-sm hover:underline mt-1"
+                    >
+                      <Github size={14} />
+                      {profile.links.github.replace("https://", "")}
+                    </a>
+                  ) : (
+                    <p className="text-gray-500 text-sm mt-1 flex items-center gap-1.5">
+                       <Github size={14} /> No GitHub linked
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex items-center gap-3">
                   {isOwner ? (
                     <>
-                      <button onClick={() => navigate("/settings")} className="p-2.5 border border-gray-800 rounded-xl">
+                      <button onClick={() => navigate("/settings")} className="p-2.5 border border-gray-800 rounded-xl hover:bg-gray-800 transition-all">
                         <Settings size={20} />
                       </button>
-                      <button onClick={() => navigate("/create")} className="bg-orange-500 px-6 py-2.5 rounded-xl font-bold">
-                        New Post
+                      <button onClick={() => navigate("/create")} className="bg-orange-500 px-6 py-2.5 rounded-xl font-bold flex items-center gap-2">
+                        <Plus size={18} /> New Post
                       </button>
                     </>
                   ) : (
@@ -109,7 +138,8 @@ export default function UserProfile() {
 
               <p className="text-gray-300 text-sm max-w-xl">{profile.bio || "No bio yet."}</p>
 
-              <div className="flex items-center gap-10 mt-2">
+              {/* Social Counts Section */}
+              <div className="flex items-center gap-8 mt-2">
                 <div className="flex gap-1.5"><span className="font-bold">{counts.following}</span><span className="text-gray-500">Following</span></div>
                 <div className="flex gap-1.5"><span className="font-bold">{counts.followers}</span><span className="text-gray-500">Followers</span></div>
                 <div className="flex gap-1.5"><span className="font-bold">{counts.friends}</span><span className="text-gray-500">Friends</span></div>
@@ -117,12 +147,13 @@ export default function UserProfile() {
             </div>
           </div>
 
+          {/* Navigation Tabs */}
           <div className="flex items-center gap-2 border-b border-gray-800 pb-4 overflow-x-auto">
             {TABS.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-6 py-2 rounded-lg text-sm transition-all ${activeTab === tab ? "bg-[#1f1f1f]" : "text-gray-500"}`}
+                className={`px-6 py-2 rounded-lg text-sm transition-all ${activeTab === tab ? "bg-[#1f1f1f] text-white" : "text-gray-500"}`}
               >
                 {tab}
               </button>
