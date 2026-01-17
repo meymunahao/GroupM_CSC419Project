@@ -1,9 +1,8 @@
 // src/components/Feed/CommentBox.tsx
 import { useState, useEffect, useRef } from "react";
-import { getAuthHeader } from "../../utils/auth"; // 1. Import your helper
+import { getAuthHeader } from "../../utils/auth";
 
 const API_BASE_URL = "https://groupm-csc419project.onrender.com";
-
 
 interface CommentBoxProps {
   postId: string;
@@ -26,16 +25,14 @@ export default function CommentBox({ postId, onCommentCreated }: CommentBoxProps
     try {
       setSubmitting(true);
 
-      // 2. Use the central helper to get the Authorization header
-      const authHeader = getAuthHeader();
-
       const res = await fetch(
         `${API_BASE_URL}/api/posts/${postId}/comments`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            ...authHeader, // 3. Spread the header { Authorization: 'Bearer ...' }
+            // FIX: Use type assertion here to clear the TS error
+            ...(getAuthHeader() as Record<string, string>),
           },
           body: JSON.stringify({ content: trimmed }),
         }
@@ -51,7 +48,6 @@ export default function CommentBox({ postId, onCommentCreated }: CommentBoxProps
       if (!res.ok) {
         console.error("Failed to add comment:", res.status, data);
         
-        // 4. Handle 401 specifically for debugging
         if (res.status === 401) {
           alert("Your session has expired. Please log in again.");
           return;
@@ -79,20 +75,21 @@ export default function CommentBox({ postId, onCommentCreated }: CommentBoxProps
       <img src="/nimi.png" className="w-8 h-8 rounded-full" alt="me" />
 
       <textarea
-        ref={inputRef}
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Post your reply"
-        className="flex-1 bg-[#1A1A1A] border border-white/5 rounded-xl py-2 px-4 text-white focus:outline-none focus:border-[#FF5C00] cursor-text pointer-events-auto resize-none min-h-[40px]"
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            if (text.trim() && !submitting) {
-              handleSubmit();
-            }
-          }
-        }}
-      />
+  ref={inputRef}
+  value={text}
+  onChange={(e) => setText(e.target.value)}
+  placeholder="Post your reply"
+  // Changed min-h-[40px] to min-h-10
+  className="flex-1 bg-[#1A1A1A] border border-white/5 rounded-xl py-2 px-4 text-white focus:outline-none focus:border-[#FF5C00] cursor-text pointer-events-auto resize-none min-h-10"
+  onKeyDown={(e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      if (text.trim() && !submitting) {
+        handleSubmit();
+      }
+    }
+  }}
+/>
 
       <button
         onClick={handleSubmit}

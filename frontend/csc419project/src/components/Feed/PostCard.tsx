@@ -14,13 +14,21 @@ interface PostCardProps {
   post: Post;
 }
 
-export default function PostCard({ post }: PostCardProps) {
+interface PostCardProps {
+  post: Post;
+  onReply?: () => void; // Add this line (it's optional with the ?)
+}
+
+export default function PostCard({ post, onReply }: PostCardProps) { // Destructure onReply here
   const navigate = useNavigate();
 
   const handleReply = () => {
-    navigate(`/posts/${post.id}`);
+    if (onReply) {
+      onReply(); // If the parent provided an onReply function, call it
+    } else {
+      navigate(`/posts/${post.id}`); // Otherwise, fall back to navigating
+    }
   };
-
   return (
     <div className="group relative z-10">
       <div className="flex gap-4 mb-3">

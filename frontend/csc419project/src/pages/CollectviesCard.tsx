@@ -1,9 +1,9 @@
+// src/pages/ExploreCollectives.tsx
 import { Search, Users, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getAuthHeader } from "../utils/auth"; // Import auth utility
+import { getAuthHeader } from "../utils/auth";
 
-// Use the consistent API URL
 const API_BASE_URL = "https://groupm-csc419project.onrender.com";
 
 type Collective = {
@@ -29,7 +29,6 @@ export default function ExploreCollectives() {
         setLoading(true);
         setError(null);
 
-        // Standardized to use API_BASE_URL and corrected search endpoint logic
         const endpoint = query
           ? `${API_BASE_URL}/api/groups/search?q=${encodeURIComponent(query)}`
           : `${API_BASE_URL}/api/groups`;
@@ -37,7 +36,8 @@ export default function ExploreCollectives() {
         const res = await fetch(endpoint, {
           headers: {
             "Content-Type": "application/json",
-            ...getAuthHeader(), // Pass auth headers if required by your backend
+            // FIX: Added type assertion to satisfy HeadersInit
+            ...(getAuthHeader() as Record<string, string>),
           },
         });
 
@@ -45,18 +45,13 @@ export default function ExploreCollectives() {
 
         const data = await res.json();
         
-        // MAP DATABASE COLUMNS TO FRONTEND PROPS
         const mappedData = data.map((group: any) => ({
           id: group.id,
           name: group.name,
           description: group.description || "No description provided.",
-          // Map DB 'cover_image' to UI 'banner_url'
           banner_url: group.cover_image || group.banner_url || "https://picsum.photos/800/200",
-          // Map members count
           members_count: group.members_count ?? 0,
-          // Handle slug/handle from DB
           handle: group.handle || group.slug || `@group-${group.id}`,
-          // Avatar fallback
           avatar_url: group.avatar_url || group.avatar || `https://api.dicebear.com/7.x/shapes/svg?seed=${group.name}`
         }));
 
@@ -69,7 +64,6 @@ export default function ExploreCollectives() {
       }
     }
 
-    // Debounce search slightly to avoid hitting API on every keystroke
     const timeoutId = setTimeout(() => {
         fetchGroups();
     }, 300);
@@ -78,7 +72,7 @@ export default function ExploreCollectives() {
   }, [query]);
 
   return (
-    <div className="w-full min-h-screen bg-[#161718] text-white pb-20">
+    <div className="w-full min-h-screen bg-dark text-white pb-20">
       <div className="max-w-4xl mx-auto px-4 pt-12 pb-8">
         
         {/* Header Section */}
@@ -140,10 +134,10 @@ export default function ExploreCollectives() {
                     <div className="relative -mt-8 flex justify-between items-end mb-4">
                       <img
                         src={collective.avatar_url}
-                        className="w-16 h-16 rounded-2xl border-4 border-[#161718] object-cover shadow-lg"
+                        className="w-16 h-16 rounded-2xl border-4 border-dark object-cover shadow-lg"
                         alt={collective.name}
                       />
-                      <div className="flex items-center gap-1.5 bg-[#161718] px-3 py-1 rounded-full border border-white/5 text-[10px] text-gray-400 font-medium">
+                      <div className="flex items-center gap-1.5 bg-dark px-3 py-1 rounded-full border border-white/5 text-[10px] text-gray-400 font-medium">
                         <Users size={12} className="text-[#FF5C00]" />
                         {collective.members_count.toLocaleString()}
                       </div>

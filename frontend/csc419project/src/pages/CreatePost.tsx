@@ -5,7 +5,6 @@ import { getAuthHeader, getCurrentUser } from "../utils/auth";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-
 export default function CreatePost() {
   const navigate = useNavigate();
   
@@ -73,7 +72,8 @@ export default function CreatePost() {
 
     try {
       setSubmitting(true);
-      const authHeaders = getAuthHeader();
+      // FIX: Explicitly cast authHeaders to avoid Type 2322
+      const authHeaders = getAuthHeader() as Record<string, string>;
 
       const createRes = await fetch(`${API_BASE_URL}/api/posts`, {
         method: "POST",
@@ -117,8 +117,13 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="fixed inset-0 z-[999] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-300">
-      <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileChange} />
+    <div className="fixed inset-0 z-999 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-300">
+      <input 
+        type="file" 
+        ref={fileInputRef} 
+        className="hidden" 
+        onChange={handleFileChange} 
+      />
 
       <div className="w-full max-w-xl bg-[#121212] border border-white/10 rounded-3xl shadow-2xl overflow-hidden">
         {/* Header */}
@@ -140,7 +145,7 @@ export default function CreatePost() {
             value={postText}
             onChange={(e) => setPostText(e.target.value)}
             placeholder={`What's on your mind, ${displayName}?`}
-            className="w-full min-h-[120px] bg-transparent text-gray-200 text-lg resize-none focus:outline-none placeholder:text-gray-600"
+            className="w-full min-h-30 bg-transparent text-gray-200 text-lg resize-none focus:outline-none placeholder:text-gray-600"
             autoFocus
           />
 

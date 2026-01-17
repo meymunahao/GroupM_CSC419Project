@@ -150,7 +150,7 @@ export default function VerifyEmail() {
             type="text"
             maxLength={1}
             value={code[idx]}
-            ref={(el) => (inputRefs.current[idx] = el)}
+            ref={(el) => { inputRefs.current[idx] = el; }}
             onChange={(e) => handleChange(e.target.value, idx)}
             onKeyDown={(e) => handleKeyDown(e, idx)}
             className="w-12 h-12 text-center text-lg font-semibold rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-orange-500"

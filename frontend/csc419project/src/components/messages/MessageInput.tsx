@@ -1,4 +1,4 @@
-import { useState, KeyboardEvent } from "react";
+import { useState, type KeyboardEvent } from "react"; // Added 'type' keyword
 import { Smile, Send } from "lucide-react";
 
 type MessageInputProps = {
@@ -15,7 +15,8 @@ export default function MessageInput({ onSend }: MessageInputProps) {
     }
   };
 
-  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    // Check for Enter key without Shift (allows Shift+Enter for new lines if you use a textarea)
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
@@ -27,7 +28,7 @@ export default function MessageInput({ onSend }: MessageInputProps) {
       <div className="flex items-center gap-3">
         {/* Avatar */}
         <img
-          src="https://i.pravatar.cc/150?img=33"
+          src="/nimi.png" // Updated to use your local fallback
           alt="Your avatar"
           className="w-10 h-10 rounded-full object-cover"
         />
@@ -38,17 +39,18 @@ export default function MessageInput({ onSend }: MessageInputProps) {
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyDown} // Changed from onKeyPress to onKeyDown
             placeholder="Type your message here ..."
             className="flex-1 bg-transparent text-white text-sm focus:outline-none placeholder:text-gray-500"
           />
-          <button className="text-gray-400 hover:text-white transition">
+          <button type="button" className="text-gray-400 hover:text-white transition">
             <Smile className="w-5 h-5" />
           </button>
         </div>
 
         {/* Send Button */}
         <button
+          type="button"
           onClick={handleSend}
           disabled={!message.trim()}
           className="bg-orange-500 hover:bg-orange-600 disabled:bg-gray-600 disabled:cursor-not-allowed p-3 rounded-full transition"

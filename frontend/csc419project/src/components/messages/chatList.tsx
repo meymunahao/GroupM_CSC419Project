@@ -1,7 +1,7 @@
 // src/components/Chat/ChatList.tsx
 import { useEffect, useState } from "react";
 import { Search, Plus, ChevronDown } from "lucide-react";
-import ChatItem from "./ChatItem";
+import ChatItem from "./chatItem";
 import { getAuthHeader } from "../../utils/auth";
 
 interface Chat {
@@ -38,11 +38,12 @@ export default function ChatList({
       setLoading(true);
       try {
         const res = await fetch(`${API_BASE_URL}/api/chats`, {
-          headers: {
-            "Content-Type": "application/json",
-            ...getAuthHeader(), // This helper now checks for both 'accessToken' and 'token'
-          },
-        });
+        headers: {
+          "Content-Type": "application/json",
+          // FIX: Add 'as Record<string, string>' to satisfy TypeScript
+          ...(getAuthHeader() as Record<string, string>),
+        },
+      });
 
         if (!res.ok) {
           console.error("Failed to load chats - Status:", res.status);

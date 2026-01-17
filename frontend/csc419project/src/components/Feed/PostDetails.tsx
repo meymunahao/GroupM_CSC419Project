@@ -2,10 +2,28 @@ import { useEffect, useState } from "react";
 import CommentBox from "../Feed/CommentBox";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAuthHeader } from "../../utils/auth"; // Use your central helper!
+import { getAuthHeader } from "../../utils/auth";
 
 const API_BASE_URL = "https://groupm-csc419project.onrender.com";
 
+// --- ADD THESE INTERFACES TO FIX THE ERROR ---
+interface Post {
+  id: string | number;
+  user_name: string;
+  avatar_url: string | null;
+  content: string;
+  image_url: string | null;
+  created_at: string;
+}
+
+interface Comment {
+  id: string | number;
+  user_name: string;
+  avatar_url: string | null;
+  content: string;
+  created_at: string;
+}
+// --------------------------------------------
 
 export default function PostDetails() {
   const navigate = useNavigate();
@@ -23,7 +41,7 @@ export default function PostDetails() {
       const res = await fetch(`${API_BASE_URL}/api/posts/${postId}`, {
         headers: {
           "Content-Type": "application/json",
-          ...getAuthHeader(), // Fixed: Uses the helper we updated
+          ...(getAuthHeader() as Record<string, string>), // Cast to fix Type 2322
         },
       });
 
@@ -52,7 +70,7 @@ export default function PostDetails() {
       const res = await fetch(`${API_BASE_URL}/api/posts/${postId}/comments`, {
         headers: {
           "Content-Type": "application/json",
-          ...getAuthHeader(), // Fixed: Uses the helper
+          ...(getAuthHeader() as Record<string, string>), // Cast to fix Type 2322
         },
       });
 
@@ -74,10 +92,9 @@ export default function PostDetails() {
     <main className="flex-1 py-8 px-4 overflow-y-auto bg-[#161718]">
       <div className="max-w-2xl mx-auto">
         
-        {/* FIX 1: Simplified Back Button */}
         <button
           type="button"
-          onClick={() => navigate("/home")} // Direct path is more reliable than history.length
+          onClick={() => navigate("/home")}
           className="flex items-center gap-2 text-gray-400 hover:text-[#FF5C00] mb-6 transition-colors group cursor-pointer"
         >
           <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
@@ -87,31 +104,31 @@ export default function PostDetails() {
         {/* Focused Post */}
         <div className="bg-[#121212] rounded-3xl p-6 border border-white/5 mb-6">
           {loadingPost ? (
-            <p className="text-gray-500 text-sm">Loading post...</p>
+            <p className="text-gray-500 text-sm animate-pulse">Loading post...</p>
           ) : post && (
             <>
               <div className="flex gap-4 mb-4">
-                <img src={post.avatar_url || "/nimi.png"} className="w-10 h-10 rounded-full" alt="avatar" />
+                <img src={post.avatar_url || "/nimi.png"} className="w-10 h-10 rounded-full object-cover" alt="avatar" />
                 <div>
                   <span className="font-bold text-white">{post.user_name}</span>
                   <p className="text-gray-300 mt-1">{post.content}</p>
                 </div>
               </div>
               {post.image_url && (
-                <img src={post.image_url} className="rounded-2xl w-full border border-white/10" alt="Post content" />
+                <img src={post.image_url} className="rounded-2xl w-full border border-white/10 mt-3" alt="Post content" />
               )}
             </>
           )}
         </div>
 
-        {/* FIX 2: Comment input with clear z-index and spacing */}
+        {/* Comment Box */}
         <div className="relative z-20 mb-10">
           {postId && (
             <CommentBox postId={postId} onCommentCreated={fetchComments} />
           )}
         </div>
 
-        {/* Comments list - Reduced z-index to stay behind the input box */}
+        {/* Replies List */}
         <div className="space-y-6 relative z-10">
           <h3 className="text-white font-semibold text-sm mb-4">Replies</h3>
           
@@ -121,7 +138,7 @@ export default function PostDetails() {
 
           {comments.map((comment) => (
             <div key={comment.id} className="flex gap-4">
-              <img src={comment.avatar_url || "/nimi.png"} className="w-9 h-9 rounded-full" alt="avatar" />
+              <img src={comment.avatar_url || "/nimi.png"} className="w-9 h-9 rounded-full object-cover" alt="avatar" />
               <div className="flex-1 bg-[#121212] p-4 rounded-2xl border border-white/5">
                 <div className="flex justify-between items-center mb-1">
                   <span className="font-bold text-white text-sm">{comment.user_name}</span>

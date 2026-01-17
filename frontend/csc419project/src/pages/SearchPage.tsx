@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function FriendsPage() {
   const navigate = useNavigate();
-  const categories = ["For You", "Trending", "News", "Sports", "Entertainment"];
+  
+  // FIX: Removed unused 'categories' array to clear TypeScript error 6133
 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  // Track followed IDs locally to update the UI immediately
   const [followedIds, setFollowedIds] = useState<string[]>([]);
 
   useEffect(() => {
@@ -53,9 +53,8 @@ export default function FriendsPage() {
     return () => clearTimeout(timeoutId);
   }, [query]);
 
-  // Handle the Follow API Call
   const handleFollowClick = async (e: React.MouseEvent, userId: string) => {
-    e.stopPropagation(); // Prevents navigating to the profile page
+    e.stopPropagation(); 
     
     const token = localStorage.getItem("token");
     if (!token) return;
@@ -70,7 +69,6 @@ export default function FriendsPage() {
       });
 
       if (response.ok) {
-        // Update local state so the button changes to "Followed"
         setFollowedIds((prev) => [...prev, userId]);
       }
     } catch (error) {
@@ -106,7 +104,6 @@ export default function FriendsPage() {
                 return (
                   <div
                     key={user.id}
-                    // Navigates to OtherProfile using the ID
                     onClick={() => navigate(`/other-profiles/${user.id}`)}
                     className="bg-[#141414] border border-white/5 rounded-2xl p-5 flex flex-col items-center text-center hover:border-[#FF5C00]/50 transition-all cursor-pointer group"
                   >
@@ -122,7 +119,8 @@ export default function FriendsPage() {
                     <h3 className="text-white font-bold text-lg truncate w-full">{user.username}</h3>
                     <p className="text-[#FF5C00] text-xs font-medium mb-2">@{user.username?.toLowerCase()}</p>
                     
-                    <p className="text-gray-400 text-xs line-clamp-2 mb-4 min-h-[32px]">
+                    {/* FIX: min-h-[32px] changed to min-h-8 */}
+                    <p className="text-gray-400 text-xs line-clamp-2 mb-4 min-h-8">
                       {user.profile?.bio || "No bio available"}
                     </p>
 
@@ -149,7 +147,6 @@ export default function FriendsPage() {
             )}
           </div>
         ) : (
-          /* Default Grid UI omitted for brevity - same as previous version */
           <div className="text-gray-600 text-center">Enter a name to start searching</div>
         )}
       </div>

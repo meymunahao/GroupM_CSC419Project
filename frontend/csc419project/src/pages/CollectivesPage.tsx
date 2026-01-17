@@ -1,7 +1,8 @@
+// src/pages/CollectivesPage.tsx
 import { useEffect, useState } from "react";
 import { Repeat2, MessageSquare, Heart } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
-import { getAuthHeader } from "../utils/auth"; // Ensure this path is correct
+import { getAuthHeader } from "../utils/auth";
 
 const API_BASE_URL = "https://groupm-csc419project.onrender.com";
 
@@ -42,13 +43,16 @@ export default function CollectivesPage() {
 
         const id = groupId || "1";
 
-        // Added getAuthHeader() to fetch calls to match your second example
         const [groupRes, postsRes] = await Promise.all([
           fetch(`${API_BASE_URL}/api/groups/${id}`, {
-            headers: { ...getAuthHeader() },
+            headers: { 
+              ...(getAuthHeader() as Record<string, string>) 
+            },
           }),
           fetch(`${API_BASE_URL}/api/groups/${id}/posts`, {
-            headers: { ...getAuthHeader() },
+            headers: { 
+              ...(getAuthHeader() as Record<string, string>) 
+            },
           }),
         ]);
 
@@ -58,7 +62,6 @@ export default function CollectivesPage() {
         const groupData = await groupRes.json();
         const postsData = await postsRes.json();
 
-        // Mapping logic in case backend keys differ (e.g., cover_image vs banner_url)
         setGroup({
           ...groupData,
           avatar_url: groupData.avatar_url || groupData.avatar || "/statue.png",
@@ -83,7 +86,7 @@ export default function CollectivesPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          ...getAuthHeader(),
+          ...(getAuthHeader() as Record<string, string>),
         },
       });
 
@@ -101,7 +104,7 @@ export default function CollectivesPage() {
 
   if (loading) {
     return (
-      <div className="w-full min-h-screen bg-[#161718] flex items-center justify-center">
+      <div className="w-full min-h-screen bg-dark flex items-center justify-center">
         <p className="text-gray-400 animate-pulse">Loading collective...</p>
       </div>
     );
@@ -109,14 +112,14 @@ export default function CollectivesPage() {
 
   if (error || !group) {
     return (
-      <div className="w-full min-h-screen bg-[#161718] flex items-center justify-center">
+      <div className="w-full min-h-screen bg-dark flex items-center justify-center">
         <p className="text-red-400">{error || "Collective not found"}</p>
       </div>
     );
   }
 
   return (
-    <div className="w-full min-h-screen bg-[#161718] text-white overflow-x-hidden">
+    <div className="w-full min-h-screen bg-dark text-white overflow-x-hidden">
       {/* 1. Banner */}
       <div className="w-full h-40 md:h-52 bg-zinc-800">
         <img
@@ -131,7 +134,7 @@ export default function CollectivesPage() {
         <div className="relative -mt-10 md:-mt-12 flex flex-col items-start">
           <img
             src={group.avatar_url}
-            className="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-[#161718] object-cover"
+            className="w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-dark object-cover"
             alt="Avatar"
           />
 
@@ -157,7 +160,7 @@ export default function CollectivesPage() {
               </div>
             </div>
 
-            <div className="md:text-right max-w-full md:max-w-[220px]">
+            <div className="md:text-right max-w-full md:max-w-55">
               <p className="text-[10px] text-gray-500 uppercase tracking-widest font-medium">
                 Created {new Date(group.created_at).toLocaleDateString()}
               </p>
@@ -170,7 +173,7 @@ export default function CollectivesPage() {
 
         {/* Tabs */}
         <div className="flex gap-6 border-b border-white/5 mt-10 mb-8 text-xs font-medium text-gray-500">
-          <button className="pb-4 text-white border-b-2 border-[#FF6719]">Posts</button>
+          <button className="pb-4 text-white border-b-2 border-primary">Posts</button>
           <button className="pb-4">Members</button>
           <button className="pb-4">About</button>
         </div>
@@ -197,7 +200,6 @@ export default function CollectivesPage() {
   );
 }
 
-// PostItem component remains the same as your previous definition
 function PostItem({ name, handle, content, avatar, postImage }: any) {
   return (
     <div className="flex gap-4 border-b border-white/5 pb-8">
@@ -210,13 +212,13 @@ function PostItem({ name, handle, content, avatar, postImage }: any) {
         <p className="text-sm text-gray-300">{content}</p>
         {postImage && (
           <div className="mt-3 rounded-2xl overflow-hidden border border-white/5">
-            <img src={postImage} className="w-full h-auto max-h-[500px] object-cover" alt="Post" />
+            <img src={postImage} className="w-full h-auto max-h-125 object-cover" alt="Post" />
           </div>
         )}
         <div className="flex gap-6 mt-3 text-gray-500">
-          <Repeat2 size={16} className="hover:text-green-500 cursor-pointer" />
-          <MessageSquare size={16} className="hover:text-orange-500 cursor-pointer" />
-          <Heart size={16} className="hover:text-red-500 cursor-pointer" />
+          <Repeat2 size={16} className="hover:text-green-500 cursor-pointer transition-colors" />
+          <MessageSquare size={16} className="hover:text-orange-500 cursor-pointer transition-colors" />
+          <Heart size={16} className="hover:text-red-500 cursor-pointer transition-colors" />
         </div>
       </div>
     </div>
