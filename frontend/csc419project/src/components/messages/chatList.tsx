@@ -20,7 +20,8 @@ type ChatListProps = {
   reloadKey?: number; // used to trigger refetch when chats change
 };
 
-const API_BASE_URL = "http://localhost:5001";
+const API_BASE_URL = "https://groupm-csc419project.onrender.com";
+
 
 export default function ChatList({
   onSelectChat,

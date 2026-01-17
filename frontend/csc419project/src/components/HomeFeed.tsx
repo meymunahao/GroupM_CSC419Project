@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import { Send } from "lucide-react";
 import { getAuthHeader, getCurrentUser } from "../utils/auth";
 
-const API_BASE_URL = "http://localhost:5001";
+const API_BASE_URL = "https://groupm-csc419project.onrender.com";
+
 
 type Post = {
   id: number;

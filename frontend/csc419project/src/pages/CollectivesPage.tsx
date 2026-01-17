@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Repeat2, MessageSquare, Heart } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 
-const GROUP_API_BASE = "http://localhost:5001";
+const BASE_URL = "https://redesigned-giggle.onrender.com";
+
 
 type Group = {
   id: number;
@@ -42,8 +43,8 @@ export default function CollectivesPage() {
         const id = groupId || "1"; // default to group 1 if no param yet
 
         const [groupRes, postsRes] = await Promise.all([
-          fetch(`${GROUP_API_BASE}/api/groups/${id}`),
-          fetch(`${GROUP_API_BASE}/api/groups/${id}/posts`),
+          fetch(`${BASE_URL}/api/groups/${id}`),
+          fetch(`${BASE_URL}/api/groups/${id}/posts`),
         ]);
 
         if (!groupRes.ok) {

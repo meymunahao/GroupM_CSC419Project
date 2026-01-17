@@ -4,7 +4,8 @@ import { ArrowLeft } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getAuthHeader } from "../../utils/auth"; // Use your central helper!
 
-const API_BASE_URL = "http://localhost:5001";
+const API_BASE_URL = "https://groupm-csc419project.onrender.com";
+
 
 export default function PostDetails() {
   const navigate = useNavigate();

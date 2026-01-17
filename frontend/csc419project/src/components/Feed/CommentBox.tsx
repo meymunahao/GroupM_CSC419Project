@@ -2,7 +2,8 @@
 import { useState, useEffect, useRef } from "react";
 import { getAuthHeader } from "../../utils/auth"; // 1. Import your helper
 
-const API_BASE_URL = "http://localhost:5001";
+const API_BASE_URL = "https://groupm-csc419project.onrender.com";
+
 
 interface CommentBoxProps {
   postId: string;

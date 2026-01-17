@@ -24,7 +24,7 @@ export default function FriendsPage() {
 
       try {
         const response = await fetch(
-          `http://localhost:5000/api/profile/search?q=${query}&page=1&limit=10`,
+          `https://redesigned-giggle.onrender.com/api/profile/search?q=${query}&page=1&limit=10`,
           {
             method: "GET",
             headers: {
@@ -61,7 +61,7 @@ export default function FriendsPage() {
     if (!token) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/follow/${userId}`, {
+      const response = await fetch(`https://redesigned-giggle.onrender.com/api/follow/${userId}`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,

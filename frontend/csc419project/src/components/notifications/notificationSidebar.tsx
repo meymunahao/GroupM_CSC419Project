@@ -16,7 +16,7 @@ type Notification = {
   createdAt: string;
 };
 
-const API_BASE_URL = "http://localhost:5001";
+const API_BASE_URL = "https://groupm-csc419project.onrender.com";
 
 export default function NotificationSidebar({ isOpen, onClose }: Props) {
   const [activeTab, setActiveTab] = useState<"all" | "settings">("all");

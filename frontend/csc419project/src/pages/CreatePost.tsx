@@ -3,7 +3,8 @@ import { Image, Video, Mic, X, Trash2, Square } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { getAuthHeader, getCurrentUser } from "../utils/auth";
 
-const API_BASE_URL = "http://localhost:5001";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 export default function CreatePost() {
   const navigate = useNavigate();

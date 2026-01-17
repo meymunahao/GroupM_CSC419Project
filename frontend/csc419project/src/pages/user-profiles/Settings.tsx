@@ -18,7 +18,7 @@ export default function Settings() {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
       try {
-        const res = await fetch("http://localhost:5000/api/profile", {
+        const res = await fetch("https://redesigned-giggle.onrender.com/api/profile", {
           headers: { "Authorization": `Bearer ${token}` }
         });
         const data = await res.json();
@@ -65,7 +65,7 @@ export default function Settings() {
         privacy: formData.privacy
       };
 
-      const res = await fetch("http://localhost:5000/api/profile/", {
+      const res = await fetch("https://redesigned-giggle.onrender.com/api/profile/", {
         method: "PUT",
         headers: { 
           "Content-Type": "application/json",

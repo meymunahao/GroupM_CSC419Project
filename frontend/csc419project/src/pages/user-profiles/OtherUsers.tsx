@@ -21,8 +21,8 @@ export default function OtherProfile() {
       const token = localStorage.getItem("token");
       try {
         const profileUrl = userId 
-          ? `http://localhost:5000/api/profile/${userId}` 
-          : "http://localhost:5000/api/profile";
+          ? `https://redesigned-giggle.onrender.com/api/profile/${userId}` 
+          : "https://redesigned-giggle.onrender.com/api/profile";
           
         const res = await fetch(profileUrl, {
           headers: { "Authorization": `Bearer ${token}` }
@@ -35,8 +35,8 @@ export default function OtherProfile() {
         setIsOwner(!userId);
 
         const countUrl = userId 
-          ? `http://localhost:5000/api/social/counts/${userId}` 
-          : "http://localhost:5000/api/social/counts";
+          ? `https://redesigned-giggle.onrender.com/api/social/counts/${userId}` 
+          : "https://redesigned-giggle.onrender.com/api/social/counts";
 
         const countRes = await fetch(countUrl, {
           headers: { "Authorization": `Bearer ${token}` }
@@ -52,7 +52,7 @@ export default function OtherProfile() {
         }
 
         if (userId) {
-          const followRes = await fetch(`http://localhost:5000/api/follow/following/${userId}`, {
+          const followRes = await fetch(`https://redesigned-giggle.onrender.com/api/follow/following/${userId}`, {
             headers: { "Authorization": `Bearer ${token}` }
           });
           if (followRes.ok) {
@@ -76,7 +76,7 @@ export default function OtherProfile() {
     const method = isFollowing ? "DELETE" : "POST"; 
     
     try {
-      const res = await fetch(`http://localhost:5000/api/follow/${userId}`, {
+      const res = await fetch(`https://redesigned-giggle.onrender.com/api/follow/${userId}`, {
         method,
         headers: { "Authorization": `Bearer ${token}` }
       });

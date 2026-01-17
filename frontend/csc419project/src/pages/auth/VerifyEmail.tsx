@@ -64,7 +64,7 @@ export default function VerifyEmail() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/auth/verify-reset-otp", {
+      const res = await fetch("https://redesigned-giggle.onrender.com/api/auth/verify-reset-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp }),
@@ -92,7 +92,7 @@ export default function VerifyEmail() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/forgot-password", {
+      const res = await fetch("https://redesigned-giggle.onrender.com/api/auth/forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

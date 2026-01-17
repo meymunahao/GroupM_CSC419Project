@@ -1,9 +1,8 @@
 // src/utils/auth.ts
 
 export function getAuthHeader() {
-  // Check both common keys
-  const token = localStorage.getItem("accessToken") || localStorage.getItem("token");
-  
+  const token = localStorage.getItem("token");
+  // The space after 'Bearer ' is critical!
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
 

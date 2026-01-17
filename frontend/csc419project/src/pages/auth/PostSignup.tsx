@@ -38,7 +38,7 @@ export default function InterestSelection() {
     const interestLabels = selectedTopics.map(id => TOPICS.find(t => t.id === id)?.label);
 
     try {
-      const res = await fetch("http://localhost:5000/api/profile/interests", {
+      const res = await fetch("https://redesigned-giggle.onrender.com/api/profile/interests", {
         method: "POST", 
         headers: { 
           "Content-Type": "application/json",

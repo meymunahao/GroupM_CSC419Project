@@ -22,7 +22,8 @@ type ChatWindowProps = {
   onChatCreated?: (chatId: string) => void;
 };
 
-const API_BASE_URL = "http://localhost:5001";
+const API_BASE_URL = "https://groupm-csc419project.onrender.com";
+
 
 export default function ChatWindow({ chatId, onChatCreated }: ChatWindowProps) {
   const [messages, setMessages] = useState<Message[]>([]);

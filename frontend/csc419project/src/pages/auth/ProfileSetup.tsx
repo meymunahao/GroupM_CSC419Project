@@ -22,7 +22,7 @@ export default function ProfileSetup() {
 
     try {
       // 1. Create Profile with the new schema
-      const profileRes = await fetch("http://localhost:5000/api/profile", {
+      const profileRes = await fetch("https://redesigned-giggle.onrender.com/api/profile", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export default function ProfileSetup() {
       if (avatar) {
         const formData = new FormData();
         formData.append("photo", avatar);
-        await fetch("http://localhost:5000/api/profile/photo", {
+        await fetch("https://redesigned-giggle.onrender.com/api/profile/photo", {
           method: "POST",
           headers: { "Authorization": `Bearer ${token}` },
           body: formData,

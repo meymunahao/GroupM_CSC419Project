@@ -2,7 +2,8 @@ import { Search, Users, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const GROUP_API_BASE = "http://localhost:5001";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 
 type Collective = {
   id: string | number;

@@ -7,7 +7,7 @@ type AuthMethod = "email" | "phone";
 
 interface LoginResponse {
   token?: string;
-  accessToken?: string; // Some backends use this name
+  accessToken?: string;
   message?: string;
 }
 
@@ -29,12 +29,10 @@ export default function Login() {
     setLoading(true);
 
     try {
-      // 1. ATTEMPT LOGIN
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      // 1. Authenticate with the server
+      const res = await fetch("https://redesigned-giggle.onrender.com/api/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: method === "email" ? email : undefined,
           phone: method === "phone" ? phone : undefined,
@@ -43,25 +41,23 @@ export default function Login() {
       });
 
       const data: LoginResponse = await res.json();
-      console.log("Login Status:", res.status);
-      console.log("Login Response Data:", data);
 
       if (!res.ok) {
-        // This catches the 401 Unauthorized error
-        throw new Error(data.message || `Login failed: ${res.statusText}`);
+        throw new Error(data.message || `Login failed: ${res.status}`);
       }
 
-      // 2. EXTRACT AND SAVE TOKEN
+      // 2. Extract and Save Token
+      // We use "token" to match your getAuthHeader() utility
       const token = data.token || data.accessToken;
       if (!token) {
         throw new Error("No token received. Check backend response structure.");
       }
       localStorage.setItem("token", token);
 
-      // 3. CHECK PROFILE STATUS
-      // We only reach here if login was successful (200 OK)
+      // 3. Check Profile Status
+      // This determines if we go to /home or /profile-setup
       try {
-        const profileRes = await fetch("http://localhost:5000/api/profile", {
+        const profileRes = await fetch("https://redesigned-giggle.onrender.com/api/profile", {
           method: "GET",
           headers: {
             "Authorization": `Bearer ${token}`,
@@ -70,19 +66,16 @@ export default function Login() {
         });
 
         if (profileRes.status === 404) {
-          // User exists but profile doesn't - go to post-signup
+          // User exists but has no profile details yet
           navigate("/profile-setup");
-        } else if (profileRes.ok) {
-          // Profile exists - go to home
-          navigate("/home");
         } else {
-          // If there's a different error (e.g. 500), default to home or show error
-          console.error("Profile check failed with status:", profileRes.status);
-          navigate("/home"); 
+          // Profile exists or server error - proceed to main feed
+          navigate("/home");
         }
       } catch (profileErr) {
         console.error("Error fetching profile:", profileErr);
-        navigate("/home"); // Fallback to home if profile check fails technically
+        // Fallback to home if the profile check fails technically
+        navigate("/home");
       }
 
     } catch (err: unknown) {
@@ -99,6 +92,7 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-white flex items-center justify-center px-6 py-12">
       <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        
         {/* LEFT SECTION */}
         <div className="space-y-4 max-w-md md:ml-6 mx-auto md:mx-0 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start gap-2 text-3xl font-semibold mb-4">
@@ -133,7 +127,7 @@ export default function Login() {
               <button
                 key={m}
                 onClick={() => setMethod(m)}
-                className={`flex-1 py-2 rounded-lg text-sm font-medium ${
+                className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
                   method === m ? "bg-white text-black" : "text-black/70"
                 }`}
               >
@@ -149,7 +143,7 @@ export default function Login() {
               placeholder="Email Address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full mb-4 px-4 py-3 rounded-xl bg-white text-black outline-none"
+              className="w-full mb-4 px-4 py-3 rounded-xl bg-white text-black outline-none focus:ring-2 focus:ring-orange-500"
             />
           ) : (
             <input
@@ -157,7 +151,7 @@ export default function Login() {
               placeholder="Phone Number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-full mb-4 px-4 py-3 rounded-xl bg-white text-black outline-none"
+              className="w-full mb-4 px-4 py-3 rounded-xl bg-white text-black outline-none focus:ring-2 focus:ring-orange-500"
             />
           )}
 
@@ -168,19 +162,20 @@ export default function Login() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-white text-black outline-none"
+              className="w-full px-4 py-3 rounded-xl bg-white text-black outline-none focus:ring-2 focus:ring-orange-500"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 hover:text-black"
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           </div>
 
           <p className="text-right text-gray-400 text-sm mb-3">
-            <Link to="/forgot-password" university-link className="hover:underline">
+            {/* data-attribute used here to avoid non-boolean prop warning */}
+            <Link to="/forgot-password" data-university-link="true" className="hover:underline">
               Forgot Password?
             </Link>
           </p>
@@ -192,7 +187,7 @@ export default function Login() {
           <button
             onClick={handleLogin}
             disabled={loading}
-            className="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-semibold mb-4 disabled:opacity-50"
+            className="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-xl font-semibold mb-4 disabled:opacity-50 transition-all shadow-lg shadow-orange-500/20"
           >
             {loading ? "Authenticating..." : "Log In"}
           </button>

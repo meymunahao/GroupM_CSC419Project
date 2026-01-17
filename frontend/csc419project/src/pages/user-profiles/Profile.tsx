@@ -18,7 +18,7 @@ export default function UserProfile() {
       const token = localStorage.getItem("token");
       try {
         // 1. Fetch Profile 
-        const profileUrl = userId ? `http://localhost:5000/api/profile/${userId}` : "http://localhost:5000/api/profile";
+        const profileUrl = userId ? `https://redesigned-giggle.onrender.com/api/profile/${userId}` : "https://redesigned-giggle.onrender.com/api/profile";
         const res = await fetch(profileUrl, {
           headers: { "Authorization": `Bearer ${token}` }
         });
