@@ -1,0 +1,382 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  creatorId   String   @map("creator_id")
+  title       String
+  description String?
+  location    String?
+  startTime   DateTime @map("start_time")
+  endTime     DateTime @map("end_time")
+  createdAt   DateTime @map("created_at")
+
+  creator     User       @relation(fields: [creatorId], references: [id])
+  rsvps       EventRSVP[]
+  tickets     Ticket[]
+
+  @@map("events")
+}
+
+
+model activity_logs {
+  id          Int      @id @default(autoincrement())
+  user_id     String
+  action      String   @db.VarChar(100)
+  target_type String?
+  target_id   Int?
+  created_at  DateTime @default(now())
+  users       users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model audit_logs {
+  id         Int      @id @default(autoincrement())
+  user_id    String?
+  action     String   @db.VarChar(100)
+  ip_address String?
+  created_at DateTime @default(now())
+  users      users?   @relation(fields: [user_id], references: [id])
+}
+
+model comments {
+  id                Int        @id @default(autoincrement())
+  post_id           Int
+  user_id           String
+  parent_comment_id Int?
+  content           String
+  created_at        DateTime   @default(now())
+  comments          comments?  @relation("commentsTocomments", fields: [parent_comment_id], references: [id])
+  other_comments    comments[] @relation("commentsTocomments")
+  posts             posts      @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  users             users      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model conversation_members {
+  id              Int           @id @default(autoincrement())
+  conversation_id Int
+  user_id         String
+  conversations   conversations @relation(fields: [conversation_id], references: [id], onDelete: Cascade)
+  users           users         @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([conversation_id, user_id])
+}
+
+model conversations {
+  id                   Int                    @id @default(autoincrement())
+  created_at           DateTime               @default(now())
+  conversation_members conversation_members[]
+  messages             messages[]
+}
+
+model event_rsvps {
+  id         Int      @id @default(autoincrement())
+  event_id   Int
+  user_id    String
+  status     String   @default("maybe")
+  created_at DateTime @default(now())
+  events     Event    @relation(fields: [event_id], references: [id], onDelete: Cascade)
+  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([event_id, user_id])
+}
+
+model followers {
+  id                                  String   @id
+  follower_id                         String
+  following_id                        String
+  created_at                          DateTime @default(now())
+  users_followers_follower_idTousers  users    @relation("followers_follower_idTousers", fields: [follower_id], references: [id], onDelete: Cascade)
+  users_followers_following_idTousers users    @relation("followers_following_idTousers", fields: [following_id], references: [id], onDelete: Cascade)
+
+  @@unique([follower_id, following_id])
+}
+
+model friend_requests {
+  id                                       String              @id
+  sender_id                                String
+  receiver_id                              String
+  status                                   FriendRequestStatus @default(PENDING)
+  created_at                               DateTime            @default(now())
+  users_friend_requests_receiver_idTousers users               @relation("friend_requests_receiver_idTousers", fields: [receiver_id], references: [id], onDelete: Cascade)
+  users_friend_requests_sender_idTousers   users               @relation("friend_requests_sender_idTousers", fields: [sender_id], references: [id], onDelete: Cascade)
+
+  @@unique([sender_id, receiver_id])
+}
+
+model friends {
+  id                             String   @id
+  user_id                        String
+  friend_id                      String
+  created_at                     DateTime @default(now())
+  users_friends_friend_idTousers users    @relation("friends_friend_idTousers", fields: [friend_id], references: [id], onDelete: Cascade)
+  users_friends_user_idTousers   users    @relation("friends_user_idTousers", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, friend_id])
+}
+
+model group_members {
+  id        Int      @id @default(autoincrement())
+  group_id  Int
+  user_id   String
+  role      String   @default("member")
+  status    String   @default("pending")
+  joined_at DateTime @default(now())
+  groups    groups   @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  users     users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([group_id, user_id])
+}
+
+model group_posts {
+  id         Int      @id @default(autoincrement())
+  group_id   Int
+  user_id    String
+  content    String
+  created_at DateTime @default(now())
+  groups     groups   @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model groups {
+  id            Int             @id @default(autoincrement())
+  name          String          @db.VarChar(100)
+  description   String?
+  cover_image   String?
+  creator_id    String
+  is_private    Boolean         @default(false)
+  created_at    DateTime        @default(now())
+  group_members group_members[]
+  group_posts   group_posts[]
+  users         users           @relation(fields: [creator_id], references: [id], onDelete: Cascade)
+}
+
+model interests {
+  id            String        @id
+  name          String
+  profile_id    String
+  user_profiles user_profiles @relation(fields: [profile_id], references: [id], onDelete: Cascade)
+}
+
+model message_status {
+  id         Int      @id @default(autoincrement())
+  message_id Int
+  user_id    String
+  status     String   @default("sent")
+  updated_at DateTime
+  messages   messages @relation(fields: [message_id], references: [id], onDelete: Cascade)
+  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([message_id, user_id])
+}
+
+model messages {
+  id              Int              @id @default(autoincrement())
+  conversation_id Int
+  sender_id       String
+  content         String
+  message_type    String           @default("text")
+  created_at      DateTime         @default(now())
+  message_status  message_status[]
+  conversations   conversations    @relation(fields: [conversation_id], references: [id], onDelete: Cascade)
+  users           users            @relation(fields: [sender_id], references: [id], onDelete: Cascade)
+}
+
+model notifications {
+  id         String           @id
+  user_id    String
+  type       NotificationType
+  data       Json?
+  is_read    Boolean          @default(false)
+  created_at DateTime         @default(now())
+  users      users            @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model otps {
+  id         String     @id
+  code       String
+  purpose    OtpPurpose
+  expires_at DateTime
+  used       Boolean    @default(false)
+  user_id    String
+  users      users      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model post_media {
+  id         Int      @id @default(autoincrement())
+  post_id    Int
+  media_type String?
+  media_url  String
+  created_at DateTime @default(now())
+  posts      posts    @relation(fields: [post_id], references: [id], onDelete: Cascade)
+}
+
+model posts {
+  id         Int          @id @default(autoincrement())
+  user_id    String
+  content    String
+  visibility String       @default("public")
+  created_at DateTime     @default(now())
+  updated_at DateTime
+  comments   comments[]
+  post_media post_media[]
+  users      users        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  reactions  reactions[]
+}
+
+model reactions {
+  id            Int      @id @default(autoincrement())
+  user_id       String
+  post_id       Int
+  reaction_type String?
+  created_at    DateTime @default(now())
+  posts         posts    @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  users         users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, post_id, reaction_type])
+}
+
+model refresh_tokens {
+  id         String   @id
+  token_hash String
+  expires_at DateTime
+  revoked    Boolean  @default(false)
+  user_id    String
+  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model reports {
+  id                                    Int      @id @default(autoincrement())
+  reporter_id                           String
+  reported_user_id                      String
+  reported_content_id                   Int?
+  content_type                          String?
+  reason                                String?
+  status                                String   @default("pending")
+  created_at                            DateTime @default(now())
+  users_reports_reported_user_idTousers users    @relation("reports_reported_user_idTousers", fields: [reported_user_id], references: [id], onDelete: Cascade)
+  users_reports_reporter_idTousers      users    @relation("reports_reporter_idTousers", fields: [reporter_id], references: [id], onDelete: Cascade)
+}
+
+model tickets {
+  id          Int      @id @default(autoincrement())
+  event_id    Int
+  user_id     String
+  ticket_code String   @unique @db.VarChar(100)
+  is_used     Boolean  @default(false)
+  created_at  DateTime @default(now())
+  events      Event    @relation(fields: [event_id], references: [id], onDelete: Cascade)
+  users       users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model user_profiles {
+  id              String      @id
+  user_id         String      @unique
+  bio             String?
+  links           Json?
+  photo_url       String?
+  privacy         Privacy?    @default(PUBLIC)
+  avatar_url      String?
+  cover_photo_url String?
+  website         String?
+  location        String?
+  date_of_birth   DateTime?
+  created_at      DateTime    @default(now())
+  updated_at      DateTime
+  interests       interests[]
+  users           users       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model user_settings {
+  id                       Int      @id @default(autoincrement())
+  user_id                  String   @unique
+  profile_visibility       String   @default("public")
+  message_privacy          String   @default("everyone")
+  notification_preferences Json?
+  dark_mode                Boolean  @default(false)
+  created_at               DateTime @default(now())
+  updated_at               DateTime
+  users                    users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model user_suspensions {
+  id         Int      @id @default(autoincrement())
+  user_id    String
+  reason     String
+  start_date DateTime
+  end_date   DateTime
+  created_at DateTime @default(now())
+  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model users {
+  id                                                 String                 @id
+  email                                              String                 @unique
+  username                                           String?
+  password_hash                                      String
+  role                                               Role                   @default(USER)
+  email_verified                                     Boolean                @default(false)
+  is_active                                          Boolean                @default(true)
+  created_at                                         DateTime               @default(now())
+  updated_at                                         DateTime
+  activity_logs                                      activity_logs[]
+  audit_logs                                         audit_logs[]
+  comments                                           comments[]
+  conversation_members                               conversation_members[]
+  event_rsvps                                        event_rsvps[]
+  events                                             Event[]
+  followers_followers_follower_idTousers             followers[]            @relation("followers_follower_idTousers")
+  followers_followers_following_idTousers            followers[]            @relation("followers_following_idTousers")
+  friend_requests_friend_requests_receiver_idTousers friend_requests[]      @relation("friend_requests_receiver_idTousers")
+  friend_requests_friend_requests_sender_idTousers   friend_requests[]      @relation("friend_requests_sender_idTousers")
+  friends_friends_friend_idTousers                   friends[]              @relation("friends_friend_idTousers")
+  friends_friends_user_idTousers                     friends[]              @relation("friends_user_idTousers")
+  group_members                                      group_members[]
+  group_posts                                        group_posts[]
+  groups                                             groups[]
+  message_status                                     message_status[]
+  messages                                           messages[]
+  notifications                                      notifications[]
+  otps                                               otps[]
+  posts                                              posts[]
+  reactions                                          reactions[]
+  refresh_tokens                                     refresh_tokens[]
+  reports_reports_reported_user_idTousers            reports[]              @relation("reports_reported_user_idTousers")
+  reports_reports_reporter_idTousers                 reports[]              @relation("reports_reporter_idTousers")
+  tickets                                            tickets[]
+  user_profiles                                      user_profiles?
+  user_settings                                      user_settings?
+  user_suspensions                                   user_suspensions[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum OtpPurpose {
+  EMAIL_VERIFY
+  PASSWORD_RESET
+}
+
+enum Privacy {
+  PUBLIC
+  PRIVATE
+  FRIENDS_ONLY
+}
+
+enum FriendRequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum NotificationType {
+  FRIEND_REQUEST
+  FRIEND_ACCEPTED
+}
